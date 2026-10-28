@@ -322,6 +322,20 @@ const App = (() => {
       repoInput.value = localStorage.getItem(REPO_KEY) || '';
     }
 
+    // Fallback that needs no token: GitHub's own upload page, authenticated
+    // by the session the user already has. Dropping a file named
+    // expenses.csv there replaces the committed one.
+    const webLink = document.getElementById('up-web');
+    const setWebLink = () => {
+      const repo = repoOf();
+      const folder = CSV_PATH.replace(/\/[^/]*$/, '');
+      webLink.href = repo
+        ? `https://github.com/${repo}/upload/main/${folder}`
+        : 'https://github.com';
+    };
+    setWebLink();
+    if (!baked) repoInput.addEventListener('input', setWebLink);
+
     open.addEventListener('click', () => {
       try { tokenInput.value = localStorage.getItem(TOKEN_KEY) || ''; } catch { /* ignore */ }
       say('');
