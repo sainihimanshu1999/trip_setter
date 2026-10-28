@@ -231,13 +231,19 @@ const Journey = (() => {
     });
 
     /* ---- nodes ---- */
+    const nodesActionable = Boolean(interactive && onNode);
     graph.nodes.forEach((node, i) => {
       const g = el('g', {
-        class: 'node-g node-enter',
+        // Only a node that responds to a click gets the cursor, the focus
+        // ring and the button role. Advertising an affordance that does
+        // nothing is worse than having none.
+        class: `node-g node-enter${nodesActionable ? ' actionable' : ''}`,
         'data-node': node.id,
-        tabindex: interactive ? '0' : null,
-        role: interactive ? 'button' : null,
-        'aria-label': `${node.name}, ${App.money(node.spend, currency)} spent`,
+        tabindex: nodesActionable ? '0' : null,
+        role: nodesActionable ? 'button' : null,
+        'aria-label': nodesActionable
+          ? `${node.name}, ${App.money(node.spend, currency)} spent. Open on the map.`
+          : `${node.name}, ${App.money(node.spend, currency)} spent`,
       });
       g.style.setProperty('--delay', `${260 + i * 110}ms`);
 
@@ -319,7 +325,7 @@ const Journey = (() => {
         : (node.gateway ? node.country : '');
       g.appendChild(sub);
 
-      if (interactive && onNode) {
+      if (nodesActionable) {
         const fire = () => onNode(node, g);
         g.addEventListener('click', fire);
         g.addEventListener('keydown', (ev) => {

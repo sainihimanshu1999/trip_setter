@@ -48,64 +48,70 @@
   </section>
 
   <!-- ===== people + journey ============================================ -->
+  <!-- Two columns that flow independently rather than two grid rows. In a
+       row-based grid a short card is pinned to the height of the tallest in
+       its row, which left a band of dead space under "Who spent what" and a
+       bigger one under "Where the money went". -->
   <section class="grid halves">
-    <article class="card reveal">
-      <div class="card-head">
-        <h2>Who spent what</h2>
-        <span class="sub">bar length = money actually paid out</span>
-      </div>
-      <div class="people" id="people-chart"></div>
-      <p class="hint">
-        The vertical tick is the even share ({{ o.per_head | money(o.currency) }}).
-        Past it means that person is owed money.
-      </p>
-    </article>
+    <div class="col">
+      <article class="card reveal">
+        <div class="card-head">
+          <h2>Who spent what</h2>
+          <span class="sub">bar length = money actually paid out</span>
+        </div>
+        <div class="people" id="people-chart"></div>
+        <p class="hint">
+          The vertical tick is the even share ({{ o.per_head | money(o.currency) }}).
+          Past it means that person is owed money.
+        </p>
+      </article>
 
-    <article class="card reveal">
-      <div class="card-head">
-        <h2>Journey</h2>
-        <span class="sub"><a href="/journey">open full map &rarr;</a></span>
-      </div>
-      <div class="map-wrap compact" id="mini-map"></div>
-      <div class="legend" id="mini-legend">
-        {% for m in journey.legend %}
-        <span class="legend-item" data-mode="{{ m.mode }}">
-          <i class="ln" style="border-top-color:{{ m.colour }}"></i>
-          {{ m.label }}
-          <b class="amt">{{ m.cost | money(o.currency) }}</b>
-        </span>
-        {% endfor %}
-      </div>
-      <p class="hint">
-        Every line is an expense someone split. Hover one on the full map to
-        see the amount, the date and who paid.
-      </p>
-    </article>
-  </section>
+      <article class="card reveal">
+        <div class="card-head">
+          <h2>Where the money went</h2>
+          <span class="sub">share of {{ o.total_spend | money(o.currency) }}</span>
+        </div>
+        <div id="buckets-chart"></div>
+        <p class="hint">
+          Buckets come from each expense's Splitwise category and its description,
+          so &ldquo;Grab to the airport&rdquo; counts as getting around even when it
+          is filed under something vague.
+        </p>
+      </article>
+    </div>
 
-  <!-- ===== categories + settlements ==================================== -->
-  <section class="grid halves">
-    <article class="card reveal">
-      <div class="card-head">
-        <h2>Where the money went</h2>
-        <span class="sub">share of {{ o.total_spend | money(o.currency) }}</span>
-      </div>
-      <div id="buckets-chart"></div>
-      <p class="hint">
-        Buckets come from each expense's Splitwise category and its description,
-        so &ldquo;Grab to the airport&rdquo; counts as getting around even when it
-        is filed under something vague.
-      </p>
-    </article>
+    <div class="col">
+      <article class="card reveal">
+        <div class="card-head">
+          <h2>Journey</h2>
+          <span class="sub"><a href="/journey">open full map &rarr;</a></span>
+        </div>
+        <div class="map-wrap compact" id="mini-map"></div>
+        <div class="legend" id="mini-legend">
+          {% for m in journey.legend %}
+          <span class="legend-item" data-mode="{{ m.mode }}">
+            <i class="ln" style="border-top-color:{{ m.colour }}"></i>
+            {{ m.label }}
+            <b class="amt">{{ m.cost | money(o.currency) }}</b>
+          </span>
+          {% endfor %}
+        </div>
+        <p class="hint">
+          Tap a place to open it on the full map. Every line is an expense
+          someone split &mdash; hover one on the full map to see the amount,
+          the date and who paid.
+        </p>
+      </article>
 
-    <article class="card reveal">
-      <div class="card-head">
-        <h2>Settling up</h2>
-        <span class="sub">fewest transfers that clear everything</span>
-      </div>
-      <div id="settle-graph"></div>
-      <div class="settle-list" id="settle-list" style="margin-top:16px"></div>
-    </article>
+      <article class="card reveal">
+        <div class="card-head">
+          <h2>Settling up</h2>
+          <span class="sub">fewest transfers that clear everything</span>
+        </div>
+        <div id="settle-graph"></div>
+        <div class="settle-list" id="settle-list" style="margin-top:16px"></div>
+      </article>
+    </div>
   </section>
 
   <!-- ===== timeline ==================================================== -->
@@ -172,8 +178,15 @@
     currency: ccy,
   });
 
+  // Clicking a place on the small map opens the full one with that place
+  // selected. The href is read off the "open full map" link so this works
+  // both from the server (/journey) and in a static build (journey.html).
+  const fullMapHref = document.querySelector('.card-head a[href$="journey"], .card-head a[href$="journey.html"]');
   const mini = Journey.render(document.getElementById('mini-map'), journey, {
     interactive: true,
+    onNode: fullMapHref
+      ? (node) => { window.location.href = `${fullMapHref.getAttribute('href')}#${node.id}`; }
+      : null,
   });
   Journey.wireLegend(document.getElementById('mini-legend'), mini.svg);
 

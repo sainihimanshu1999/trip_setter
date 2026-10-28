@@ -152,6 +152,17 @@
   });
   Journey.wireLegend(document.getElementById('legend'), map.svg);
 
+  // Arriving from the dashboard's small map, e.g. /journey#bangkok, opens that
+  // place straight away rather than landing on an unexplained map.
+  function openFromHash() {
+    const slug = decodeURIComponent(window.location.hash.replace('#', ''));
+    if (!slug) return;
+    const node = journey.nodes.find((n) => n.id === slug);
+    if (node) showPlace(node);
+  }
+  openFromHash();
+  window.addEventListener('hashchange', openFromHash);
+
   document.getElementById('panel-close').addEventListener('click', () => {
     panel.classList.remove('show');
     document.querySelectorAll('.node-g.active').forEach((g) => g.classList.remove('active'));

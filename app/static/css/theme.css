@@ -390,6 +390,9 @@ a:hover { color: var(--accent); }
 /* align-items:start lets a short card stay short instead of stretching to the
    tallest in its row and showing a bordered empty box. */
 .grid.halves { grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); align-items: start; }
+/* A column of cards inside a grid cell, so each side flows at its own height
+   instead of every card being pinned to the tallest in its row. */
+.grid.halves > .col { display: grid; gap: var(--gap); align-content: start; }
 .grid.thirds { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); align-items: start; }
 .stack { display: grid; gap: var(--gap); }
 
@@ -639,7 +642,8 @@ a:hover { color: var(--accent); }
 
 /* --- map nodes: Google Maps-style pin markers, size tells you the spend - */
 
-.node-g { cursor: pointer; }
+.node-g { cursor: default; }
+.node-g.actionable { cursor: pointer; }
 
 .node-ring {
   fill: var(--surface);
