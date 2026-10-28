@@ -257,7 +257,13 @@ const App = (() => {
     return payload;
   }
 
-  /** Commit the CSV, replacing whatever is there. */
+  /** Commit the CSV, replacing whatever is there.
+   *
+   * Returns "committed", or "unchanged" when the file is byte-identical to
+   * what is already published. That case matters: GitHub accepts the commit
+   * but it touches no files, so the workflow's path filter skips it and no
+   * rebuild happens. Promising one would leave the user waiting for nothing.
+   */
   async function commitCsv(file, token, repo, say) {
     const contents = `/repos/${repo}/contents/${CSV_PATH}`;
 
@@ -266,12 +272,18 @@ const App = (() => {
 
     // The API needs the blob SHA to replace an existing file. A 404 here just
     // means this is the first upload.
-    say('Looking up the current file…');
-    let sha;
+    say('Comparing with what is published…');
+    let current = null;
     try {
-      sha = (await github(`${contents}?ref=HEAD`, token)).sha;
+      current = await github(`${contents}?ref=HEAD`, token);
     } catch (err) {
       if (!/not found/i.test(err.message)) throw err;
+    }
+
+    // GitHub wraps the base64 payload, so strip whitespace before comparing.
+    if (current && current.content
+        && current.content.replace(/\s/g, '') === base64) {
+      return 'unchanged';
     }
 
     say('Committing…');
@@ -281,9 +293,10 @@ const App = (() => {
       body: JSON.stringify({
         message: `Update expenses from ${file.name} (${stamp})`,
         content: base64,
-        ...(sha ? { sha } : {}),
+        ...(current ? { sha: current.sha } : {}),
       }),
     });
+    return 'committed';
   }
 
   function initUpload() {
@@ -363,14 +376,21 @@ const App = (() => {
 
       submit.disabled = true;
       try {
-        await commitCsv(file, token, repo, say);
+        const outcome = await commitCsv(file, token, repo, say);
         try {
           localStorage.setItem(TOKEN_KEY, token);
           localStorage.setItem(REPO_KEY, repo);
         } catch { /* private mode */ }
-        say('Committed. GitHub is rebuilding the site, usually a minute or '
-          + 'two. Reload after that to see the new numbers.', 'ok');
-        toast('Export committed, rebuild started');
+
+        if (outcome === 'unchanged') {
+          say('That file is identical to the one already published, so there '
+            + 'is nothing to update. Token saved for next time.', 'ok');
+          toast('Already up to date');
+        } else {
+          say('Committed. GitHub is rebuilding the site, usually a minute or '
+            + 'two. Reload after that to see the new numbers.', 'ok');
+          toast('Export committed, rebuild started');
+        }
       } catch (err) {
         say(err.message, 'bad');
       } finally {
