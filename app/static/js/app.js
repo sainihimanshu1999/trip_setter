@@ -213,14 +213,167 @@ const App = (() => {
     label();
   }
 
+  /* --- static build: no server behind the page ------------------------- */
+
+  /** True when this page came out of scripts/build_static.py. */
+  const isStatic = document.documentElement.dataset.static === '1';
+
+  const TOKEN_KEY = 'trip-gh-token';
+  const REPO_KEY = 'trip-gh-repo';
+  /** Where the upload writes. Must match SPLITWISE_CSV_PATH in the build. */
+  const CSV_PATH = 'data/expenses.csv';
+  const MAX_CSV_BYTES = 2 * 1024 * 1024;
+
+  /** Base64 of raw bytes, safe for non-ASCII names in the CSV. */
+  function toBase64(buffer) {
+    const bytes = new Uint8Array(buffer);
+    let binary = '';
+    for (let i = 0; i < bytes.length; i += 0x8000) {
+      binary += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+    }
+    return btoa(binary);
+  }
+
+  async function github(path, token, options = {}) {
+    const response = await fetch(`https://api.github.com${path}`, {
+      ...options,
+      headers: {
+        Accept: 'application/vnd.github+json',
+        Authorization: `Bearer ${token}`,
+        'X-GitHub-Api-Version': '2022-11-28',
+        ...(options.headers || {}),
+      },
+    });
+    const payload = await response.json().catch(() => null);
+    if (!response.ok) {
+      const detail = (payload && payload.message) || `HTTP ${response.status}`;
+      const hint = response.status === 401 || response.status === 403
+        ? ' Check the token is valid and has Contents: read and write on this repository.'
+        : response.status === 404
+          ? ' Check the repository name, and that the token can see it.'
+          : '';
+      throw new Error(detail + hint);
+    }
+    return payload;
+  }
+
+  /** Commit the CSV, replacing whatever is there. */
+  async function commitCsv(file, token, repo, say) {
+    const contents = `/repos/${repo}/contents/${CSV_PATH}`;
+
+    say('Reading the file…');
+    const base64 = toBase64(await file.arrayBuffer());
+
+    // The API needs the blob SHA to replace an existing file. A 404 here just
+    // means this is the first upload.
+    say('Looking up the current file…');
+    let sha;
+    try {
+      sha = (await github(`${contents}?ref=HEAD`, token)).sha;
+    } catch (err) {
+      if (!/not found/i.test(err.message)) throw err;
+    }
+
+    say('Committing…');
+    const stamp = new Date().toISOString().slice(0, 16).replace('T', ' ');
+    await github(contents, token, {
+      method: 'PUT',
+      body: JSON.stringify({
+        message: `Update expenses from ${file.name} (${stamp})`,
+        content: base64,
+        ...(sha ? { sha } : {}),
+      }),
+    });
+  }
+
+  function initUpload() {
+    const open = document.getElementById('open-upload');
+    const refresh = document.getElementById('refresh');
+    if (!isStatic || !open) return;
+
+    // Refresh re-reads the CSV server-side, which there is no longer one of.
+    if (refresh) refresh.hidden = true;
+    open.hidden = false;
+
+    const dialog = document.getElementById('upload-dialog');
+    const form = document.getElementById('upload-form');
+    const fileInput = document.getElementById('up-file');
+    const tokenInput = document.getElementById('up-token');
+    const repoField = document.getElementById('up-repo-field');
+    const repoInput = document.getElementById('up-repo-input');
+    const repoLabel = document.getElementById('up-repo');
+    const status = document.getElementById('up-status');
+    const submit = document.getElementById('up-submit');
+
+    const say = (message, kind = '') => {
+      status.textContent = message;
+      status.className = `up-status ${kind}`;
+    };
+
+    // The build bakes the repo in; fall back to asking once.
+    const baked = document.documentElement.dataset.repo || '';
+    const repoOf = () => baked || repoInput.value.trim()
+      || localStorage.getItem(REPO_KEY) || '';
+
+    if (baked) {
+      repoLabel.textContent = baked;
+    } else {
+      repoField.hidden = false;
+      repoInput.value = localStorage.getItem(REPO_KEY) || '';
+    }
+
+    open.addEventListener('click', () => {
+      try { tokenInput.value = localStorage.getItem(TOKEN_KEY) || ''; } catch { /* ignore */ }
+      say('');
+      dialog.showModal();
+    });
+
+    document.getElementById('up-cancel').addEventListener('click', () => dialog.close());
+
+    document.getElementById('up-forget').addEventListener('click', () => {
+      try { localStorage.removeItem(TOKEN_KEY); } catch { /* ignore */ }
+      tokenInput.value = '';
+      say('Token forgotten.', 'ok');
+    });
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const file = fileInput.files && fileInput.files[0];
+      const token = tokenInput.value.trim();
+      const repo = repoOf();
+
+      if (!file) return say('Choose a CSV first.', 'bad');
+      if (file.size > MAX_CSV_BYTES) return say('That file is too big to be a Splitwise export.', 'bad');
+      if (!token) return say('A token is needed to commit.', 'bad');
+      if (!/^[\w.-]+\/[\w.-]+$/.test(repo)) return say('Repository should look like owner/trip_setter.', 'bad');
+
+      submit.disabled = true;
+      try {
+        await commitCsv(file, token, repo, say);
+        try {
+          localStorage.setItem(TOKEN_KEY, token);
+          localStorage.setItem(REPO_KEY, repo);
+        } catch { /* private mode */ }
+        say('Committed. GitHub is rebuilding the site, usually a minute or '
+          + 'two. Reload after that to see the new numbers.', 'ok');
+        toast('Export committed, rebuild started');
+      } catch (err) {
+        say(err.message, 'bad');
+      } finally {
+        submit.disabled = false;
+      }
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     observeReveals();
     initRefresh();
     initTheme();
+    initUpload();
   });
 
   return {
-    reduceMotion, money, moneyShort, countUp, observeReveals,
+    reduceMotion, isStatic, money, moneyShort, countUp, observeReveals,
     toast, api, escapeHtml, fmtDate, fmtDateTime, readData, formatDetail,
   };
 })();

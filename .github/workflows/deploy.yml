@@ -1,0 +1,66 @@
+# Build the dashboard into static files and publish them to GitHub Pages.
+#
+# Runs on every push that touches the data, the app or the build script, so
+# committing a new Splitwise export through the site's upload panel is enough
+# to republish. Can also be started by hand from the Actions tab.
+name: Deploy to Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "data/expenses.csv"
+      - "app/**"
+      - "scripts/build_static.py"
+      - "requirements.txt"
+      - ".github/workflows/deploy.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Let a running deploy finish rather than cancelling it, so two quick uploads
+# in a row both end up published.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Check the expense parsing still holds
+        run: python -m pytest tests/ -q
+
+      - name: Render the static site
+        # GITHUB_REPOSITORY is provided by Actions, and the build bakes it in
+        # so the upload panel knows where to commit.
+        run: python scripts/build_static.py --out dist
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

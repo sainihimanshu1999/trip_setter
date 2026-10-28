@@ -12,10 +12,14 @@ data/trip.db
 data/trip.db-wal
 data/trip.db-shm
 
-# Splitwise exports. These name real people and what they paid, so they stay
-# out of version control. The bundled demo_splitwise.json is the sample data
-# and is committed on purpose.
+# Splitwise exports. Ad-hoc exports stay local; data/expenses.csv is the one
+# canonical file the site is built from and the upload button overwrites, so
+# that single file is tracked on purpose.
 data/*.csv
+!data/expenses.csv
 data/*.xlsx
 
 .DS_Store
+
+# Static build output (GitHub Actions rebuilds it)
+dist/

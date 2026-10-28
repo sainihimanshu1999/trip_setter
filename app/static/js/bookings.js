@@ -64,12 +64,13 @@
                  title="Open booking" aria-label="Open booking link">
                 <svg viewBox="0 0 24 24" width="14" height="14"><use href="#i-link"/></svg>
               </a>` : ''}
+            ${App.isStatic ? '' : `
             <button class="icon-btn" data-act="edit" title="Edit" aria-label="Edit booking">
               <svg viewBox="0 0 24 24" width="14" height="14"><use href="#i-edit"/></svg>
             </button>
             <button class="icon-btn danger" data-act="delete" title="Delete" aria-label="Delete booking">
               <svg viewBox="0 0 24 24" width="14" height="14"><use href="#i-trash"/></svg>
-            </button>
+            </button>`}
           </span>
         </div>
       </article>`;
@@ -154,7 +155,15 @@
     return iso.slice(0, 16);
   }
 
-  document.getElementById('add-booking').addEventListener('click', () => openDialog());
+  // Creating a booking needs a POST, so in a static build the button is
+  // removed rather than left to fail on submit. Bookings come from seed.py,
+  // which means editing them is a code change plus a rebuild.
+  const addButton = document.getElementById('add-booking');
+  if (App.isStatic) {
+    addButton.hidden = true;
+  } else {
+    addButton.addEventListener('click', () => openDialog());
+  }
   document.getElementById('dialog-cancel').addEventListener('click', () => dialog.close());
 
   grid.addEventListener('click', async (ev) => {

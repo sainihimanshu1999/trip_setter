@@ -203,6 +203,11 @@
 *::before,
 *::after { box-sizing: border-box; }
 
+/* Components set an explicit `display`, which beats the user agent's
+   `[hidden] { display: none }`. Without this, anything the frontend hides by
+   setting the attribute stays on screen. */
+[hidden] { display: none !important; }
+
 html { scroll-behavior: smooth; }
 
 body {
@@ -1231,3 +1236,46 @@ html.anim .reveal:not(.in) {
   ::view-transition-old(root),
   ::view-transition-new(root) { animation: none; }
 }
+
+/* ===== upload dialog (static builds) =================================== */
+
+.upload-dialog {
+  width: min(520px, calc(100vw - 32px));
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: var(--sh-pop);
+}
+.upload-dialog form { padding: 24px; display: grid; gap: 16px; }
+.upload-dialog h3 { font-size: 1.0625rem; }
+
+.up-lede { font-size: 0.875rem; color: var(--ink-2); line-height: 1.5; }
+.up-lede code {
+  font-size: 0.8125rem; padding: 1px 5px;
+  border-radius: 5px; background: var(--bg-soft);
+}
+
+.upload-dialog .field { display: grid; gap: 6px; }
+.upload-dialog .field > span { font-size: 0.8125rem; font-weight: 600; }
+.upload-dialog .field small { font-size: 0.75rem; color: var(--ink-2); line-height: 1.5; }
+.upload-dialog input[type="text"],
+.upload-dialog input[type="password"],
+.upload-dialog input[type="file"] {
+  width: 100%;
+  padding: 10px 12px;
+  font: inherit;
+  font-size: 0.875rem;
+  color: var(--ink);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+}
+.upload-dialog input[type="file"] { padding: 8px; }
+
+.up-status { font-size: 0.8125rem; color: var(--ink-2); min-height: 1.2em; line-height: 1.5; }
+.up-status.ok { color: var(--positive); }
+.up-status.bad { color: var(--negative); }
+
+.up-actions { display: flex; gap: 8px; align-items: center; }
