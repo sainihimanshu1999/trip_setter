@@ -1,0 +1,21 @@
+# Virtualenv and Python cruft
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Local config: may hold a Splitwise API key
+.env
+
+# Your bookings database
+data/trip.db
+data/trip.db-wal
+data/trip.db-shm
+
+# Splitwise exports. These name real people and what they paid, so they stay
+# out of version control. The bundled demo_splitwise.json is the sample data
+# and is committed on purpose.
+data/*.csv
+data/*.xlsx
+
+.DS_Store

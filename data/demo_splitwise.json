@@ -1,0 +1,7783 @@
+{
+ "group": {
+  "id": 7731,
+  "name": "Thailand 2026",
+  "group_type": "trip",
+  "updated_at": "2026-01-23T12:00:00Z",
+  "simplify_by_default": true,
+  "members": [
+   {
+    "id": 101,
+    "first_name": "Himanshu",
+    "last_name": "Saini",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed",
+    "balance": [
+     {
+      "currency_code": "THB",
+      "amount": "0.0"
+     }
+    ]
+   },
+   {
+    "id": 102,
+    "first_name": "Aarav",
+    "last_name": "Mehta",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed",
+    "balance": [
+     {
+      "currency_code": "THB",
+      "amount": "0.0"
+     }
+    ]
+   },
+   {
+    "id": 103,
+    "first_name": "Meera",
+    "last_name": "Iyer",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed",
+    "balance": [
+     {
+      "currency_code": "THB",
+      "amount": "0.0"
+     }
+    ]
+   },
+   {
+    "id": 104,
+    "first_name": "Rohan",
+    "last_name": "Kapoor",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed",
+    "balance": [
+     {
+      "currency_code": "THB",
+      "amount": "0.0"
+     }
+    ]
+   }
+  ],
+  "original_debts": [],
+  "simplified_debts": [],
+  "invite_link": "https://www.splitwise.com/join/demo"
+ },
+ "expenses": [
+  {
+   "id": 500101,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "IndiGo flights Delhi to Bangkok (4 pax)",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": "6E 1051 DEL-BKK, booked on goindigo.in, PNR R4T9KQ",
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "71600.00",
+   "currency_code": "INR",
+   "repayments": [
+    {
+     "from": 102,
+     "to": 101,
+     "amount": "17900.00"
+    },
+    {
+     "from": 103,
+     "to": 101,
+     "amount": "17900.00"
+    },
+    {
+     "from": 104,
+     "to": 101,
+     "amount": "17900.00"
+    }
+   ],
+   "date": "2025-12-02T09:00:00Z",
+   "created_at": "2025-12-02T09:05:00Z",
+   "created_by": {
+    "id": 101,
+    "first_name": "Himanshu",
+    "last_name": "Saini",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2025-12-02T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Plane"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "71600.00",
+     "owed_share": "17900.00",
+     "net_balance": "53700.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "0.00",
+     "owed_share": "17900.00",
+     "net_balance": "-17900.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "0.00",
+     "owed_share": "17900.00",
+     "net_balance": "-17900.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "0.00",
+     "owed_share": "17900.00",
+     "net_balance": "-17900.00"
+    }
+   ]
+  },
+  {
+   "id": 500102,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Thailand visa fee x4",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": "e-Visa processed online",
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "9600.00",
+   "currency_code": "INR",
+   "repayments": [
+    {
+     "from": 101,
+     "to": 102,
+     "amount": "2400.00"
+    },
+    {
+     "from": 103,
+     "to": 102,
+     "amount": "2400.00"
+    },
+    {
+     "from": 104,
+     "to": 102,
+     "amount": "2400.00"
+    }
+   ],
+   "date": "2025-12-05T09:00:00Z",
+   "created_at": "2025-12-05T09:05:00Z",
+   "created_by": {
+    "id": 102,
+    "first_name": "Aarav",
+    "last_name": "Mehta",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2025-12-05T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "General"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "0.00",
+     "owed_share": "2400.00",
+     "net_balance": "-2400.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "9600.00",
+     "owed_share": "2400.00",
+     "net_balance": "7200.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "0.00",
+     "owed_share": "2400.00",
+     "net_balance": "-2400.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "0.00",
+     "owed_share": "2400.00",
+     "net_balance": "-2400.00"
+    }
+   ]
+  },
+  {
+   "id": 500103,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Travel insurance",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": null,
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "4800.00",
+   "currency_code": "INR",
+   "repayments": [
+    {
+     "from": 101,
+     "to": 103,
+     "amount": "1200.00"
+    },
+    {
+     "from": 102,
+     "to": 103,
+     "amount": "1200.00"
+    },
+    {
+     "from": 104,
+     "to": 103,
+     "amount": "1200.00"
+    }
+   ],
+   "date": "2025-12-09T09:00:00Z",
+   "created_at": "2025-12-09T09:05:00Z",
+   "created_by": {
+    "id": 103,
+    "first_name": "Meera",
+    "last_name": "Iyer",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2025-12-09T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Insurance"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "0.00",
+     "owed_share": "1200.00",
+     "net_balance": "-1200.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "0.00",
+     "owed_share": "1200.00",
+     "net_balance": "-1200.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "4800.00",
+     "owed_share": "1200.00",
+     "net_balance": "3600.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "0.00",
+     "owed_share": "1200.00",
+     "net_balance": "-1200.00"
+    }
+   ]
+  },
+  {
+   "id": 500104,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Bangkok hotel deposit - Riverside",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": "Agoda booking, 3 nights, 2 twin rooms",
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "18400.00",
+   "currency_code": "INR",
+   "repayments": [
+    {
+     "from": 102,
+     "to": 101,
+     "amount": "4600.00"
+    },
+    {
+     "from": 103,
+     "to": 101,
+     "amount": "4600.00"
+    },
+    {
+     "from": 104,
+     "to": 101,
+     "amount": "4600.00"
+    }
+   ],
+   "date": "2025-12-14T09:00:00Z",
+   "created_at": "2025-12-14T09:05:00Z",
+   "created_by": {
+    "id": 101,
+    "first_name": "Himanshu",
+    "last_name": "Saini",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2025-12-14T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Hotel"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "18400.00",
+     "owed_share": "4600.00",
+     "net_balance": "13800.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "0.00",
+     "owed_share": "4600.00",
+     "net_balance": "-4600.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "0.00",
+     "owed_share": "4600.00",
+     "net_balance": "-4600.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "0.00",
+     "owed_share": "4600.00",
+     "net_balance": "-4600.00"
+    }
+   ]
+  },
+  {
+   "id": 500105,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Grab to DMK airport",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": "2 cabs from Dwarka",
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "1180.00",
+   "currency_code": "INR",
+   "repayments": [
+    {
+     "from": 101,
+     "to": 104,
+     "amount": "295.00"
+    },
+    {
+     "from": 102,
+     "to": 104,
+     "amount": "295.00"
+    },
+    {
+     "from": 103,
+     "to": 104,
+     "amount": "295.00"
+    }
+   ],
+   "date": "2026-01-10T09:00:00Z",
+   "created_at": "2026-01-10T09:05:00Z",
+   "created_by": {
+    "id": 104,
+    "first_name": "Rohan",
+    "last_name": "Kapoor",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-10T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Taxi"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "0.00",
+     "owed_share": "295.00",
+     "net_balance": "-295.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "0.00",
+     "owed_share": "295.00",
+     "net_balance": "-295.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "0.00",
+     "owed_share": "295.00",
+     "net_balance": "-295.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "1180.00",
+     "owed_share": "295.00",
+     "net_balance": "885.00"
+    }
+   ]
+  },
+  {
+   "id": 500106,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Airport Rail Link to Phaya Thai",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": null,
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "180.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 101,
+     "to": 102,
+     "amount": "45.00"
+    },
+    {
+     "from": 103,
+     "to": 102,
+     "amount": "45.00"
+    },
+    {
+     "from": 104,
+     "to": 102,
+     "amount": "45.00"
+    }
+   ],
+   "date": "2026-01-10T09:00:00Z",
+   "created_at": "2026-01-10T09:05:00Z",
+   "created_by": {
+    "id": 102,
+    "first_name": "Aarav",
+    "last_name": "Mehta",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-10T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Bus/train"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "0.00",
+     "owed_share": "45.00",
+     "net_balance": "-45.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "180.00",
+     "owed_share": "45.00",
+     "net_balance": "135.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "0.00",
+     "owed_share": "45.00",
+     "net_balance": "-45.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "0.00",
+     "owed_share": "45.00",
+     "net_balance": "-45.00"
+    }
+   ]
+  },
+  {
+   "id": 500107,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Grab to hotel",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": null,
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "220.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 102,
+     "to": 101,
+     "amount": "55.00"
+    },
+    {
+     "from": 103,
+     "to": 101,
+     "amount": "55.00"
+    },
+    {
+     "from": 104,
+     "to": 101,
+     "amount": "55.00"
+    }
+   ],
+   "date": "2026-01-10T09:00:00Z",
+   "created_at": "2026-01-10T09:05:00Z",
+   "created_by": {
+    "id": 101,
+    "first_name": "Himanshu",
+    "last_name": "Saini",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-10T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Taxi"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "220.00",
+     "owed_share": "55.00",
+     "net_balance": "165.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "0.00",
+     "owed_share": "55.00",
+     "net_balance": "-55.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "0.00",
+     "owed_share": "55.00",
+     "net_balance": "-55.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "0.00",
+     "owed_share": "55.00",
+     "net_balance": "-55.00"
+    }
+   ]
+  },
+  {
+   "id": 500108,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "AIS tourist SIM cards x4",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": "15GB, 8 days",
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "1196.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 101,
+     "to": 103,
+     "amount": "299.00"
+    },
+    {
+     "from": 102,
+     "to": 103,
+     "amount": "299.00"
+    },
+    {
+     "from": 104,
+     "to": 103,
+     "amount": "299.00"
+    }
+   ],
+   "date": "2026-01-10T09:00:00Z",
+   "created_at": "2026-01-10T09:05:00Z",
+   "created_by": {
+    "id": 103,
+    "first_name": "Meera",
+    "last_name": "Iyer",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-10T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "General"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "0.00",
+     "owed_share": "299.00",
+     "net_balance": "-299.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "0.00",
+     "owed_share": "299.00",
+     "net_balance": "-299.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "1196.00",
+     "owed_share": "299.00",
+     "net_balance": "897.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "0.00",
+     "owed_share": "299.00",
+     "net_balance": "-299.00"
+    }
+   ]
+  },
+  {
+   "id": 500109,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "First night dinner - Thipsamai pad thai",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": null,
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "980.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 101,
+     "to": 104,
+     "amount": "245.00"
+    },
+    {
+     "from": 102,
+     "to": 104,
+     "amount": "245.00"
+    },
+    {
+     "from": 103,
+     "to": 104,
+     "amount": "245.00"
+    }
+   ],
+   "date": "2026-01-10T09:00:00Z",
+   "created_at": "2026-01-10T09:05:00Z",
+   "created_by": {
+    "id": 104,
+    "first_name": "Rohan",
+    "last_name": "Kapoor",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-10T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Dining out"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "0.00",
+     "owed_share": "245.00",
+     "net_balance": "-245.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "0.00",
+     "owed_share": "245.00",
+     "net_balance": "-245.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "0.00",
+     "owed_share": "245.00",
+     "net_balance": "-245.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "980.00",
+     "owed_share": "245.00",
+     "net_balance": "735.00"
+    }
+   ]
+  },
+  {
+   "id": 500110,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Grand Palace entry tickets",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": "500 THB each",
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "2000.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 102,
+     "to": 101,
+     "amount": "500.00"
+    },
+    {
+     "from": 103,
+     "to": 101,
+     "amount": "500.00"
+    },
+    {
+     "from": 104,
+     "to": 101,
+     "amount": "500.00"
+    }
+   ],
+   "date": "2026-01-11T09:00:00Z",
+   "created_at": "2026-01-11T09:05:00Z",
+   "created_by": {
+    "id": 101,
+    "first_name": "Himanshu",
+    "last_name": "Saini",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-11T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Entertainment"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "2000.00",
+     "owed_share": "500.00",
+     "net_balance": "1500.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "0.00",
+     "owed_share": "500.00",
+     "net_balance": "-500.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "0.00",
+     "owed_share": "500.00",
+     "net_balance": "-500.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "0.00",
+     "owed_share": "500.00",
+     "net_balance": "-500.00"
+    }
+   ]
+  },
+  {
+   "id": 500111,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Tuk tuk to Wat Pho",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": "Haggled down from 500",
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "300.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 101,
+     "to": 102,
+     "amount": "75.00"
+    },
+    {
+     "from": 103,
+     "to": 102,
+     "amount": "75.00"
+    },
+    {
+     "from": 104,
+     "to": 102,
+     "amount": "75.00"
+    }
+   ],
+   "date": "2026-01-11T09:00:00Z",
+   "created_at": "2026-01-11T09:05:00Z",
+   "created_by": {
+    "id": 102,
+    "first_name": "Aarav",
+    "last_name": "Mehta",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-11T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Taxi"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "0.00",
+     "owed_share": "75.00",
+     "net_balance": "-75.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "300.00",
+     "owed_share": "75.00",
+     "net_balance": "225.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "0.00",
+     "owed_share": "75.00",
+     "net_balance": "-75.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "0.00",
+     "owed_share": "75.00",
+     "net_balance": "-75.00"
+    }
+   ]
+  },
+  {
+   "id": 500112,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Chao Phraya river boat day pass",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": null,
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "600.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 101,
+     "to": 103,
+     "amount": "150.00"
+    },
+    {
+     "from": 102,
+     "to": 103,
+     "amount": "150.00"
+    },
+    {
+     "from": 104,
+     "to": 103,
+     "amount": "150.00"
+    }
+   ],
+   "date": "2026-01-11T09:00:00Z",
+   "created_at": "2026-01-11T09:05:00Z",
+   "created_by": {
+    "id": 103,
+    "first_name": "Meera",
+    "last_name": "Iyer",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-11T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Transportation"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "0.00",
+     "owed_share": "150.00",
+     "net_balance": "-150.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "0.00",
+     "owed_share": "150.00",
+     "net_balance": "-150.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "600.00",
+     "owed_share": "150.00",
+     "net_balance": "450.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "0.00",
+     "owed_share": "150.00",
+     "net_balance": "-150.00"
+    }
+   ]
+  },
+  {
+   "id": 500113,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Street food lunch at Tha Tien",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": null,
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "520.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 101,
+     "to": 104,
+     "amount": "130.00"
+    },
+    {
+     "from": 102,
+     "to": 104,
+     "amount": "130.00"
+    },
+    {
+     "from": 103,
+     "to": 104,
+     "amount": "130.00"
+    }
+   ],
+   "date": "2026-01-11T09:00:00Z",
+   "created_at": "2026-01-11T09:05:00Z",
+   "created_by": {
+    "id": 104,
+    "first_name": "Rohan",
+    "last_name": "Kapoor",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-11T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Dining out"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "0.00",
+     "owed_share": "130.00",
+     "net_balance": "-130.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "0.00",
+     "owed_share": "130.00",
+     "net_balance": "-130.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "0.00",
+     "owed_share": "130.00",
+     "net_balance": "-130.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "520.00",
+     "owed_share": "130.00",
+     "net_balance": "390.00"
+    }
+   ]
+  },
+  {
+   "id": 500114,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Thai massage x4",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": "Wat Pho massage school",
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "1600.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 102,
+     "to": 101,
+     "amount": "400.00"
+    },
+    {
+     "from": 103,
+     "to": 101,
+     "amount": "400.00"
+    },
+    {
+     "from": 104,
+     "to": 101,
+     "amount": "400.00"
+    }
+   ],
+   "date": "2026-01-11T09:00:00Z",
+   "created_at": "2026-01-11T09:05:00Z",
+   "created_by": {
+    "id": 101,
+    "first_name": "Himanshu",
+    "last_name": "Saini",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-11T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Entertainment"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "1600.00",
+     "owed_share": "400.00",
+     "net_balance": "1200.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "0.00",
+     "owed_share": "400.00",
+     "net_balance": "-400.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "0.00",
+     "owed_share": "400.00",
+     "net_balance": "-400.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "0.00",
+     "owed_share": "400.00",
+     "net_balance": "-400.00"
+    }
+   ]
+  },
+  {
+   "id": 500115,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Rooftop bar at Sala Rattanakosin",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": null,
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "2400.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 101,
+     "to": 102,
+     "amount": "600.00"
+    },
+    {
+     "from": 103,
+     "to": 102,
+     "amount": "600.00"
+    },
+    {
+     "from": 104,
+     "to": 102,
+     "amount": "600.00"
+    }
+   ],
+   "date": "2026-01-11T09:00:00Z",
+   "created_at": "2026-01-11T09:05:00Z",
+   "created_by": {
+    "id": 102,
+    "first_name": "Aarav",
+    "last_name": "Mehta",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-11T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Liquor"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "0.00",
+     "owed_share": "600.00",
+     "net_balance": "-600.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "2400.00",
+     "owed_share": "600.00",
+     "net_balance": "1800.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "0.00",
+     "owed_share": "600.00",
+     "net_balance": "-600.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "0.00",
+     "owed_share": "600.00",
+     "net_balance": "-600.00"
+    }
+   ]
+  },
+  {
+   "id": 500116,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "BTS Rabbit cards top up",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": null,
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "800.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 101,
+     "to": 103,
+     "amount": "200.00"
+    },
+    {
+     "from": 102,
+     "to": 103,
+     "amount": "200.00"
+    },
+    {
+     "from": 104,
+     "to": 103,
+     "amount": "200.00"
+    }
+   ],
+   "date": "2026-01-12T09:00:00Z",
+   "created_at": "2026-01-12T09:05:00Z",
+   "created_by": {
+    "id": 103,
+    "first_name": "Meera",
+    "last_name": "Iyer",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-12T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Bus/train"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "0.00",
+     "owed_share": "200.00",
+     "net_balance": "-200.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "0.00",
+     "owed_share": "200.00",
+     "net_balance": "-200.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "800.00",
+     "owed_share": "200.00",
+     "net_balance": "600.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "0.00",
+     "owed_share": "200.00",
+     "net_balance": "-200.00"
+    }
+   ]
+  },
+  {
+   "id": 500117,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Chatuchak weekend market shopping",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": "Shirts and souvenirs",
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "3200.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 101,
+     "to": 104,
+     "amount": "800.00"
+    },
+    {
+     "from": 102,
+     "to": 104,
+     "amount": "800.00"
+    },
+    {
+     "from": 103,
+     "to": 104,
+     "amount": "800.00"
+    }
+   ],
+   "date": "2026-01-12T09:00:00Z",
+   "created_at": "2026-01-12T09:05:00Z",
+   "created_by": {
+    "id": 104,
+    "first_name": "Rohan",
+    "last_name": "Kapoor",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-12T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Clothing"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "0.00",
+     "owed_share": "800.00",
+     "net_balance": "-800.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "0.00",
+     "owed_share": "800.00",
+     "net_balance": "-800.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "0.00",
+     "owed_share": "800.00",
+     "net_balance": "-800.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "3200.00",
+     "owed_share": "800.00",
+     "net_balance": "2400.00"
+    }
+   ]
+  },
+  {
+   "id": 500118,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "7-Eleven snacks and water",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": null,
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "340.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 102,
+     "to": 101,
+     "amount": "85.00"
+    },
+    {
+     "from": 103,
+     "to": 101,
+     "amount": "85.00"
+    },
+    {
+     "from": 104,
+     "to": 101,
+     "amount": "85.00"
+    }
+   ],
+   "date": "2026-01-12T09:00:00Z",
+   "created_at": "2026-01-12T09:05:00Z",
+   "created_by": {
+    "id": 101,
+    "first_name": "Himanshu",
+    "last_name": "Saini",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-12T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Groceries"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "340.00",
+     "owed_share": "85.00",
+     "net_balance": "255.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "0.00",
+     "owed_share": "85.00",
+     "net_balance": "-85.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "0.00",
+     "owed_share": "85.00",
+     "net_balance": "-85.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "0.00",
+     "owed_share": "85.00",
+     "net_balance": "-85.00"
+    }
+   ]
+  },
+  {
+   "id": 500119,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Muay Thai tickets Rajadamnern",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": "Ringside, booked via muaythai.com",
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "6000.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 101,
+     "to": 102,
+     "amount": "1500.00"
+    },
+    {
+     "from": 103,
+     "to": 102,
+     "amount": "1500.00"
+    },
+    {
+     "from": 104,
+     "to": 102,
+     "amount": "1500.00"
+    }
+   ],
+   "date": "2026-01-12T09:00:00Z",
+   "created_at": "2026-01-12T09:05:00Z",
+   "created_by": {
+    "id": 102,
+    "first_name": "Aarav",
+    "last_name": "Mehta",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-12T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Entertainment"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "0.00",
+     "owed_share": "1500.00",
+     "net_balance": "-1500.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "6000.00",
+     "owed_share": "1500.00",
+     "net_balance": "4500.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "0.00",
+     "owed_share": "1500.00",
+     "net_balance": "-1500.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "0.00",
+     "owed_share": "1500.00",
+     "net_balance": "-1500.00"
+    }
+   ]
+  },
+  {
+   "id": 500120,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Dinner - Jay Fai area",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": null,
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "1850.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 101,
+     "to": 103,
+     "amount": "462.50"
+    },
+    {
+     "from": 102,
+     "to": 103,
+     "amount": "462.50"
+    },
+    {
+     "from": 104,
+     "to": 103,
+     "amount": "462.50"
+    }
+   ],
+   "date": "2026-01-12T09:00:00Z",
+   "created_at": "2026-01-12T09:05:00Z",
+   "created_by": {
+    "id": 103,
+    "first_name": "Meera",
+    "last_name": "Iyer",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-12T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Dining out"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "0.00",
+     "owed_share": "462.50",
+     "net_balance": "-462.50"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "0.00",
+     "owed_share": "462.50",
+     "net_balance": "-462.50"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "1850.00",
+     "owed_share": "462.50",
+     "net_balance": "1387.50"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "0.00",
+     "owed_share": "462.50",
+     "net_balance": "-462.50"
+    }
+   ]
+  },
+  {
+   "id": 500121,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Grab to DMK terminal 2",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": null,
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "420.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 101,
+     "to": 104,
+     "amount": "105.00"
+    },
+    {
+     "from": 102,
+     "to": 104,
+     "amount": "105.00"
+    },
+    {
+     "from": 103,
+     "to": 104,
+     "amount": "105.00"
+    }
+   ],
+   "date": "2026-01-13T09:00:00Z",
+   "created_at": "2026-01-13T09:05:00Z",
+   "created_by": {
+    "id": 104,
+    "first_name": "Rohan",
+    "last_name": "Kapoor",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-13T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Taxi"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "0.00",
+     "owed_share": "105.00",
+     "net_balance": "-105.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "0.00",
+     "owed_share": "105.00",
+     "net_balance": "-105.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "0.00",
+     "owed_share": "105.00",
+     "net_balance": "-105.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "420.00",
+     "owed_share": "105.00",
+     "net_balance": "315.00"
+    }
+   ]
+  },
+  {
+   "id": 500122,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "AirAsia FD3435 BKK-CNX",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": "Booked on airasia.com, 20kg baggage added",
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "4760.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 102,
+     "to": 101,
+     "amount": "1190.00"
+    },
+    {
+     "from": 103,
+     "to": 101,
+     "amount": "1190.00"
+    },
+    {
+     "from": 104,
+     "to": 101,
+     "amount": "1190.00"
+    }
+   ],
+   "date": "2026-01-13T09:00:00Z",
+   "created_at": "2026-01-13T09:05:00Z",
+   "created_by": {
+    "id": 101,
+    "first_name": "Himanshu",
+    "last_name": "Saini",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-13T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Plane"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "4760.00",
+     "owed_share": "1190.00",
+     "net_balance": "3570.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "0.00",
+     "owed_share": "1190.00",
+     "net_balance": "-1190.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "0.00",
+     "owed_share": "1190.00",
+     "net_balance": "-1190.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "0.00",
+     "owed_share": "1190.00",
+     "net_balance": "-1190.00"
+    }
+   ]
+  },
+  {
+   "id": 500123,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Songthaew to Old City",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": "Red truck, 60 THB each",
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "240.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 101,
+     "to": 102,
+     "amount": "60.00"
+    },
+    {
+     "from": 103,
+     "to": 102,
+     "amount": "60.00"
+    },
+    {
+     "from": 104,
+     "to": 102,
+     "amount": "60.00"
+    }
+   ],
+   "date": "2026-01-13T09:00:00Z",
+   "created_at": "2026-01-13T09:05:00Z",
+   "created_by": {
+    "id": 102,
+    "first_name": "Aarav",
+    "last_name": "Mehta",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-13T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Transportation"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "0.00",
+     "owed_share": "60.00",
+     "net_balance": "-60.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "240.00",
+     "owed_share": "60.00",
+     "net_balance": "180.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "0.00",
+     "owed_share": "60.00",
+     "net_balance": "-60.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "0.00",
+     "owed_share": "60.00",
+     "net_balance": "-60.00"
+    }
+   ]
+  },
+  {
+   "id": 500124,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Chiang Mai guesthouse 3 nights",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": "Booking.com, Old City near Tha Phae Gate",
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "9600.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 101,
+     "to": 103,
+     "amount": "2400.00"
+    },
+    {
+     "from": 102,
+     "to": 103,
+     "amount": "2400.00"
+    },
+    {
+     "from": 104,
+     "to": 103,
+     "amount": "2400.00"
+    }
+   ],
+   "date": "2026-01-13T09:00:00Z",
+   "created_at": "2026-01-13T09:05:00Z",
+   "created_by": {
+    "id": 103,
+    "first_name": "Meera",
+    "last_name": "Iyer",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-13T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Hotel"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "0.00",
+     "owed_share": "2400.00",
+     "net_balance": "-2400.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "0.00",
+     "owed_share": "2400.00",
+     "net_balance": "-2400.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "9600.00",
+     "owed_share": "2400.00",
+     "net_balance": "7200.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "0.00",
+     "owed_share": "2400.00",
+     "net_balance": "-2400.00"
+    }
+   ]
+  },
+  {
+   "id": 500125,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Khao soi dinner",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": null,
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "480.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 101,
+     "to": 104,
+     "amount": "120.00"
+    },
+    {
+     "from": 102,
+     "to": 104,
+     "amount": "120.00"
+    },
+    {
+     "from": 103,
+     "to": 104,
+     "amount": "120.00"
+    }
+   ],
+   "date": "2026-01-13T09:00:00Z",
+   "created_at": "2026-01-13T09:05:00Z",
+   "created_by": {
+    "id": 104,
+    "first_name": "Rohan",
+    "last_name": "Kapoor",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-13T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Dining out"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "0.00",
+     "owed_share": "120.00",
+     "net_balance": "-120.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "0.00",
+     "owed_share": "120.00",
+     "net_balance": "-120.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "0.00",
+     "owed_share": "120.00",
+     "net_balance": "-120.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "480.00",
+     "owed_share": "120.00",
+     "net_balance": "360.00"
+    }
+   ]
+  },
+  {
+   "id": 500126,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Elephant Nature Park full day tour",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": "Ethical sanctuary, includes pickup and lunch",
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "10000.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 102,
+     "to": 101,
+     "amount": "2500.00"
+    },
+    {
+     "from": 103,
+     "to": 101,
+     "amount": "2500.00"
+    },
+    {
+     "from": 104,
+     "to": 101,
+     "amount": "2500.00"
+    }
+   ],
+   "date": "2026-01-14T09:00:00Z",
+   "created_at": "2026-01-14T09:05:00Z",
+   "created_by": {
+    "id": 101,
+    "first_name": "Himanshu",
+    "last_name": "Saini",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-14T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Entertainment"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "10000.00",
+     "owed_share": "2500.00",
+     "net_balance": "7500.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "0.00",
+     "owed_share": "2500.00",
+     "net_balance": "-2500.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "0.00",
+     "owed_share": "2500.00",
+     "net_balance": "-2500.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "0.00",
+     "owed_share": "2500.00",
+     "net_balance": "-2500.00"
+    }
+   ]
+  },
+  {
+   "id": 500127,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Night Bazaar street food",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": null,
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "760.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 101,
+     "to": 102,
+     "amount": "190.00"
+    },
+    {
+     "from": 103,
+     "to": 102,
+     "amount": "190.00"
+    },
+    {
+     "from": 104,
+     "to": 102,
+     "amount": "190.00"
+    }
+   ],
+   "date": "2026-01-14T09:00:00Z",
+   "created_at": "2026-01-14T09:05:00Z",
+   "created_by": {
+    "id": 102,
+    "first_name": "Aarav",
+    "last_name": "Mehta",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-14T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Dining out"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "0.00",
+     "owed_share": "190.00",
+     "net_balance": "-190.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "760.00",
+     "owed_share": "190.00",
+     "net_balance": "570.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "0.00",
+     "owed_share": "190.00",
+     "net_balance": "-190.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "0.00",
+     "owed_share": "190.00",
+     "net_balance": "-190.00"
+    }
+   ]
+  },
+  {
+   "id": 500128,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Chang beers at Zoe in Yellow",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": null,
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "900.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 101,
+     "to": 103,
+     "amount": "225.00"
+    },
+    {
+     "from": 102,
+     "to": 103,
+     "amount": "225.00"
+    },
+    {
+     "from": 104,
+     "to": 103,
+     "amount": "225.00"
+    }
+   ],
+   "date": "2026-01-14T09:00:00Z",
+   "created_at": "2026-01-14T09:05:00Z",
+   "created_by": {
+    "id": 103,
+    "first_name": "Meera",
+    "last_name": "Iyer",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-14T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Liquor"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "0.00",
+     "owed_share": "225.00",
+     "net_balance": "-225.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "0.00",
+     "owed_share": "225.00",
+     "net_balance": "-225.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "900.00",
+     "owed_share": "225.00",
+     "net_balance": "675.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "0.00",
+     "owed_share": "225.00",
+     "net_balance": "-225.00"
+    }
+   ]
+  },
+  {
+   "id": 500129,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Thai cooking class",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": "Thai Farm Cooking School, market tour included",
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "4800.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 101,
+     "to": 104,
+     "amount": "1200.00"
+    },
+    {
+     "from": 102,
+     "to": 104,
+     "amount": "1200.00"
+    },
+    {
+     "from": 103,
+     "to": 104,
+     "amount": "1200.00"
+    }
+   ],
+   "date": "2026-01-15T09:00:00Z",
+   "created_at": "2026-01-15T09:05:00Z",
+   "created_by": {
+    "id": 104,
+    "first_name": "Rohan",
+    "last_name": "Kapoor",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-15T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Entertainment"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "0.00",
+     "owed_share": "1200.00",
+     "net_balance": "-1200.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "0.00",
+     "owed_share": "1200.00",
+     "net_balance": "-1200.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "0.00",
+     "owed_share": "1200.00",
+     "net_balance": "-1200.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "4800.00",
+     "owed_share": "1200.00",
+     "net_balance": "3600.00"
+    }
+   ]
+  },
+  {
+   "id": 500130,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Scooter rental x2 for Doi Suthep",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": "250 THB per bike per day plus helmets",
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "600.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 102,
+     "to": 101,
+     "amount": "150.00"
+    },
+    {
+     "from": 103,
+     "to": 101,
+     "amount": "150.00"
+    },
+    {
+     "from": 104,
+     "to": 101,
+     "amount": "150.00"
+    }
+   ],
+   "date": "2026-01-15T09:00:00Z",
+   "created_at": "2026-01-15T09:05:00Z",
+   "created_by": {
+    "id": 101,
+    "first_name": "Himanshu",
+    "last_name": "Saini",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-15T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Bicycle"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "600.00",
+     "owed_share": "150.00",
+     "net_balance": "450.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "0.00",
+     "owed_share": "150.00",
+     "net_balance": "-150.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "0.00",
+     "owed_share": "150.00",
+     "net_balance": "-150.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "0.00",
+     "owed_share": "150.00",
+     "net_balance": "-150.00"
+    }
+   ]
+  },
+  {
+   "id": 500131,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Doi Suthep entrance",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": null,
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "120.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 101,
+     "to": 102,
+     "amount": "40.00"
+    },
+    {
+     "from": 103,
+     "to": 102,
+     "amount": "40.00"
+    }
+   ],
+   "date": "2026-01-15T09:00:00Z",
+   "created_at": "2026-01-15T09:05:00Z",
+   "created_by": {
+    "id": 102,
+    "first_name": "Aarav",
+    "last_name": "Mehta",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-15T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Entertainment"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "0.00",
+     "owed_share": "40.00",
+     "net_balance": "-40.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "120.00",
+     "owed_share": "40.00",
+     "net_balance": "80.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "0.00",
+     "owed_share": "40.00",
+     "net_balance": "-40.00"
+    }
+   ]
+  },
+  {
+   "id": 500132,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Petrol for scooters",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": null,
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "160.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 101,
+     "to": 103,
+     "amount": "40.00"
+    },
+    {
+     "from": 102,
+     "to": 103,
+     "amount": "40.00"
+    },
+    {
+     "from": 104,
+     "to": 103,
+     "amount": "40.00"
+    }
+   ],
+   "date": "2026-01-15T09:00:00Z",
+   "created_at": "2026-01-15T09:05:00Z",
+   "created_by": {
+    "id": 103,
+    "first_name": "Meera",
+    "last_name": "Iyer",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-15T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Gas/fuel"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "0.00",
+     "owed_share": "40.00",
+     "net_balance": "-40.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "0.00",
+     "owed_share": "40.00",
+     "net_balance": "-40.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "160.00",
+     "owed_share": "40.00",
+     "net_balance": "120.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "0.00",
+     "owed_share": "40.00",
+     "net_balance": "-40.00"
+    }
+   ]
+  },
+  {
+   "id": 500133,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Overnight sleeper train CNX to Bangkok",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": "Train 10, second class AC sleeper, lower berths",
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "3608.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 102,
+     "to": 101,
+     "amount": "902.00"
+    },
+    {
+     "from": 103,
+     "to": 101,
+     "amount": "902.00"
+    },
+    {
+     "from": 104,
+     "to": 101,
+     "amount": "902.00"
+    }
+   ],
+   "date": "2026-01-16T09:00:00Z",
+   "created_at": "2026-01-16T09:05:00Z",
+   "created_by": {
+    "id": 101,
+    "first_name": "Himanshu",
+    "last_name": "Saini",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-16T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Bus/train"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "3608.00",
+     "owed_share": "902.00",
+     "net_balance": "2706.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "0.00",
+     "owed_share": "902.00",
+     "net_balance": "-902.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "0.00",
+     "owed_share": "902.00",
+     "net_balance": "-902.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "0.00",
+     "owed_share": "902.00",
+     "net_balance": "-902.00"
+    }
+   ]
+  },
+  {
+   "id": 500134,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Taxi to Chiang Mai station",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": null,
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "200.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 101,
+     "to": 102,
+     "amount": "50.00"
+    },
+    {
+     "from": 103,
+     "to": 102,
+     "amount": "50.00"
+    },
+    {
+     "from": 104,
+     "to": 102,
+     "amount": "50.00"
+    }
+   ],
+   "date": "2026-01-16T09:00:00Z",
+   "created_at": "2026-01-16T09:05:00Z",
+   "created_by": {
+    "id": 102,
+    "first_name": "Aarav",
+    "last_name": "Mehta",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-16T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Taxi"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "0.00",
+     "owed_share": "50.00",
+     "net_balance": "-50.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "200.00",
+     "owed_share": "50.00",
+     "net_balance": "150.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "0.00",
+     "owed_share": "50.00",
+     "net_balance": "-50.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "0.00",
+     "owed_share": "50.00",
+     "net_balance": "-50.00"
+    }
+   ]
+  },
+  {
+   "id": 500135,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Dinner packed for the train",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": null,
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "420.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 101,
+     "to": 103,
+     "amount": "105.00"
+    },
+    {
+     "from": 102,
+     "to": 103,
+     "amount": "105.00"
+    },
+    {
+     "from": 104,
+     "to": 103,
+     "amount": "105.00"
+    }
+   ],
+   "date": "2026-01-16T09:00:00Z",
+   "created_at": "2026-01-16T09:05:00Z",
+   "created_by": {
+    "id": 103,
+    "first_name": "Meera",
+    "last_name": "Iyer",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-16T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Groceries"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "0.00",
+     "owed_share": "105.00",
+     "net_balance": "-105.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "0.00",
+     "owed_share": "105.00",
+     "net_balance": "-105.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "420.00",
+     "owed_share": "105.00",
+     "net_balance": "315.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "0.00",
+     "owed_share": "105.00",
+     "net_balance": "-105.00"
+    }
+   ]
+  },
+  {
+   "id": 500136,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Thai Lion Air to Krabi",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": "SL762 DMK-KBV",
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "5240.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 101,
+     "to": 104,
+     "amount": "1310.00"
+    },
+    {
+     "from": 102,
+     "to": 104,
+     "amount": "1310.00"
+    },
+    {
+     "from": 103,
+     "to": 104,
+     "amount": "1310.00"
+    }
+   ],
+   "date": "2026-01-17T09:00:00Z",
+   "created_at": "2026-01-17T09:05:00Z",
+   "created_by": {
+    "id": 104,
+    "first_name": "Rohan",
+    "last_name": "Kapoor",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-17T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Plane"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "0.00",
+     "owed_share": "1310.00",
+     "net_balance": "-1310.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "0.00",
+     "owed_share": "1310.00",
+     "net_balance": "-1310.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "0.00",
+     "owed_share": "1310.00",
+     "net_balance": "-1310.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "5240.00",
+     "owed_share": "1310.00",
+     "net_balance": "3930.00"
+    }
+   ]
+  },
+  {
+   "id": 500137,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Airport taxi to Ao Nang",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": null,
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "800.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 102,
+     "to": 101,
+     "amount": "200.00"
+    },
+    {
+     "from": 103,
+     "to": 101,
+     "amount": "200.00"
+    },
+    {
+     "from": 104,
+     "to": 101,
+     "amount": "200.00"
+    }
+   ],
+   "date": "2026-01-17T09:00:00Z",
+   "created_at": "2026-01-17T09:05:00Z",
+   "created_by": {
+    "id": 101,
+    "first_name": "Himanshu",
+    "last_name": "Saini",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-17T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Taxi"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "800.00",
+     "owed_share": "200.00",
+     "net_balance": "600.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "0.00",
+     "owed_share": "200.00",
+     "net_balance": "-200.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "0.00",
+     "owed_share": "200.00",
+     "net_balance": "-200.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "0.00",
+     "owed_share": "200.00",
+     "net_balance": "-200.00"
+    }
+   ]
+  },
+  {
+   "id": 500138,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Ao Nang beachfront hotel 2 nights",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": null,
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "7800.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 101,
+     "to": 102,
+     "amount": "1950.00"
+    },
+    {
+     "from": 103,
+     "to": 102,
+     "amount": "1950.00"
+    },
+    {
+     "from": 104,
+     "to": 102,
+     "amount": "1950.00"
+    }
+   ],
+   "date": "2026-01-17T09:00:00Z",
+   "created_at": "2026-01-17T09:05:00Z",
+   "created_by": {
+    "id": 102,
+    "first_name": "Aarav",
+    "last_name": "Mehta",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-17T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Hotel"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "0.00",
+     "owed_share": "1950.00",
+     "net_balance": "-1950.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "7800.00",
+     "owed_share": "1950.00",
+     "net_balance": "5850.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "0.00",
+     "owed_share": "1950.00",
+     "net_balance": "-1950.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "0.00",
+     "owed_share": "1950.00",
+     "net_balance": "-1950.00"
+    }
+   ]
+  },
+  {
+   "id": 500139,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Seafood dinner on Ao Nang beach",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": null,
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "2100.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 101,
+     "to": 103,
+     "amount": "525.00"
+    },
+    {
+     "from": 102,
+     "to": 103,
+     "amount": "525.00"
+    },
+    {
+     "from": 104,
+     "to": 103,
+     "amount": "525.00"
+    }
+   ],
+   "date": "2026-01-17T09:00:00Z",
+   "created_at": "2026-01-17T09:05:00Z",
+   "created_by": {
+    "id": 103,
+    "first_name": "Meera",
+    "last_name": "Iyer",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-17T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Dining out"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "0.00",
+     "owed_share": "525.00",
+     "net_balance": "-525.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "0.00",
+     "owed_share": "525.00",
+     "net_balance": "-525.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "2100.00",
+     "owed_share": "525.00",
+     "net_balance": "1575.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "0.00",
+     "owed_share": "525.00",
+     "net_balance": "-525.00"
+    }
+   ]
+  },
+  {
+   "id": 500140,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Longtail boat 4 islands tour",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": "Private longtail, Chicken Island, Tup, Poda, Railay",
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "4800.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 101,
+     "to": 104,
+     "amount": "1200.00"
+    },
+    {
+     "from": 102,
+     "to": 104,
+     "amount": "1200.00"
+    },
+    {
+     "from": 103,
+     "to": 104,
+     "amount": "1200.00"
+    }
+   ],
+   "date": "2026-01-18T09:00:00Z",
+   "created_at": "2026-01-18T09:05:00Z",
+   "created_by": {
+    "id": 104,
+    "first_name": "Rohan",
+    "last_name": "Kapoor",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-18T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Transportation"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "0.00",
+     "owed_share": "1200.00",
+     "net_balance": "-1200.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "0.00",
+     "owed_share": "1200.00",
+     "net_balance": "-1200.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "0.00",
+     "owed_share": "1200.00",
+     "net_balance": "-1200.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "4800.00",
+     "owed_share": "1200.00",
+     "net_balance": "3600.00"
+    }
+   ]
+  },
+  {
+   "id": 500141,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "National park fee",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": "400 THB each",
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "1600.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 102,
+     "to": 101,
+     "amount": "400.00"
+    },
+    {
+     "from": 103,
+     "to": 101,
+     "amount": "400.00"
+    },
+    {
+     "from": 104,
+     "to": 101,
+     "amount": "400.00"
+    }
+   ],
+   "date": "2026-01-18T09:00:00Z",
+   "created_at": "2026-01-18T09:05:00Z",
+   "created_by": {
+    "id": 101,
+    "first_name": "Himanshu",
+    "last_name": "Saini",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-18T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "General"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "1600.00",
+     "owed_share": "400.00",
+     "net_balance": "1200.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "0.00",
+     "owed_share": "400.00",
+     "net_balance": "-400.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "0.00",
+     "owed_share": "400.00",
+     "net_balance": "-400.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "0.00",
+     "owed_share": "400.00",
+     "net_balance": "-400.00"
+    }
+   ]
+  },
+  {
+   "id": 500142,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Lunch at Railay Beach",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": null,
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "880.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 101,
+     "to": 102,
+     "amount": "220.00"
+    },
+    {
+     "from": 103,
+     "to": 102,
+     "amount": "220.00"
+    },
+    {
+     "from": 104,
+     "to": 102,
+     "amount": "220.00"
+    }
+   ],
+   "date": "2026-01-18T09:00:00Z",
+   "created_at": "2026-01-18T09:05:00Z",
+   "created_by": {
+    "id": 102,
+    "first_name": "Aarav",
+    "last_name": "Mehta",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-18T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Dining out"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "0.00",
+     "owed_share": "220.00",
+     "net_balance": "-220.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "880.00",
+     "owed_share": "220.00",
+     "net_balance": "660.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "0.00",
+     "owed_share": "220.00",
+     "net_balance": "-220.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "0.00",
+     "owed_share": "220.00",
+     "net_balance": "-220.00"
+    }
+   ]
+  },
+  {
+   "id": 500143,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Sunscreen and beach stuff",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": null,
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "650.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 101,
+     "to": 103,
+     "amount": "162.50"
+    },
+    {
+     "from": 102,
+     "to": 103,
+     "amount": "162.50"
+    },
+    {
+     "from": 104,
+     "to": 103,
+     "amount": "162.50"
+    }
+   ],
+   "date": "2026-01-18T09:00:00Z",
+   "created_at": "2026-01-18T09:05:00Z",
+   "created_by": {
+    "id": 103,
+    "first_name": "Meera",
+    "last_name": "Iyer",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-18T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "General"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "0.00",
+     "owed_share": "162.50",
+     "net_balance": "-162.50"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "0.00",
+     "owed_share": "162.50",
+     "net_balance": "-162.50"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "650.00",
+     "owed_share": "162.50",
+     "net_balance": "487.50"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "0.00",
+     "owed_share": "162.50",
+     "net_balance": "-162.50"
+    }
+   ]
+  },
+  {
+   "id": 500144,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Ferry Ao Nang pier to Phi Phi",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": "Ao Nang Princess, 400 THB each",
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "1600.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 101,
+     "to": 104,
+     "amount": "400.00"
+    },
+    {
+     "from": 102,
+     "to": 104,
+     "amount": "400.00"
+    },
+    {
+     "from": 103,
+     "to": 104,
+     "amount": "400.00"
+    }
+   ],
+   "date": "2026-01-19T09:00:00Z",
+   "created_at": "2026-01-19T09:05:00Z",
+   "created_by": {
+    "id": 104,
+    "first_name": "Rohan",
+    "last_name": "Kapoor",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-19T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Transportation"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "0.00",
+     "owed_share": "400.00",
+     "net_balance": "-400.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "0.00",
+     "owed_share": "400.00",
+     "net_balance": "-400.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "0.00",
+     "owed_share": "400.00",
+     "net_balance": "-400.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "1600.00",
+     "owed_share": "400.00",
+     "net_balance": "1200.00"
+    }
+   ]
+  },
+  {
+   "id": 500145,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Phi Phi hotel 1 night",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": null,
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "4200.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 102,
+     "to": 101,
+     "amount": "1050.00"
+    },
+    {
+     "from": 103,
+     "to": 101,
+     "amount": "1050.00"
+    },
+    {
+     "from": 104,
+     "to": 101,
+     "amount": "1050.00"
+    }
+   ],
+   "date": "2026-01-19T09:00:00Z",
+   "created_at": "2026-01-19T09:05:00Z",
+   "created_by": {
+    "id": 101,
+    "first_name": "Himanshu",
+    "last_name": "Saini",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-19T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Hotel"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "4200.00",
+     "owed_share": "1050.00",
+     "net_balance": "3150.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "0.00",
+     "owed_share": "1050.00",
+     "net_balance": "-1050.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "0.00",
+     "owed_share": "1050.00",
+     "net_balance": "-1050.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "0.00",
+     "owed_share": "1050.00",
+     "net_balance": "-1050.00"
+    }
+   ]
+  },
+  {
+   "id": 500146,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Snorkelling trip to Maya Bay",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": "Speedboat, early morning to beat crowds",
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "5200.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 101,
+     "to": 102,
+     "amount": "1300.00"
+    },
+    {
+     "from": 103,
+     "to": 102,
+     "amount": "1300.00"
+    },
+    {
+     "from": 104,
+     "to": 102,
+     "amount": "1300.00"
+    }
+   ],
+   "date": "2026-01-19T09:00:00Z",
+   "created_at": "2026-01-19T09:05:00Z",
+   "created_by": {
+    "id": 102,
+    "first_name": "Aarav",
+    "last_name": "Mehta",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-19T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Entertainment"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "0.00",
+     "owed_share": "1300.00",
+     "net_balance": "-1300.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "5200.00",
+     "owed_share": "1300.00",
+     "net_balance": "3900.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "0.00",
+     "owed_share": "1300.00",
+     "net_balance": "-1300.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "0.00",
+     "owed_share": "1300.00",
+     "net_balance": "-1300.00"
+    }
+   ]
+  },
+  {
+   "id": 500147,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Phi Phi beach bar buckets",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": null,
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "1400.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 101,
+     "to": 103,
+     "amount": "466.66"
+    },
+    {
+     "from": 102,
+     "to": 103,
+     "amount": "466.67"
+    },
+    {
+     "from": 104,
+     "to": 103,
+     "amount": "466.67"
+    }
+   ],
+   "date": "2026-01-19T09:00:00Z",
+   "created_at": "2026-01-19T09:05:00Z",
+   "created_by": {
+    "id": 103,
+    "first_name": "Meera",
+    "last_name": "Iyer",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-19T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Liquor"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "0.00",
+     "owed_share": "466.66",
+     "net_balance": "-466.66"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "0.00",
+     "owed_share": "466.67",
+     "net_balance": "-466.67"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "0.00",
+     "owed_share": "466.67",
+     "net_balance": "-466.67"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "1400.00",
+     "owed_share": "0.00",
+     "net_balance": "1400.00"
+    }
+   ]
+  },
+  {
+   "id": 500148,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Ferry Phi Phi to Phuket",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": null,
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "1800.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 102,
+     "to": 101,
+     "amount": "450.00"
+    },
+    {
+     "from": 103,
+     "to": 101,
+     "amount": "450.00"
+    },
+    {
+     "from": 104,
+     "to": 101,
+     "amount": "450.00"
+    }
+   ],
+   "date": "2026-01-20T09:00:00Z",
+   "created_at": "2026-01-20T09:05:00Z",
+   "created_by": {
+    "id": 101,
+    "first_name": "Himanshu",
+    "last_name": "Saini",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-20T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Transportation"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "1800.00",
+     "owed_share": "450.00",
+     "net_balance": "1350.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "0.00",
+     "owed_share": "450.00",
+     "net_balance": "-450.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "0.00",
+     "owed_share": "450.00",
+     "net_balance": "-450.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "0.00",
+     "owed_share": "450.00",
+     "net_balance": "-450.00"
+    }
+   ]
+  },
+  {
+   "id": 500149,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Taxi Rassada pier to Patong",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": null,
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "700.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 101,
+     "to": 102,
+     "amount": "175.00"
+    },
+    {
+     "from": 103,
+     "to": 102,
+     "amount": "175.00"
+    },
+    {
+     "from": 104,
+     "to": 102,
+     "amount": "175.00"
+    }
+   ],
+   "date": "2026-01-20T09:00:00Z",
+   "created_at": "2026-01-20T09:05:00Z",
+   "created_by": {
+    "id": 102,
+    "first_name": "Aarav",
+    "last_name": "Mehta",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-20T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Taxi"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "0.00",
+     "owed_share": "175.00",
+     "net_balance": "-175.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "700.00",
+     "owed_share": "175.00",
+     "net_balance": "525.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "0.00",
+     "owed_share": "175.00",
+     "net_balance": "-175.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "0.00",
+     "owed_share": "175.00",
+     "net_balance": "-175.00"
+    }
+   ]
+  },
+  {
+   "id": 500150,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Patong hotel last night",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": null,
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "5600.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 101,
+     "to": 103,
+     "amount": "1400.00"
+    },
+    {
+     "from": 102,
+     "to": 103,
+     "amount": "1400.00"
+    },
+    {
+     "from": 104,
+     "to": 103,
+     "amount": "1400.00"
+    }
+   ],
+   "date": "2026-01-20T09:00:00Z",
+   "created_at": "2026-01-20T09:05:00Z",
+   "created_by": {
+    "id": 103,
+    "first_name": "Meera",
+    "last_name": "Iyer",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-20T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Hotel"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "0.00",
+     "owed_share": "1400.00",
+     "net_balance": "-1400.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "0.00",
+     "owed_share": "1400.00",
+     "net_balance": "-1400.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "5600.00",
+     "owed_share": "1400.00",
+     "net_balance": "4200.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "0.00",
+     "owed_share": "1400.00",
+     "net_balance": "-1400.00"
+    }
+   ]
+  },
+  {
+   "id": 500151,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Simon Cabaret show",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": null,
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "3200.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 101,
+     "to": 104,
+     "amount": "800.00"
+    },
+    {
+     "from": 102,
+     "to": 104,
+     "amount": "800.00"
+    },
+    {
+     "from": 103,
+     "to": 104,
+     "amount": "800.00"
+    }
+   ],
+   "date": "2026-01-20T09:00:00Z",
+   "created_at": "2026-01-20T09:05:00Z",
+   "created_by": {
+    "id": 104,
+    "first_name": "Rohan",
+    "last_name": "Kapoor",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-20T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Entertainment"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "0.00",
+     "owed_share": "800.00",
+     "net_balance": "-800.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "0.00",
+     "owed_share": "800.00",
+     "net_balance": "-800.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "0.00",
+     "owed_share": "800.00",
+     "net_balance": "-800.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "3200.00",
+     "owed_share": "800.00",
+     "net_balance": "2400.00"
+    }
+   ]
+  },
+  {
+   "id": 500152,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Last dinner - Kalim seafood",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": null,
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "2600.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 102,
+     "to": 101,
+     "amount": "650.00"
+    },
+    {
+     "from": 103,
+     "to": 101,
+     "amount": "650.00"
+    },
+    {
+     "from": 104,
+     "to": 101,
+     "amount": "650.00"
+    }
+   ],
+   "date": "2026-01-20T09:00:00Z",
+   "created_at": "2026-01-20T09:05:00Z",
+   "created_by": {
+    "id": 101,
+    "first_name": "Himanshu",
+    "last_name": "Saini",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-20T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Dining out"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "2600.00",
+     "owed_share": "650.00",
+     "net_balance": "1950.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "0.00",
+     "owed_share": "650.00",
+     "net_balance": "-650.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "0.00",
+     "owed_share": "650.00",
+     "net_balance": "-650.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "0.00",
+     "owed_share": "650.00",
+     "net_balance": "-650.00"
+    }
+   ]
+  },
+  {
+   "id": 500153,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Duty free and gifts",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": null,
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "4100.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 101,
+     "to": 102,
+     "amount": "1025.00"
+    },
+    {
+     "from": 103,
+     "to": 102,
+     "amount": "1025.00"
+    },
+    {
+     "from": 104,
+     "to": 102,
+     "amount": "1025.00"
+    }
+   ],
+   "date": "2026-01-20T09:00:00Z",
+   "created_at": "2026-01-20T09:05:00Z",
+   "created_by": {
+    "id": 102,
+    "first_name": "Aarav",
+    "last_name": "Mehta",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-20T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Gifts"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "0.00",
+     "owed_share": "1025.00",
+     "net_balance": "-1025.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "4100.00",
+     "owed_share": "1025.00",
+     "net_balance": "3075.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "0.00",
+     "owed_share": "1025.00",
+     "net_balance": "-1025.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "0.00",
+     "owed_share": "1025.00",
+     "net_balance": "-1025.00"
+    }
+   ]
+  },
+  {
+   "id": 500154,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Grab to Phuket airport",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": null,
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "900.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 101,
+     "to": 103,
+     "amount": "225.00"
+    },
+    {
+     "from": 102,
+     "to": 103,
+     "amount": "225.00"
+    },
+    {
+     "from": 104,
+     "to": 103,
+     "amount": "225.00"
+    }
+   ],
+   "date": "2026-01-21T09:00:00Z",
+   "created_at": "2026-01-21T09:05:00Z",
+   "created_by": {
+    "id": 103,
+    "first_name": "Meera",
+    "last_name": "Iyer",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-21T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Taxi"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "0.00",
+     "owed_share": "225.00",
+     "net_balance": "-225.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "0.00",
+     "owed_share": "225.00",
+     "net_balance": "-225.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "900.00",
+     "owed_share": "225.00",
+     "net_balance": "675.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "0.00",
+     "owed_share": "225.00",
+     "net_balance": "-225.00"
+    }
+   ]
+  },
+  {
+   "id": 500155,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Airport lunch before HKT-DEL",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": null,
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "1240.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 101,
+     "to": 104,
+     "amount": "310.00"
+    },
+    {
+     "from": 102,
+     "to": 104,
+     "amount": "310.00"
+    },
+    {
+     "from": 103,
+     "to": 104,
+     "amount": "310.00"
+    }
+   ],
+   "date": "2026-01-21T09:00:00Z",
+   "created_at": "2026-01-21T09:05:00Z",
+   "created_by": {
+    "id": 104,
+    "first_name": "Rohan",
+    "last_name": "Kapoor",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-21T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Dining out"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "0.00",
+     "owed_share": "310.00",
+     "net_balance": "-310.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "0.00",
+     "owed_share": "310.00",
+     "net_balance": "-310.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "0.00",
+     "owed_share": "310.00",
+     "net_balance": "-310.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "1240.00",
+     "owed_share": "310.00",
+     "net_balance": "930.00"
+    }
+   ]
+  },
+  {
+   "id": 500156,
+   "group_id": 7731,
+   "friendship_id": null,
+   "expense_bundle_id": null,
+   "description": "Excess baggage HKT-DEL",
+   "repeats": false,
+   "repeat_interval": "never",
+   "email_reminder": false,
+   "email_reminder_in_advance": -1,
+   "next_repeat": null,
+   "details": null,
+   "comments_count": 0,
+   "payment": false,
+   "transaction_confirmed": false,
+   "cost": "2400.00",
+   "currency_code": "THB",
+   "repayments": [
+    {
+     "from": 102,
+     "to": 101,
+     "amount": "600.00"
+    },
+    {
+     "from": 103,
+     "to": 101,
+     "amount": "600.00"
+    },
+    {
+     "from": 104,
+     "to": 101,
+     "amount": "600.00"
+    }
+   ],
+   "date": "2026-01-21T09:00:00Z",
+   "created_at": "2026-01-21T09:05:00Z",
+   "created_by": {
+    "id": 101,
+    "first_name": "Himanshu",
+    "last_name": "Saini",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-21T09:05:00Z",
+   "updated_by": null,
+   "deleted_at": null,
+   "deleted_by": null,
+   "category": {
+    "id": 18,
+    "name": "Plane"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "2400.00",
+     "owed_share": "600.00",
+     "net_balance": "1800.00"
+    },
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "0.00",
+     "owed_share": "600.00",
+     "net_balance": "-600.00"
+    },
+    {
+     "user": {
+      "id": 103,
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 103,
+     "paid_share": "0.00",
+     "owed_share": "600.00",
+     "net_balance": "-600.00"
+    },
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "0.00",
+     "owed_share": "600.00",
+     "net_balance": "-600.00"
+    }
+   ]
+  },
+  {
+   "id": 500157,
+   "group_id": 7731,
+   "description": "Aarav paid Himanshu",
+   "details": null,
+   "payment": true,
+   "transaction_confirmed": true,
+   "cost": "12000.00",
+   "currency_code": "INR",
+   "repayments": [
+    {
+     "from": 102,
+     "to": 101,
+     "amount": "12000.00"
+    }
+   ],
+   "date": "2026-01-22T12:00:00Z",
+   "created_at": "2026-01-22T12:00:00Z",
+   "created_by": {
+    "id": 102,
+    "first_name": "Aarav",
+    "last_name": "Mehta",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-22T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 18,
+    "name": "Payment"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 102,
+      "first_name": "Aarav",
+      "last_name": "Mehta",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 102,
+     "paid_share": "12000.00",
+     "owed_share": "0.00",
+     "net_balance": "12000.00"
+    },
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "0.00",
+     "owed_share": "12000.00",
+     "net_balance": "-12000.00"
+    }
+   ]
+  },
+  {
+   "id": 500158,
+   "group_id": 7731,
+   "description": "Rohan paid Himanshu",
+   "details": null,
+   "payment": true,
+   "transaction_confirmed": true,
+   "cost": "8500.00",
+   "currency_code": "INR",
+   "repayments": [
+    {
+     "from": 104,
+     "to": 101,
+     "amount": "8500.00"
+    }
+   ],
+   "date": "2026-01-23T12:00:00Z",
+   "created_at": "2026-01-23T12:00:00Z",
+   "created_by": {
+    "id": 104,
+    "first_name": "Rohan",
+    "last_name": "Kapoor",
+    "picture": {
+     "medium": null,
+     "small": null,
+     "large": null
+    },
+    "custom_picture": false,
+    "registration_status": "confirmed"
+   },
+   "updated_at": "2026-01-23T12:00:00Z",
+   "deleted_at": null,
+   "category": {
+    "id": 18,
+    "name": "Payment"
+   },
+   "receipt": {
+    "large": null,
+    "original": null
+   },
+   "users": [
+    {
+     "user": {
+      "id": 104,
+      "first_name": "Rohan",
+      "last_name": "Kapoor",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 104,
+     "paid_share": "8500.00",
+     "owed_share": "0.00",
+     "net_balance": "8500.00"
+    },
+    {
+     "user": {
+      "id": 101,
+      "first_name": "Himanshu",
+      "last_name": "Saini",
+      "picture": {
+       "medium": null,
+       "small": null,
+       "large": null
+      },
+      "custom_picture": false,
+      "registration_status": "confirmed"
+     },
+     "user_id": 101,
+     "paid_share": "0.00",
+     "owed_share": "8500.00",
+     "net_balance": "-8500.00"
+    }
+   ]
+  }
+ ]
+}

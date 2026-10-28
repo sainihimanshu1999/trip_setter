@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+{% block title %}{{ trip_title }} &middot; bookings and tours{% endblock %}
+
+{% block content %}
+<script type="application/json" id="data-bookings">{{ bookings | tojson }}</script>
+<script type="application/json" id="data-places">{{ places | tojson }}</script>
+<script type="application/json" id="data-kinds">{{ kinds | tojson }}</script>
+
+<div class="stack">
+
+  <section class="grid kpis">
+    <article class="card kpi reveal">
+      <div class="label">Bookings</div>
+      <div class="value num">{{ bookings | length }}</div>
+      <div class="foot">{{ confirmed_count }} confirmed &middot; {{ idea_count }} still an idea</div>
+    </article>
+    {% for ccy, total in totals_by_currency.items() %}
+    <article class="card kpi reveal">
+      <div class="label">Committed in {{ ccy }}</div>
+      <div class="value num">{{ total | money(ccy) }}</div>
+      <div class="foot">excludes cancelled</div>
+    </article>
+    {% endfor %}
+    <article class="card kpi reveal">
+      <div class="label">Places</div>
+      <div class="value num">{{ places | length }}</div>
+      <div class="foot">
+        {% for p in places %}{{ p.name }}{% if not loop.last %} &middot; {% endif %}{% endfor %}
+      </div>
+    </article>
+  </section>
+
+  <section class="card reveal">
+    <div class="card-head">
+      <h2>Everything booked</h2>
+      <span class="sub">
+        <button class="btn primary" id="add-booking" type="button">
+          <svg viewBox="0 0 24 24" width="15" height="15"><use href="#i-plus"/></svg>
+          Add booking
+        </button>
+      </span>
+    </div>
+
+    <div class="filters" id="filters">
+      <button class="chip on" data-filter="all" type="button">
+        All <span class="n">{{ bookings | length }}</span>
+      </button>
+      {% for key, style in kinds.items() %}
+        {% set n = bookings | selectattr('kind', 'equalto', key) | list | length %}
+        {% if n %}
+        <button class="chip" data-filter="{{ key }}" type="button">
+          <svg viewBox="0 0 24 24" width="14" height="14" style="color:{{ style.colour }}">
+            <use href="#i-{{ style.glyph }}"/>
+          </svg>
+          {{ style.label }} <span class="n">{{ n }}</span>
+        </button>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <div class="bookings" id="booking-grid"></div>
+    <div class="empty" id="booking-empty" style="display:none">
+      <svg viewBox="0 0 24 24" width="34" height="34"><use href="#i-ticket"/></svg>
+      <span>Nothing matches that filter.</span>
+    </div>
+  </section>
+
+  <section class="card reveal">
+    <div class="card-head">
+      <h2>Trip timeline</h2>
+      <span class="sub">in the order it happens</span>
+    </div>
+    <div class="rail" id="rail"></div>
+  </section>
+
+</div>
+
+<!-- ===== add / edit dialog ============================================== -->
+<dialog id="booking-dialog">
+  <form id="booking-form" method="dialog">
+    <div class="dialog-head"><h2 id="dialog-title">Add a booking</h2></div>
+
+    <div class="dialog-body">
+      <div id="form-error" class="form-error" style="display:none"></div>
+
+      <div class="field">
+        <label for="f-title">Title</label>
+        <input id="f-title" name="title" required maxlength="200"
+               placeholder="Elephant Nature Park full day">
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="f-kind">Kind</label>
+          <select id="f-kind" name="kind">
+            {% for key, style in kinds.items() %}
+            <option value="{{ key }}">{{ style.label }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="field">
+          <label for="f-status">Status</label>
+          <select id="f-status" name="status">
+            <option value="confirmed">Confirmed</option>
+            <option value="pending">Pending</option>
+            <option value="idea">Just an idea</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="f-provider">Provider</label>
+          <input id="f-provider" name="provider" maxlength="120" placeholder="Agoda, AirAsia...">
+        </div>
+        <div class="field">
+          <label for="f-place">Place</label>
+          <select id="f-place" name="place_id">
+            <option value="">&mdash; not tied to a place &mdash;</option>
+            {% for p in places %}
+            <option value="{{ p.id }}">{{ p.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="f-url">Booking link</label>
+        <input id="f-url" name="url" type="url" placeholder="https://...">
+      </div>
+
+      <div class="field">
+        <label for="f-description">Description</label>
+        <textarea id="f-description" name="description"
+                  placeholder="What is included, where to meet, what to bring"></textarea>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="f-starts">Starts</label>
+          <input id="f-starts" name="starts_at" type="datetime-local">
+        </div>
+        <div class="field">
+          <label for="f-ends">Ends</label>
+          <input id="f-ends" name="ends_at" type="datetime-local">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="f-cost">Cost</label>
+          <input id="f-cost" name="cost" type="number" min="0" step="0.01" value="0">
+        </div>
+        <div class="field">
+          <label for="f-currency">Currency</label>
+          <select id="f-currency" name="currency">
+            <option value="THB">THB</option>
+            <option value="INR">INR</option>
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="f-confirmation">Confirmation ref</label>
+          <input id="f-confirmation" name="confirmation" maxlength="120">
+        </div>
+        <div class="field">
+          <label for="f-notes">Notes</label>
+          <input id="f-notes" name="notes" placeholder="Reminders to yourself">
+        </div>
+      </div>
+    </div>
+
+    <div class="dialog-foot">
+      <button class="btn ghost" type="button" id="dialog-cancel">Cancel</button>
+      <button class="btn primary" type="submit" id="dialog-save">Save booking</button>
+    </div>
+  </form>
+</dialog>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/bookings.js"></script>
+{% endblock %}

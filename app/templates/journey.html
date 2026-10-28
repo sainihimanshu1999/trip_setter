@@ -1,0 +1,184 @@
+{% extends "base.html" %}
+{% block title %}{{ trip_title }} &middot; journey map{% endblock %}
+
+{% block content %}
+<script type="application/json" id="data-journey">{{ journey | tojson }}</script>
+<script type="application/json" id="data-bookings-by-place">{{ bookings_by_place | tojson }}</script>
+
+<div class="stack">
+
+  <section class="card reveal">
+    <div class="card-head">
+      <h2>The route</h2>
+      <span class="sub">
+        every line is an expense &middot; hover or click one to see it
+      </span>
+    </div>
+
+    <!-- The panel is a sibling of #map, not a child: Journey.render() clears
+         the map container, which would otherwise delete it. -->
+    <div class="map-shell">
+      <div class="map-wrap" id="map" style="min-height:min(72vh,620px)"></div>
+      <div class="place-panel" id="place-panel">
+        <button class="close" id="panel-close" type="button" aria-label="Close">
+          <svg viewBox="0 0 24 24" width="14" height="14"><use href="#i-x"/></svg>
+        </button>
+        <div id="panel-body"></div>
+      </div>
+    </div>
+
+    <div class="legend" id="legend">
+      {% for m in journey.legend %}
+      <span class="legend-item" data-mode="{{ m.mode }}" title="Click to hide {{ m.label }} lines">
+        <i class="ln" style="border-top-color:{{ m.colour }}"></i>
+        {{ m.label }}
+        <b class="amt">{{ m.cost | money(journey.currency) }}</b>
+        <span style="color:var(--ink-2)">&times;{{ m.count }}</span>
+      </span>
+      {% endfor %}
+      <button class="btn ghost" id="replay" type="button" style="margin-left:auto">
+        <svg viewBox="0 0 24 24" width="15" height="15"><use href="#i-refresh"/></svg>
+        Replay
+      </button>
+    </div>
+
+    <p class="hint">
+      A faint dashed line is a leg from the itinerary that nobody has split an
+      expense for yet. Once the expense exists in Splitwise, the line fills in
+      and a vehicle starts running along it. Loops around a city are local
+      rides: cabs, tuk tuks, the Skytrain.
+    </p>
+  </section>
+
+  <section class="grid halves">
+    <article class="card reveal">
+      <div class="card-head">
+        <h2>Legs</h2>
+        <span class="sub">{{ journey.totals.legs }} between places</span>
+      </div>
+      <div class="rail">
+        {% for e in journey.edges if e.kind == 'leg' %}
+        <div class="rail-item" style="--c:{{ e.colour }}">
+          <div class="when">
+            {% if e.depart_at %}{{ e.depart_at[:10] }}{% endif %}
+            &middot; {{ e.mode_label }}
+            {% if e.duration_minutes %}&middot; {{ (e.duration_minutes // 60) }}h {{ (e.duration_minutes % 60) }}m{% endif %}
+          </div>
+          <div class="what">
+            {{ e.from | replace('-', ' ') | title }} &rarr; {{ e.to | replace('-', ' ') | title }}
+            {% if e.label %}<span style="color:var(--ink-2)"> &middot; {{ e.label }}</span>{% endif %}
+          </div>
+          <div class="when">
+            {% if e.has_spend %}
+              {{ e.cost | money(journey.currency) }} split
+            {% else %}
+              <span style="color:var(--accent)">no expense yet</span>
+            {% endif %}
+            {% if e.booking_url %}
+              &middot; <a href="{{ e.booking_url }}" target="_blank" rel="noopener noreferrer">operator</a>
+            {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </article>
+
+    <article class="card reveal">
+      <div class="card-head">
+        <h2>Spend by place</h2>
+        <span class="sub">node size on the map</span>
+      </div>
+      <div id="place-bars"></div>
+    </article>
+  </section>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/journey.js"></script>
+<script>
+(() => {
+  const journey = App.readData('data-journey');
+  const byPlace = App.readData('data-bookings-by-place') || {};
+  const ccy = journey.currency;
+
+  const panel = document.getElementById('place-panel');
+  const body = document.getElementById('panel-body');
+
+  function showPlace(node) {
+    const bookings = byPlace[node.id] || [];
+    const buckets = Object.entries(node.buckets)
+      .sort((a, b) => b[1] - a[1])
+      .map(([k, v]) => `<div class="row"><span>${App.escapeHtml(k)}</span><span>${App.money(v, ccy)}</span></div>`)
+      .join('');
+
+    body.innerHTML = `
+      <h3>${App.escapeHtml(node.name)}</h3>
+      <div class="meta">
+        ${App.escapeHtml(node.region || node.country)}
+        ${node.nights ? ` &middot; ${node.nights} night${node.nights === 1 ? '' : 's'}` : ''}
+        ${node.arrive_on ? ` &middot; ${App.fmtDate(node.arrive_on)}` : ''}
+      </div>
+      ${node.blurb ? `<p class="blurb">${App.escapeHtml(node.blurb)}</p>` : ''}
+      <div class="row"><span>Total spent here</span><span>${App.money(node.spend, ccy)}</span></div>
+      <div class="row"><span>Expenses</span><span>${node.expense_count}</span></div>
+      <div class="row"><span>Bookings</span><span>${node.booking_count}</span></div>
+      ${buckets}
+      ${node.top_expenses.length ? `
+        <div class="meta" style="margin:12px 0 4px">Biggest here</div>
+        ${node.top_expenses.map((x) => `
+          <div class="row"><span>${App.escapeHtml(x.description)}</span><span>${App.moneyShort(x.amount, ccy)}</span></div>
+        `).join('')}` : ''}
+      ${bookings.length ? `
+        <div class="meta" style="margin:12px 0 4px">Booked</div>
+        ${bookings.map((b) => `
+          <div class="row">
+            <span>${b.url
+              ? `<a href="${App.escapeHtml(b.url)}" target="_blank" rel="noopener noreferrer">${App.escapeHtml(b.title)}</a>`
+              : App.escapeHtml(b.title)}</span>
+            <span>${b.cost ? App.moneyShort(b.cost, b.currency) : ''}</span>
+          </div>`).join('')}` : ''}`;
+
+    panel.classList.add('show');
+    document.querySelectorAll('.node-g').forEach((g) => {
+      g.classList.toggle('active', g.dataset.node === node.id);
+    });
+  }
+
+  const map = Journey.render(document.getElementById('map'), journey, {
+    onNode: showPlace,
+    interactive: true,
+  });
+  Journey.wireLegend(document.getElementById('legend'), map.svg);
+
+  document.getElementById('panel-close').addEventListener('click', () => {
+    panel.classList.remove('show');
+    document.querySelectorAll('.node-g.active').forEach((g) => g.classList.remove('active'));
+  });
+
+  document.getElementById('replay').addEventListener('click', () => map.replay());
+
+  // Spend-by-place bars reuse the category bar styling.
+  const host = document.getElementById('place-bars');
+  const ranked = [...journey.nodes].sort((a, b) => b.spend - a.spend);
+  const top = ranked[0]?.spend || 1;
+  host.innerHTML = ranked.map((n) => `
+    <div class="bucket" style="--c:var(--ink)">
+      <div class="bucket-top">
+        <i class="swatch" style="background:var(--ink)"></i>
+        <span>${App.escapeHtml(n.name)}</span>
+        <span class="pc num">${n.expense_count} items</span>
+        <span class="amt num">${App.moneyShort(n.spend, ccy)}</span>
+      </div>
+      <div class="track"><div class="fill" data-w="${((n.spend / top) * 100).toFixed(2)}"></div></div>
+    </div>`).join('');
+  requestAnimationFrame(() => {
+    host.querySelectorAll('.fill').forEach((f, i) => {
+      setTimeout(() => { f.style.width = `${f.dataset.w}%`; },
+        App.reduceMotion ? 0 : 140 + i * 90);
+    });
+  });
+})();
+</script>
+{% endblock %}

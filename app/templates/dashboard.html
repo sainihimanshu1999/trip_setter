@@ -1,0 +1,221 @@
+{% extends "base.html" %}
+{% block title %}{{ trip_title }} &middot; spend dashboard{% endblock %}
+
+{% block content %}
+{% set o = overview %}
+
+<!-- First-paint data, so numbers are on screen before any JS runs ---------->
+<script type="application/json" id="data-overview">{{ o | tojson }}</script>
+<script type="application/json" id="data-buckets">{{ buckets | tojson }}</script>
+<script type="application/json" id="data-timeline">{{ timeline | tojson }}</script>
+<script type="application/json" id="data-journey">{{ journey | tojson }}</script>
+
+<div class="stack">
+
+  <!-- ===== KPI row ===================================================== -->
+  <section class="grid kpis">
+    <article class="card kpi reveal">
+      <div class="label">Total spent</div>
+      <div class="value num" id="kpi-total">{{ o.total_spend | money(o.currency) }}</div>
+      <div class="foot">{{ o.expense_count }} expenses &middot; {{ o.head_count }} people</div>
+    </article>
+
+    <article class="card kpi reveal">
+      <div class="label">Each person's share</div>
+      <div class="value num" id="kpi-head">{{ o.per_head | money(o.currency) }}</div>
+      <div class="foot">split evenly across the group</div>
+    </article>
+
+    <article class="card kpi reveal">
+      <div class="label">Getting around</div>
+      <div class="value num" id="kpi-transport">{{ o.transport_spend | money(o.currency) }}</div>
+      <div class="foot">
+        {{ journey.totals.legs }} legs &middot; {{ journey.totals.local }} local hops
+      </div>
+    </article>
+
+    <article class="card kpi reveal">
+      <div class="label">Booked in advance</div>
+      <div class="value num">{{ o.prebooked | money(o.currency) }}</div>
+      <div class="foot">paid before the trip started</div>
+    </article>
+
+    <article class="card kpi reveal">
+      <div class="label">Biggest day</div>
+      <div class="value num">{{ o.biggest_day.amount | money(o.currency) }}</div>
+      <div class="foot">{{ o.biggest_day.date | prettydate }}, the heaviest day of the trip</div>
+    </article>
+  </section>
+
+  <!-- ===== people + journey ============================================ -->
+  <section class="grid halves">
+    <article class="card reveal">
+      <div class="card-head">
+        <h2>Who spent what</h2>
+        <span class="sub">bar length = money actually paid out</span>
+      </div>
+      <div class="people" id="people-chart"></div>
+      <p class="hint">
+        The vertical tick is the even share ({{ o.per_head | money(o.currency) }}).
+        Past it means that person is owed money.
+      </p>
+    </article>
+
+    <article class="card reveal">
+      <div class="card-head">
+        <h2>Journey</h2>
+        <span class="sub"><a href="/journey">open full map &rarr;</a></span>
+      </div>
+      <div class="map-wrap compact" id="mini-map"></div>
+      <div class="legend" id="mini-legend">
+        {% for m in journey.legend %}
+        <span class="legend-item" data-mode="{{ m.mode }}">
+          <i class="ln" style="border-top-color:{{ m.colour }}"></i>
+          {{ m.label }}
+          <b class="amt">{{ m.cost | money(o.currency) }}</b>
+        </span>
+        {% endfor %}
+      </div>
+      <p class="hint">
+        Every line is an expense someone split. Hover one on the full map to
+        see the amount, the date and who paid.
+      </p>
+    </article>
+  </section>
+
+  <!-- ===== categories + settlements ==================================== -->
+  <section class="grid halves">
+    <article class="card reveal">
+      <div class="card-head">
+        <h2>Where the money went</h2>
+        <span class="sub">share of {{ o.total_spend | money(o.currency) }}</span>
+      </div>
+      <div id="buckets-chart"></div>
+      <p class="hint">
+        Buckets come from each expense's Splitwise category and its description,
+        so &ldquo;Grab to the airport&rdquo; counts as getting around even when it
+        is filed under something vague.
+      </p>
+    </article>
+
+    <article class="card reveal">
+      <div class="card-head">
+        <h2>Settling up</h2>
+        <span class="sub">fewest transfers that clear everything</span>
+      </div>
+      <div id="settle-graph"></div>
+      <div class="settle-list" id="settle-list" style="margin-top:16px"></div>
+    </article>
+  </section>
+
+  <!-- ===== timeline ==================================================== -->
+  <section class="card reveal">
+    <div class="card-head">
+      <h2>Day by day</h2>
+      <span class="sub">
+        {% if timeline.window %}{{ timeline.window[0] }} to {{ timeline.window[1] }}{% endif %}
+        {% if timeline.prebooked %}
+          &middot; plus {{ timeline.prebooked | money(o.currency) }} booked earlier
+        {% endif %}
+      </span>
+    </div>
+    <div class="timeline" id="timeline-chart"></div>
+  </section>
+
+  <!-- ===== recent expenses ============================================= -->
+  <section class="card reveal">
+    <div class="card-head">
+      <h2>Latest expenses</h2>
+      <span class="sub">newest first</span>
+    </div>
+    <div id="expense-list" class="exp-list"></div>
+  </section>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/charts.js"></script>
+<script src="/static/js/journey.js"></script>
+<script>
+(() => {
+  const overview = App.readData('data-overview');
+  const buckets  = App.readData('data-buckets');
+  const timeline = App.readData('data-timeline');
+  const journey  = App.readData('data-journey');
+  const ccy = overview.currency;
+
+  // Re-run the KPI numbers as count-ups now that JS is live.
+  const kpi = (id, value) => {
+    const el = document.getElementById(id);
+    if (el) App.countUp(el, value, { currency: ccy });
+  };
+  kpi('kpi-total', overview.total_spend);
+  kpi('kpi-head', overview.per_head);
+  kpi('kpi-transport', overview.transport_spend);
+
+  Charts.people(document.getElementById('people-chart'), {
+    people: overview.people, currency: ccy, per_head: overview.per_head,
+  });
+  Charts.buckets(document.getElementById('buckets-chart'), buckets);
+  Charts.timeline(document.getElementById('timeline-chart'), timeline);
+  Charts.settlements(document.getElementById('settle-list'), {
+    settlements: overview.settlements, currency: ccy,
+  });
+  Charts.settlementGraph(document.getElementById('settle-graph'), {
+    settlements: overview.settlements,
+    balances: overview.people.map((p) => ({
+      id: p.id, name: p.name, first_name: p.first_name,
+      initials: p.initials, balance: p.balance,
+      color: p.color, avatar_3d: p.avatar_3d,
+    })),
+    currency: ccy,
+  });
+
+  const mini = Journey.render(document.getElementById('mini-map'), journey, {
+    interactive: true,
+  });
+  Journey.wireLegend(document.getElementById('mini-legend'), mini.svg);
+
+  // Recent expenses, fetched after first paint so the page lands fast.
+  App.api('/api/expenses?limit=14').then((payload) => {
+    const host = document.getElementById('expense-list');
+    host.innerHTML = payload.expenses.map((e) => `
+      <div class="exp">
+        <span class="exp-mode" style="--c:var(${MODE_VAR[e.mode] || '--ink-2'})">
+          <svg viewBox="0 0 24 24" width="15" height="15"><use href="#i-${iconFor(e)}"/></svg>
+        </span>
+        <div class="exp-main">
+          <div class="exp-desc">${App.escapeHtml(e.description)}</div>
+          <div class="exp-meta">
+            ${App.fmtDate(e.date)}
+            ${e.payers.length ? '&middot; ' + App.escapeHtml(e.payers.join(', ')) + ' paid' : ''}
+            ${e.category ? '&middot; ' + App.escapeHtml(e.category) : ''}
+          </div>
+        </div>
+        <div class="exp-amt num">
+          ${App.money(e.home_cost, ccy)}
+          ${e.currency !== ccy ? `<span class="orig">${App.money(e.cost, e.currency)}</span>` : ''}
+        </div>
+      </div>`).join('');
+  }).catch((err) => App.toast(err.message, 'bad'));
+
+  const MODE_ICON = {
+    plane: 'plane', train: 'train', cab: 'car', ferry: 'boat',
+    bus: 'bus', bike: 'bike', walk: 'walk',
+  };
+  // Keeps an expense row the same colour as its line on the map.
+  const MODE_VAR = {
+    plane: '--c-plane', train: '--c-train', cab: '--c-cab', ferry: '--c-ferry',
+    bus: '--c-bus', bike: '--c-bike', walk: '--c-walk',
+  };
+  const BUCKET_ICON = {
+    stay: 'bed', food: 'bowl', activity: 'ticket',
+    shopping: 'bag', fees: 'stamp', travel: 'route', misc: 'dot',
+  };
+  function iconFor(e) {
+    return MODE_ICON[e.mode] || BUCKET_ICON[e.bucket] || 'dot';
+  }
+})();
+</script>
+{% endblock %}

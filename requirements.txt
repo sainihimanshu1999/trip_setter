@@ -1,0 +1,12 @@
+# Verified working on Python 3.14.8 (macOS arm64)
+fastapi==0.162.0
+uvicorn[standard]==0.54.0
+httpx==0.28.1
+jinja2==3.1.6
+pydantic==2.14.1
+pydantic-settings==2.16.1
+sqlalchemy==2.1.6
+python-dotenv==1.2.4
+
+# dev / test
+pytest==8.3.4
