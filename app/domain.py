@@ -129,10 +129,6 @@ class Expense:
     reason: str = ""
     #: Cost converted into the home currency; filled in by the FX layer.
     home_cost: Decimal = ZERO
-    #: The date the export carried, when `date` has been corrected. None means
-    #: `date` is exactly what Splitwise said. Kept so a corrected figure can
-    #: always be traced back to what it was corrected from.
-    original_date: date | None = None
 
     @classmethod
     def from_api(cls, raw: dict) -> "Expense":
@@ -184,9 +180,6 @@ class Expense:
             "currency": self.currency,
             "home_cost": float(self.home_cost),
             "date": self.date.isoformat() if self.date else None,
-            "original_date": (
-                self.original_date.isoformat() if self.original_date else None
-            ),
             "category": self.category,
             "mode": str(self.mode),
             "bucket": str(self.bucket),

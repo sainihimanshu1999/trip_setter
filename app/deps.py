@@ -22,14 +22,10 @@ class TripService:
         self.client = SplitwiseClient(settings)
         self.fx = FxConverter(settings)
 
-    @property
-    def window(self) -> tuple:
-        return (self.settings.trip_start, self.settings.trip_end)
-
     async def analytics(self) -> Analytics:
         """Fetch (cached) expenses and fold them into the computed view."""
         trip = await self.client.fetch_trip()
-        return build_analytics(trip, self.fx, self.window)
+        return build_analytics(trip, self.fx)
 
     async def startup(self) -> None:
         await self.fx.refresh()

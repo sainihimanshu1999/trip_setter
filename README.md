@@ -97,7 +97,8 @@ flight booking can share a chart. Rates come from
 ## The three pages
 
 **Dashboard** — total spend, each person's share, per-person expenditure bars
-with a tick showing the even split, category breakdown, the day-by-day
+with a tick showing the even split and each person's actual balance beside
+their name, category breakdown, the day-by-day
 timeline, and who owes whom as both a list and an arc graph. Everyone gets a
 colour and an avatar, both derived from their name, so the same person reads
 the same way on every chart.
@@ -208,7 +209,7 @@ in both.
 | `GET /api/people` | the expenditure bar data |
 | `GET /api/categories` | spend by bucket |
 | `GET /api/modes` | spend by transport mode |
-| `GET /api/timeline` | daily spend across the trip window |
+| `GET /api/timeline` | spend per expense date |
 | `GET /api/settlements` | who pays whom, and live balances |
 | `GET /api/expenses` | classified expenses; `?mode=`, `?bucket=`, `?limit=` |
 | `GET /api/journey` | nodes and edges for the map |

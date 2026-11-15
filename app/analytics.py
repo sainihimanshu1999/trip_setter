@@ -186,13 +186,6 @@ class Analytics:
     total_spend: Decimal = ZERO
     total_settled: Decimal = ZERO
     currencies: dict[str, Decimal] = field(default_factory=dict)
-    #: Spending dated before the trip window, e.g. flights booked months out.
-    prebooked: Decimal = ZERO
-    #: Spending dated after the trip window, e.g. a stay added once home. Not a
-    #: category of its own, just a signal that the configured window has gone
-    #: stale as more rows arrive.
-    after: Decimal = ZERO
-    window: tuple[date, date] | None = None
 
     @property
     def currency(self) -> str:
@@ -209,31 +202,22 @@ class Analytics:
 
     @property
     def biggest_day(self) -> tuple[date | None, Decimal]:
-        """Heaviest spending day inside the trip window.
+        """The date the most money was spent on.
 
-        Both ends are excluded for the same reason: a date outside the window
-        is an entry date, not a day of the trip. A flight bought in December
-        would otherwise always win, and a stay typed in once everyone got home
-        would too. Both have their own figures, `prebooked` and `after`.
+        An expense date is the date on the expense and nothing more. It does
+        not say the group was anywhere, or that a trip was underway, so there
+        is no window to keep this inside: the answer is simply the heaviest
+        date in the data.
         """
-        candidates = self.by_day
-        if self.window:
-            start, end = self.window
-            in_window = {d: v for d, v in self.by_day.items() if start <= d <= end}
-            candidates = in_window or self.by_day
-        if not candidates:
+        if not self.by_day:
             return None, ZERO
-        day, amount = max(candidates.items(), key=lambda kv: kv[1])
+        day, amount = max(self.by_day.items(), key=lambda kv: kv[1])
         return day, amount
 
 
-def build_analytics(
-    trip: TripData,
-    fx: FxConverter,
-    window: tuple[date, date] | None = None,
-) -> Analytics:
+def build_analytics(trip: TripData, fx: FxConverter) -> Analytics:
     """Fold every expense into per-person, per-bucket and per-day totals."""
-    out = Analytics(trip=trip, fx=fx, window=window)
+    out = Analytics(trip=trip, fx=fx)
 
     totals: dict[int, PersonTotals] = {
         p.id: PersonTotals(person=p, by_bucket={}) for p in trip.people
@@ -260,10 +244,6 @@ def build_analytics(
             currency_sums[expense.currency] += expense.cost
             if expense.date:
                 day_sums[expense.date] += home_cost
-                if window and expense.date < window[0]:
-                    out.prebooked += home_cost
-                elif window and expense.date > window[1]:
-                    out.after += home_cost
 
         for share in expense.shares:
             paid_home = fx.convert(share.paid, expense.currency)
@@ -315,8 +295,6 @@ def overview_payload(a: Analytics) -> dict:
         "fetched_at": a.trip.fetched_at.isoformat() if a.trip.fetched_at else None,
         "total_spend": float(a.total_spend.quantize(CENTS)),
         "total_settled": float(a.total_settled.quantize(CENTS)),
-        "prebooked": float(a.prebooked.quantize(CENTS)),
-        "after": float(a.after.quantize(CENTS)),
         "per_head": float(a.per_head),
         "head_count": a.head_count,
         "expense_count": len([e for e in a.trip.expenses if not e.is_payment]),
@@ -376,36 +354,30 @@ def modes_payload(a: Analytics) -> dict:
 
 
 def timeline_payload(a: Analytics) -> dict:
-    """Daily spend across the trip, gap-filled so no days are missing.
+    """Spend per date, gap-filled so the time axis is continuous.
 
-    The chart covers the configured trip window and nothing else, because a
-    date outside it is an entry date rather than a day of the trip: a flight
-    bought months ahead, or a stay typed into Splitwise once everyone got
-    home. Stretching the axis to reach those would draw empty weeks and imply
-    a trip that never happened -- this trip is 13 days, and two late-entered
-    stays would make it 26.
+    The axis runs from the earliest dated expense to the latest, and that is
+    the whole rule. An expense date is the date written on the expense; it does
+    not mean anybody was travelling that day, so there is no trip window to
+    draw inside and no before-or-after split to report. Every dated expense is
+    a bar.
 
-    So money outside the window is reported rather than drawn, as `prebooked`
-    before the start and `after` past the end. The identity that keeps this
-    chart honest against the "Total spent" tile is:
+        sum(days) == total_spend, minus anything with no date at all
 
-        sum(days) + prebooked + after == total_spend
-
-    If a trip genuinely did run longer, TRIP_END is the thing to change. The
-    configured window is the single source of truth on purpose; inferring it
-    from whatever dates happen to be in the data cannot tell a long trip apart
-    from a late entry.
+    Undated expenses cannot be placed on a time axis, so they are counted
+    separately rather than silently dropped onto a guessed date.
     """
     if not a.by_day:
-        return {
-            "currency": a.currency, "days": [], "max": 0.0,
-            "prebooked": 0.0, "after": 0.0, "window": None,
-        }
+        return {"currency": a.currency, "days": [], "max": 0.0,
+                "undated": 0.0, "window": None}
 
-    start, end = a.window if a.window else (min(a.by_day), max(a.by_day))
+    start, end = min(a.by_day), max(a.by_day)
 
-    prebooked = sum((amt for day, amt in a.by_day.items() if day < start), ZERO)
-    after = sum((amt for day, amt in a.by_day.items() if day > end), ZERO)
+    undated = sum(
+        (e.home_cost for e in a.trip.expenses
+         if not e.is_payment and e.date is None),
+        ZERO,
+    )
 
     by_day_expenses: dict[date, list] = defaultdict(list)
     for expense in a.trip.expenses:
@@ -433,8 +405,7 @@ def timeline_payload(a: Analytics) -> dict:
         "currency": a.currency,
         "days": days,
         "max": peak,
-        "prebooked": float(prebooked.quantize(CENTS)),
-        "after": float(after.quantize(CENTS)),
+        "undated": float(undated.quantize(CENTS)),
         "window": [start.isoformat(), end.isoformat()],
     }
 

@@ -35,15 +35,15 @@
     </article>
 
     <article class="card kpi reveal">
-      <div class="label">Booked in advance</div>
-      <div class="value num">{{ o.prebooked | money(o.currency) }}</div>
-      <div class="foot">paid before the trip started</div>
+      <div class="label">Settled up so far</div>
+      <div class="value num">{{ o.total_settled | money(o.currency) }}</div>
+      <div class="foot">already repaid between people</div>
     </article>
 
     <article class="card kpi reveal">
       <div class="label">Biggest day</div>
       <div class="value num">{{ o.biggest_day.amount | money(o.currency) }}</div>
-      <div class="foot">{{ o.biggest_day.date | prettydate }}, the heaviest day of the trip</div>
+      <div class="foot">{{ o.biggest_day.date | prettydate }}, the heaviest single date</div>
     </article>
   </section>
 
@@ -122,26 +122,23 @@
     <div class="card-head">
       <h2>Day by day</h2>
       <span class="sub">
-        {% if timeline.window %}{{ timeline.window[0] }} to {{ timeline.window[1] }}{% endif %}
-        {% if timeline.prebooked %}
-          &middot; plus {{ timeline.prebooked | money(o.currency) }} booked earlier
-        {% endif %}
-        {% if timeline.after %}
-          &middot; plus {{ timeline.after | money(o.currency) }} dated after the trip
+        spend by expense date
+        {% if timeline.window %}
+          &middot; {{ timeline.window[0] | prettydate }} to
+          {{ timeline.window[1] | prettydate }}
         {% endif %}
       </span>
     </div>
     <div class="timeline" id="timeline-chart"></div>
-    {% if timeline.after %}
     <p class="hint">
-      {{ timeline.after | money(o.currency) }} is dated after
-      {{ trip_end | prettydate }}, so it sits outside the chart but is counted
-      in the total above. That usually means the expense was added to
-      Splitwise after everyone got home and kept the day it was typed in
-      rather than the day it was spent &mdash; worth correcting at the source,
-      since the date is what places it on this chart.
+      Each bar is the date on the expense, which is whatever date it was given
+      in Splitwise. It does not say anyone was anywhere that day, so a flight
+      sits on the day it was paid for rather than the day it was taken.
+      {% if timeline.undated %}
+        A further {{ timeline.undated | money(o.currency) }} has no date at all
+        and cannot be placed on this axis, though it is counted in the total.
+      {% endif %}
     </p>
-    {% endif %}
   </section>
 
   <!-- ===== recent expenses ============================================= -->
@@ -218,7 +215,6 @@
           <div class="exp-desc">${App.escapeHtml(e.description)}</div>
           <div class="exp-meta">
             ${App.fmtDate(e.date)}
-            ${e.original_date ? `<span class="exp-fixed" title="Splitwise has this on ${App.escapeHtml(App.fmtDate(e.original_date))}, which is when it was entered rather than spent. Corrected in trip.toml.">&middot; date corrected</span>` : ''}
             ${e.payers.length ? '&middot; ' + App.escapeHtml(e.payers.join(', ')) + ' paid' : ''}
             ${e.category ? '&middot; ' + App.escapeHtml(e.category) : ''}
           </div>

@@ -76,13 +76,20 @@ def test_balances_sum_to_zero(analytics):
     assert abs(sum(p.balance for p in analytics.people)) < Decimal("0.1")
 
 
-def test_prebooked_is_spending_before_the_window(analytics, settings):
-    assert analytics.prebooked > 0
-    early = sum(
+def test_every_dated_expense_is_on_the_timeline(analytics):
+    """No date is special, so nothing may be left off the axis.
+
+    An expense date is the date on the expense. It does not mean the group was
+    travelling, so there is no window to fall outside of and no spending that
+    is counted in the total but absent from the chart.
+    """
+    payload = timeline_payload(analytics)
+    charted = sum(Decimal(str(d["amount"])) for d in payload["days"])
+    undated = sum(
         e.home_cost for e in analytics.trip.expenses
-        if e.date and e.date < settings.trip_start and not e.is_payment
+        if not e.is_payment and e.date is None
     )
-    assert abs(analytics.prebooked - early) < CENT
+    assert abs(charted + undated - analytics.total_spend) < Decimal("1")
 
 
 # ------------------------------------------------------------ settlements
@@ -142,7 +149,8 @@ def test_overview_payload_shape(analytics):
     payload = overview_payload(analytics)
     for key in (
         "currency", "total_spend", "per_head", "head_count", "expense_count",
-        "transport_spend", "prebooked", "biggest_day", "people", "settlements", "fx",
+        "transport_spend", "total_settled", "biggest_day", "people",
+        "settlements", "fx",
     ):
         assert key in payload, f"missing {key}"
     assert payload["currency"] == "INR"
@@ -150,12 +158,13 @@ def test_overview_payload_shape(analytics):
     assert all(0.0 <= p["bar_ratio"] <= 1.0 for p in payload["people"])
 
 
-def test_biggest_day_is_inside_the_trip_window(analytics, settings):
-    """A flight bought in December must not win 'biggest day'."""
+def test_biggest_day_is_the_heaviest_date_in_the_data(analytics):
+    """Simply the heaviest date, with no window to sit inside."""
     day, amount = analytics.biggest_day
     assert day is not None
-    assert settings.trip_start <= day <= settings.trip_end
     assert amount > 0
+    assert amount == max(analytics.by_day.values())
+    assert analytics.by_day[day] == amount
 
 
 def test_bucket_shares_sum_to_one(analytics):
@@ -170,16 +179,18 @@ def test_modes_payload_excludes_non_transport(analytics):
     assert all(m["count"] > 0 for m in payload["modes"])
 
 
-def test_timeline_is_bounded_and_gap_filled(analytics, settings):
+def test_timeline_spans_the_data_and_is_gap_filled(analytics):
+    """The axis runs from the earliest dated expense to the latest."""
     payload = timeline_payload(analytics)
     days = payload["days"]
     assert days
-    assert payload["window"][0] == settings.trip_start.isoformat()
-    # Contiguous: 12 days inclusive from 10 to 21 January.
-    assert len(days) == 12
+    dated = [e.date for e in analytics.trip.expenses if e.date and not e.is_payment]
+    assert payload["window"][0] == min(dated).isoformat()
+    assert payload["window"][1] == max(dated).isoformat()
+    # Contiguous and ascending, with every intervening day present.
     dates = [d["date"] for d in days]
     assert dates == sorted(dates)
-    assert payload["prebooked"] > 0
+    assert len(days) == (max(dated) - min(dated)).days + 1
     assert payload["max"] == max(d["amount"] for d in days)
 
 

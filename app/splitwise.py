@@ -283,11 +283,7 @@ def _load_csv_trip(settings: Settings) -> TripData:
     try:
         # A blank Currency cell is scaled by whatever we guess, so guess the
         # currency the trip is actually spent in rather than a module default.
-        trip = load_csv(
-            csv_path,
-            default_currency=settings.trip_currency,
-            date_corrections=settings.date_corrections,
-        )
+        trip = load_csv(csv_path, default_currency=settings.trip_currency)
         log.info("Loaded %d expenses from CSV: %s", len(trip.expenses), csv_path)
         return trip
     except (ValueError, OSError) as exc:

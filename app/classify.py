@@ -64,14 +64,22 @@ MODE_STYLE: dict[Mode, dict[str, object]] = {
     Mode.WALK: {"label": "Walk", "glyph": "walk", "colour": "#6b7280", "arc": 0.08, "dash": "2 7", "speed": 2.2},
 }
 
+#: Presentation metadata for spend buckets.
+#:
+#: Deliberately sharing no colour with MODE_STYLE above. The dashboard shows
+#: the category breakdown and the journey map's mode legend side by side, and
+#: these two palettes used to overlap exactly: "Getting around" was drawn in
+#: the plane blue and "Stays" in the train violet, so a reader comparing the
+#: two charts saw accommodation in the colour the map uses for rail. Activities
+#: and shopping collided with ferry and bus the same way.
 BUCKET_STYLE: dict[Bucket, dict[str, str]] = {
-    Bucket.TRAVEL: {"label": "Getting around", "colour": "#2563eb", "icon": "route"},
-    Bucket.STAY: {"label": "Stays", "colour": "#7c3aed", "icon": "bed"},
-    Bucket.FOOD: {"label": "Food & drink", "colour": "#ea580c", "icon": "bowl"},
-    Bucket.ACTIVITY: {"label": "Tours & activities", "colour": "#0d9488", "icon": "ticket"},
-    Bucket.SHOPPING: {"label": "Shopping", "colour": "#db2777", "icon": "bag"},
-    Bucket.FEES: {"label": "Visas & fees", "colour": "#ca8a04", "icon": "stamp"},
-    Bucket.MISC: {"label": "Everything else", "colour": "#717171", "icon": "dot"},
+    Bucket.TRAVEL: {"label": "Getting around", "colour": "#0e7490", "icon": "route"},
+    Bucket.STAY: {"label": "Stays", "colour": "#a21caf", "icon": "bed"},
+    Bucket.FOOD: {"label": "Food & drink", "colour": "#c2410c", "icon": "bowl"},
+    Bucket.ACTIVITY: {"label": "Tours & activities", "colour": "#15803d", "icon": "ticket"},
+    Bucket.SHOPPING: {"label": "Shopping", "colour": "#be123c", "icon": "bag"},
+    Bucket.FEES: {"label": "Visas & fees", "colour": "#a16207", "icon": "stamp"},
+    Bucket.MISC: {"label": "Everything else", "colour": "#52525b", "icon": "dot"},
 }
 
 

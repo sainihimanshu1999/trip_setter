@@ -59,7 +59,7 @@ def trip():
 @pytest.fixture
 def analytics(trip, settings):
     fx = FxConverter(settings)
-    return build_analytics(trip, fx, (settings.trip_start, settings.trip_end))
+    return build_analytics(trip, fx)
 
 
 @pytest.fixture

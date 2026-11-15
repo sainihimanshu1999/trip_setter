@@ -63,7 +63,10 @@ async def people(analytics: AnalyticsDep) -> dict:
         "currency": analytics.currency,
         "total": float(analytics.total_spend),
         "per_head": float(analytics.per_head),
-        "people": [p.as_json(max_paid) for p in analytics.people],
+        # The index is the colour: without it every person came back as
+        # person_colour(0), so this endpoint painted the whole group red while
+        # /api/overview gave each one a distinct colour.
+        "people": [p.as_json(max_paid, i) for i, p in enumerate(analytics.people)],
     }
 
 
@@ -194,12 +197,7 @@ async def ingest(analytics: AnalyticsDep) -> dict:
             "owed_matches_total": abs(owed - a.total_spend) < Decimal("1"),
             "balances_sum_to_zero": abs(balances) < Decimal("1"),
             "charted": float(charted),
-            "prebooked": float(a.prebooked.quantize(CENTS)),
-            "beyond_chart": timeline["after"],
-            "chart_matches_total": abs(
-                charted + a.prebooked + Decimal(str(timeline["after"])) - a.total_spend
-            ) < Decimal("1"),
-            "dated_after_window": float(a.after.quantize(CENTS)),
+            "chart_matches_total": abs(charted - a.total_spend) < Decimal("1"),
             "undated_spend": float(sum(
                 (e.home_cost for e in a.trip.expenses
                  if not e.is_payment and e.date is None), ZERO
