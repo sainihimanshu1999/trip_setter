@@ -6,17 +6,22 @@
 <meta name="color-scheme" content="light dark">
 <title>{% block title %}{{ trip_title }} trip{% endblock %}</title>
 <link rel="stylesheet" href="/static/css/theme.css">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#127796;</text></svg>">
+<!-- A drawn route-and-pin mark rather than an emoji, so it renders the same
+     on every platform and matches the header. -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23ff385c'/><path d='M8 23c6-1 6-13 16-14' stroke='white' stroke-width='2.2' fill='none' stroke-linecap='round' stroke-dasharray='3.4 3.4'/><circle cx='8' cy='23' r='3' fill='white'/><circle cx='24' cy='9' r='3' fill='white'/></svg>">
 <script>
-  /* Apply the saved theme before the first paint, otherwise a dark-mode user
-     sees a white flash while the stylesheet and app.js load. Inline and
-     synchronous on purpose. */
-  try {
-    var saved = localStorage.getItem('trip-theme');
-    if (saved === 'dark' || saved === 'light') {
-      document.documentElement.dataset.theme = saved;
-    }
-  } catch (e) { /* private mode: fall back to the OS preference */ }
+  /* Resolve the theme before the first paint. The saved choice wins, and
+     failing that the OS preference is written out as an explicit attribute.
+     Doing it here rather than in a media query means the stylesheet needs
+     only one dark palette instead of the same tokens twice. */
+  (function () {
+    var saved = null;
+    try { saved = localStorage.getItem('trip-theme'); } catch (e) { /* private mode */ }
+    var dark = saved === 'dark'
+      || (saved !== 'light'
+          && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+  })();
 </script>
 </head>
 <body>
@@ -39,6 +44,7 @@
     <g id="i-route"><path d="M6 3a3 3 0 0 1 3 3c0 2-3 5-3 5S3 8 3 6a3 3 0 0 1 3-3zm12 10a3 3 0 0 1 3 3c0 2-3 5-3 5s-3-3-3-5a3 3 0 0 1 3-3zM6 12v2a4 4 0 0 0 4 4h4" stroke="currentColor" stroke-width="1.7" fill="none"/></g>
     <g id="i-dot"><circle cx="12" cy="12" r="5" fill="currentColor"/></g>
     <g id="i-refresh"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v4h-4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></g>
+    <g id="i-download"><path d="M12 4v10m0 0-4-4m4 4 4-4M5 19h14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
     <g id="i-plus"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></g>
     <g id="i-edit"><path d="M4 20h4L19 9l-4-4L4 16zM14 4l4 4" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/></g>
     <g id="i-trash"><path d="M4 7h16M9 7V5h6v2m-8 0 1 13h8l1-13" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/></g>
@@ -84,9 +90,18 @@
       <svg viewBox="0 0 24 24" width="16" height="16" class="i-moon"><use href="#i-moon"/></svg>
     </button>
 
-    <button class="btn" id="refresh" type="button" title="Re-pull from Splitwise">
+    <button class="btn" id="refresh" type="button" title="Re-read the local export and FX rates">
       <svg viewBox="0 0 24 24" width="15" height="15"><use href="#i-refresh"/></svg>
       Refresh
+    </button>
+
+    <!-- Refresh only re-reads what is already on disk. This pulls the export
+         that was published to GitHub, which is what the live site is built
+         from, so a local checkout can catch up after someone uploads. -->
+    <button class="btn" id="pull" type="button"
+            title="Pull the published export from GitHub">
+      <svg viewBox="0 0 24 24" width="15" height="15"><use href="#i-download"/></svg>
+      Pull latest
     </button>
 
     <!-- Static builds have no server to refresh from, so the same slot offers

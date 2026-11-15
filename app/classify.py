@@ -155,10 +155,10 @@ KEYWORD_RULES: tuple[Rule, ...] = (
     ), weight=24),
     # --- stays -----------------------------------------------------------
     Rule(Mode.NONE, Bucket.STAY, (
-        "hotel", "hostel", "resort", "airbnb", "agoda", "booking.com",
-        "guesthouse", "guest house", "homestay", "villa", "bungalow",
-        "room", "accommodation", "stay", "check-in", "dorm", "capsule",
-        "oyo", "treebo", "night charge", "extra bed",
+        "hotel", "hostel", "resort", "airbnb", "air bnb", "bnb", "agoda",
+        "booking.com", "guesthouse", "guest house", "homestay", "villa",
+        "bungalow", "room", "accommodation", "stay", "check-in", "dorm",
+        "capsule", "oyo", "treebo", "night charge", "extra bed",
     ), weight=24),
     # --- food ------------------------------------------------------------
     Rule(Mode.NONE, Bucket.FOOD, (

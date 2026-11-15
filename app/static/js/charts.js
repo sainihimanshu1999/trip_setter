@@ -13,16 +13,42 @@ const Charts = (() => {
       return;
     }
     const maxPaid = Math.max(...rows.map((p) => p.paid), 1);
+    const money = new App.Money(currency);
 
     rows.forEach((person, i) => {
       const row = document.createElement('div');
       row.className = 'person';
 
-      const net = person.net;
-      const sign = net >= 0 ? 'pos' : 'neg';
-      const verdict = net >= 0
-        ? `fronted ${App.moneyShort(net, currency)}`
-        : `under by ${App.moneyShort(Math.abs(net), currency)}`;
+      /* Where they stand now, which is `balance` and not `net`. `net` is paid
+         minus fair share and ignores settle-ups, so anyone who fronted a lot
+         and was then repaid too much still read as being owed money. Himanshu
+         fronted 70,805 of a 345,371 trip -- more than an even share -- yet
+         after his own 68,300 share and a 33,605 repayment from Lakshay he owes
+         12,201. On `net` he showed as "fronted 2.5k". */
+      const balance = person.balance;
+      const settled = Math.abs(balance) < 1;
+      const sign = settled ? '' : (balance > 0 ? 'pos' : 'neg');
+      const verdict = settled
+        ? 'settled up'
+        : balance > 0
+          ? `owed ${App.moneyShort(balance, currency)}`
+          : `owes ${App.moneyShort(-balance, currency)}`;
+
+      /* The bar is gross outlay and the label is the net position, and the
+         two legitimately disagree. Spell the arithmetic out on hover so the
+         gap between them is answerable without opening the spreadsheet. */
+      const tip = [
+        person.name,
+        `paid out    ${money.full(person.paid)}`,
+        `own share   ${money.full(person.owed)}`,
+        `settle-ups  ${money.full(person.settled_out)} sent, `
+          + `${money.full(person.settled_in)} received`,
+        settled
+          ? 'square with the group'
+          : balance > 0
+            ? `the group owes them ${money.full(balance)}`
+            : `they owe the group ${money.full(-balance)}`,
+      ].join('\n');
 
       row.innerHTML = `
         <div class="avatar" style="border-color:${App.escapeHtml(person.color || '#888')}">
@@ -39,6 +65,7 @@ const Charts = (() => {
             <div class="marker" style="left:${((perHead / maxPaid) * 100).toFixed(2)}%"></div>
           </div>
         </div>`;
+      row.title = tip;
       host.appendChild(row);
 
       const fill = row.querySelector('.fill');

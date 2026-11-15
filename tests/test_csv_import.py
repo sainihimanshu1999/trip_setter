@@ -256,17 +256,51 @@ class TestLoadCsv:
         assert exp.mode.value != "none" or exp.bucket.value != "misc"
 
     def test_person_ids_stable(self, csv_dir: Path):
-        """Each person gets a consistent synthetic ID."""
-        path = _write_csv(csv_dir, "ids.csv", """\
+        """A person keeps their id when the export reorders its columns.
+
+        Splitwise does not promise a stable column order between exports, so
+        ids are derived from the name rather than the column index.
+        """
+        first = _write_csv(csv_dir, "ids-a.csv", """\
             Date,Description,Category,Cost,Currency,Zara,Yuki
             2026-01-10,Test,General,100.00,THB,50.00,-50.00
         """)
+        reordered = _write_csv(csv_dir, "ids-b.csv", """\
+            Date,Description,Category,Cost,Currency,Yuki,Zara
+            2026-01-10,Test,General,100.00,THB,-50.00,50.00
+        """)
 
-        trip = load_csv(path)
-        ids = {p.name: p.id for p in trip.people}
-        # Consistent with assignment order in the CSV header
-        assert ids["Zara"] == 1001
-        assert ids["Yuki"] == 1002
+        before = {p.name: p.id for p in load_csv(first).people}
+        after = {p.name: p.id for p in load_csv(reordered).people}
+
+        assert before == after
+        assert before["Zara"] != before["Yuki"]
+
+    def test_expense_ids_stable_as_rows_are_added(self, csv_dir: Path):
+        """An expense keeps its id when later rows are appended.
+
+        Exports grow, so ids are derived from row content rather than row
+        number: otherwise inserting a row would silently repoint every id
+        after it at a different expense.
+        """
+        before_path = _write_csv(csv_dir, "grow-a.csv", """\
+            Date,Description,Category,Cost,Currency,A,B
+            2026-01-10,Dinner,Food,500.00,THB,250.00,-250.00
+        """)
+        after_path = _write_csv(csv_dir, "grow-b.csv", """\
+            Date,Description,Category,Cost,Currency,A,B
+            2026-01-09,Earlier taxi,Taxi,200.00,THB,100.00,-100.00
+            2026-01-10,Dinner,Food,500.00,THB,250.00,-250.00
+            2026-01-11,Later drinks,Food,300.00,THB,-150.00,150.00
+        """)
+
+        before = load_csv(before_path).expenses
+        after = load_csv(after_path).expenses
+
+        dinner_before = next(e for e in before if e.description == "Dinner")
+        dinner_after = next(e for e in after if e.description == "Dinner")
+        assert dinner_before.id == dinner_after.id
+        assert len({e.id for e in after}) == 3
 
     def test_initials(self, csv_dir: Path):
         """Initials come from the first and last name, as they do for API users."""

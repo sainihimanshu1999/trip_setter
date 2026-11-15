@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 from datetime import date
 from functools import lru_cache
 from pathlib import Path
@@ -49,6 +50,16 @@ class Settings(BaseSettings):
     cache_ttl_seconds: int = 120
     database_url: str = "sqlite:///./data/trip.db"
     auto_seed: bool = True
+
+    #: Where `POST /api/pull` reads a published export from. Left blank, the
+    #: repo is read off the git remote, so a cloned checkout needs no config.
+    github_repo: str = ""
+    github_branch: str = "main"
+    #: Only needed for a private repo. A public one is readable anonymously.
+    github_token: str = ""
+    #: Path of the export inside the repo. Matches the upload panel and the
+    #: static build, both of which treat this one file as canonical.
+    github_csv_path: str = "data/expenses.csv"
 
     trip_title: str = "Thailand"
     trip_subtitle: str = "Bangkok · Koh Samui · Phuket"
@@ -135,8 +146,53 @@ class Settings(BaseSettings):
         return max(candidates, key=lambda p: p.stat().st_mtime)
 
     @property
+    def resolved_github_repo(self) -> str | None:
+        """"owner/name" of the repo a published export is pulled from.
+
+        Falls back to the `origin` remote in `.git/config`, so a fresh clone
+        needs no configuration. The file is parsed rather than shelled out to,
+        because reading a file cannot fail in the ways a subprocess can.
+        """
+        configured = self.github_repo.strip().removesuffix(".git")
+        if configured:
+            return configured.removeprefix("https://github.com/")
+
+        config = BASE_DIR / ".git" / "config"
+        if not config.is_file():
+            return None
+        try:
+            text = config.read_text(encoding="utf-8", errors="replace")
+        except OSError:
+            return None
+
+        # Covers both remote spellings: https://github.com/owner/name.git and
+        # git@github.com:owner/name.git
+        match = re.search(
+            r"url\s*=\s*(?:https://github\.com/|git@github\.com:)"
+            r"([^\s/]+/[^\s/]+?)(?:\.git)?\s*$",
+            text,
+            re.MULTILINE,
+        )
+        return match.group(1) if match else None
+
+    @property
+    def canonical_csv_path(self) -> Path:
+        """Where a pulled export is written.
+
+        Deliberately not `resolved_csv_path`: that picks whichever file in
+        `data/` is newest, whereas a pull has to land on the one path the
+        repository, the upload panel and the static build all treat as
+        canonical. Writing anywhere else would leave the pulled file losing
+        the mtime race against the stale one it was meant to replace.
+        """
+        configured = self.splitwise_csv_path.strip()
+        if configured and configured.lower() != "none":
+            path = Path(configured)
+            return path if path.is_absolute() else (BASE_DIR / configured).resolve()
+        return (BASE_DIR / self.github_csv_path).resolve()
+
+    @property
     def sqlite_path(self) -> Path:
-        """Filesystem path behind database_url, for mkdir purposes."""
         url = self.database_url
         prefix = "sqlite:///"
         if url.startswith(prefix):

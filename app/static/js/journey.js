@@ -11,19 +11,12 @@
    ========================================================================== */
 
 const Journey = (() => {
-  const NS = 'http://www.w3.org/2000/svg';
-
   /* Glyphs drawn side-on stay upright; the plane is drawn nose-up so it needs
      turning into the direction of travel. */
   const NOSE_UP = new Set(['plane']);
 
-  function el(name, attrs = {}) {
-    const node = document.createElementNS(NS, name);
-    for (const [k, v] of Object.entries(attrs)) {
-      if (v !== null && v !== undefined) node.setAttribute(k, String(v));
-    }
-    return node;
-  }
+  /* One SVG builder for the whole app, see App.Svg. */
+  const el = App.Svg.el;
 
   /* --- geometry --------------------------------------------------------- */
 

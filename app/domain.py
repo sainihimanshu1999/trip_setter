@@ -10,8 +10,12 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import date, datetime
 from decimal import Decimal, InvalidOperation
+from typing import TYPE_CHECKING
 
 from .classify import Bucket, Mode, classify
+
+if TYPE_CHECKING:  # pragma: no cover - import cycle; annotations are strings
+    from .csv_import import IngestReport
 
 ZERO = Decimal("0")
 
@@ -206,6 +210,9 @@ class TripData:
     source: str = "live"          # "live" | "demo" | "cache"
     warning: str | None = None
     fetched_at: datetime | None = None
+    #: How this data was parsed, when it came from a CSV export. Lets the UI
+    #: explain a total instead of asking the reader to trust it.
+    ingest: "IngestReport | None" = None
 
     def person(self, user_id: int) -> Person | None:
         return next((p for p in self.people if p.id == user_id), None)

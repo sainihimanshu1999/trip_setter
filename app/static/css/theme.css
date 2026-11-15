@@ -95,63 +95,14 @@
   --t-draw: 1300ms;
 }
 
-/* Dark theme. Applied from the OS preference, and overridable by the header
-   toggle, which sets data-theme on <html>. Both selectors set the same
-   tokens, so every component follows without its own dark rules. */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) { color-scheme: dark; }
-  :root:not([data-theme="light"]) {
-    --bg: #16171a;
-    --bg-soft: #1f2024;
-    --bg-sunk: #121316;
-    --line: #35373d;
-    --line-soft: #292b30;
-
-    --ink: #f2f3f5;
-    --ink-2: #a2a6ae;
-    --ink-3: #6d727c;
-
-    --accent: #ff5a76;
-    --accent-deep: #ff8098;
-    --accent-wash: #2d1b21;
-    --dark: #f2f3f5;
-
-    --positive: #4ade80;
-    --negative: #ff8a73;
-
-    /* Transport colours are lifted so they hold up on a dark canvas. */
-    --c-plane: #6ea8ff;
-    --c-train: #b794ff;
-    --c-ferry: #3ecfc0;
-    --c-bus: #ff7ab8;
-    --c-cab: #f5b942;
-    --c-bike: #a3d94a;
-    --c-walk: #9aa2b1;
-
-    --surface: #1c1d21;
-    --surface-raised: #23252a;
-    --map-bg-1: #202226;
-    --map-bg-2: #1b1d21;
-    --map-bg-3: #16171a;
-
-    --sh-1: 0 1px 2px rgba(0, 0, 0, 0.5);
-    --sh-2: 0 2px 4px rgba(0, 0, 0, 0.45), 0 6px 16px rgba(0, 0, 0, 0.4);
-    --sh-3: 0 6px 16px rgba(0, 0, 0, 0.55);
-    --sh-pop: 0 8px 28px rgba(0, 0, 0, 0.65);
-
-    --wash-positive: #13271a;
-    --wash-positive-line: #2c5134;
-    --wash-negative: #2e1a16;
-    --wash-negative-line: #5a2f26;
-    --wash-warn: #2a2113;
-    --wash-warn-line: #574624;
-    --ink-warn: #e8c37a;
-    --wash-idea: #221d33;
-  }
-}
-
+/* Dark theme.
+   One palette, not two. The inline script in <head> resolves the OS
+   preference (and any saved choice) into data-theme on <html> before the
+   first paint, so this needs a single attribute selector rather than the
+   same tokens repeated under a prefers-color-scheme query. */
 :root[data-theme="dark"] {
   color-scheme: dark;
+
   --bg: #16171a;
   --bg-soft: #1f2024;
   --bg-sunk: #121316;
@@ -170,6 +121,7 @@
   --positive: #4ade80;
   --negative: #ff8a73;
 
+  /* Transport colours lifted so they hold up on a dark canvas. */
   --c-plane: #6ea8ff;
   --c-train: #b794ff;
   --c-ferry: #3ecfc0;
@@ -1178,19 +1130,10 @@ html.anim .reveal:not(.in) {
 
 .theme-toggle { position: relative; width: 36px; height: 36px; }
 
-/* Show only the icon for the theme you can switch *to*. Light is the default,
-   so the moon shows unless something resolves the page to dark. */
-.theme-toggle .i-sun { display: none; }
-.theme-toggle .i-moon { display: block; }
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .theme-toggle .i-sun { display: block; }
-  :root:not([data-theme="light"]) .theme-toggle .i-moon { display: none; }
-}
-:root[data-theme="dark"] .theme-toggle .i-sun { display: block; }
-:root[data-theme="dark"] .theme-toggle .i-moon { display: none; }
+/* Show only the icon for the theme you can switch *to*. data-theme is always
+   resolved to light or dark before paint, so two rules cover every case. */
 :root[data-theme="light"] .theme-toggle .i-sun { display: none; }
-:root[data-theme="light"] .theme-toggle .i-moon { display: block; }
+:root[data-theme="dark"] .theme-toggle .i-moon { display: none; }
 
 .theme-toggle svg { transition: transform var(--t-mid) var(--ease); }
 .theme-toggle:hover svg { transform: rotate(18deg); }

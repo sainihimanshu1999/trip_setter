@@ -19,6 +19,11 @@ data/*.csv
 !data/expenses.csv
 data/*.xlsx
 
+# Superseded exports, kept locally so a changed total can be traced back to
+# the file it came from. Must stay out of data/ itself: anything matching
+# data/*.csv competes with expenses.csv to be auto-detected as newest.
+data/archive/
+
 .DS_Store
 
 # Static build output (GitHub Actions rebuilds it)

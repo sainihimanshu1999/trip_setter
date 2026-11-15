@@ -188,6 +188,10 @@ class Analytics:
     currencies: dict[str, Decimal] = field(default_factory=dict)
     #: Spending dated before the trip window, e.g. flights booked months out.
     prebooked: Decimal = ZERO
+    #: Spending dated after the trip window, e.g. a stay added once home. Not a
+    #: category of its own, just a signal that the configured window has gone
+    #: stale as more rows arrive.
+    after: Decimal = ZERO
     window: tuple[date, date] | None = None
 
     @property
@@ -205,16 +209,19 @@ class Analytics:
 
     @property
     def biggest_day(self) -> tuple[date | None, Decimal]:
-        """Heaviest spending day inside the trip window.
+        """Heaviest spending day from the start of the trip onwards.
 
         Pre-trip bookings are excluded: a flight bought in December would
         otherwise always win, and it already has its own `prebooked` figure.
+        Spending dated *after* the window is kept, because a stay logged a few
+        days late is still trip spending and dropping it understated this
+        figure while the total above it included the money.
         """
         candidates = self.by_day
         if self.window:
-            start, end = self.window
-            in_window = {d: v for d, v in self.by_day.items() if start <= d <= end}
-            candidates = in_window or self.by_day
+            start, _ = self.window
+            from_start = {d: v for d, v in self.by_day.items() if d >= start}
+            candidates = from_start or self.by_day
         if not candidates:
             return None, ZERO
         day, amount = max(candidates.items(), key=lambda kv: kv[1])
@@ -256,6 +263,8 @@ def build_analytics(
                 day_sums[expense.date] += home_cost
                 if window and expense.date < window[0]:
                     out.prebooked += home_cost
+                elif window and expense.date > window[1]:
+                    out.after += home_cost
 
         for share in expense.shares:
             paid_home = fx.convert(share.paid, expense.currency)
@@ -308,6 +317,7 @@ def overview_payload(a: Analytics) -> dict:
         "total_spend": float(a.total_spend.quantize(CENTS)),
         "total_settled": float(a.total_settled.quantize(CENTS)),
         "prebooked": float(a.prebooked.quantize(CENTS)),
+        "after": float(a.after.quantize(CENTS)),
         "per_head": float(a.per_head),
         "head_count": a.head_count,
         "expense_count": len([e for e in a.trip.expenses if not e.is_payment]),
@@ -367,22 +377,32 @@ def modes_payload(a: Analytics) -> dict:
 
 
 def timeline_payload(a: Analytics) -> dict:
-    """Daily spend across the trip window, gap-filled so no days are missing.
+    """Daily spend across the trip, gap-filled so no days are missing.
 
-    Spending dated before the window (flights booked months ahead) would
-    otherwise stretch the axis across empty weeks, so it is reported as a
-    single `prebooked` figure instead.
+    The chart runs from the configured trip start to the last day anything was
+    actually spent, so rows added after the planned end date still appear.
+    Spending dated *before* the start (flights booked months ahead) would
+    stretch the axis across empty weeks, so it is reported as a single
+    `prebooked` figure instead.
+
+    `sum(days) + prebooked + after` always equals `total_spend`, which is the
+    property that makes this chart agree with the "Total spent" tile.
     """
     if not a.by_day:
         return {
             "currency": a.currency, "days": [], "max": 0.0,
-            "prebooked": 0.0, "window": None,
+            "prebooked": 0.0, "after": 0.0, "beyond_window": 0.0,
+            "window": None, "configured_window": None,
         }
 
     if a.window:
         start, end = a.window
-        # Let real spending extend the window if the trip ran long.
-        dated = [d for d in a.by_day if start <= d <= end]
+        # Let real spending extend the window if the trip ran long. The
+        # candidates must be every day from the start onwards, not just the
+        # days already inside the window -- filtering to `d <= end` first made
+        # this a no-op, which is how two post-trip stays worth 84,402 stayed
+        # off the chart while still counting towards the total.
+        dated = [d for d in a.by_day if d >= start]
         if dated:
             end = max(end, max(dated))
     else:
@@ -419,7 +439,13 @@ def timeline_payload(a: Analytics) -> dict:
         "max": peak,
         "prebooked": float(prebooked.quantize(CENTS)),
         "after": float(after.quantize(CENTS)),
+        #: Spend dated past the configured TRIP_END. The chart covers it, so
+        #: this is a hint that the window needs updating, not missing money.
+        "beyond_window": float(a.after.quantize(CENTS)),
         "window": [start.isoformat(), end.isoformat()],
+        "configured_window": (
+            [a.window[0].isoformat(), a.window[1].isoformat()] if a.window else None
+        ),
     }
 
 

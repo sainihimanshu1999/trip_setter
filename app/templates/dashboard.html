@@ -61,8 +61,11 @@
         </div>
         <div class="people" id="people-chart"></div>
         <p class="hint">
-          The vertical tick is the even share ({{ o.per_head | money(o.currency) }}).
-          Past it means that person is owed money.
+          The vertical tick is an even share ({{ o.per_head | money(o.currency) }}).
+          A bar past it means that person paid out more than an even share &mdash;
+          which is <em>not</em> the same as being owed money, because it counts
+          neither their own share of each expense nor any settling up already
+          done. The figure beside each name is where they actually stand.
         </p>
       </article>
 
@@ -122,6 +125,10 @@
         {% if timeline.window %}{{ timeline.window[0] }} to {{ timeline.window[1] }}{% endif %}
         {% if timeline.prebooked %}
           &middot; plus {{ timeline.prebooked | money(o.currency) }} booked earlier
+        {% endif %}
+        {% if timeline.beyond_window %}
+          &middot; {{ timeline.beyond_window | money(o.currency) }} dated after
+          {{ timeline.configured_window[1] | prettydate }}
         {% endif %}
       </span>
     </div>

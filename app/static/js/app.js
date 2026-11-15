@@ -10,28 +10,90 @@ const App = (() => {
 
   const SYMBOLS = { INR: '\u20b9', THB: '\u0e3f', USD: '$', EUR: '\u20ac', GBP: '\u00a3', SGD: 'S$', MYR: 'RM', AED: 'AED ' };
 
+  /**
+   * Builds SVG elements.
+   *
+   * Both the charts and the journey map assemble SVG by hand, and doing it
+   * with raw createElementNS plus a setAttribute per property buries the
+   * shape of the drawing in boilerplate. This is the one place that knows the
+   * namespace.
+   */
+  class Svg {
+    static NS = 'http://www.w3.org/2000/svg';
+
+    /** An element with attributes. Null and undefined values are skipped. */
+    static el(name, attrs = {}) {
+      const node = document.createElementNS(Svg.NS, name);
+      for (const [key, value] of Object.entries(attrs)) {
+        if (value !== null && value !== undefined) {
+          node.setAttribute(key, String(value));
+        }
+      }
+      return node;
+    }
+
+    /** An element plus children, for the common build-and-append case. */
+    static group(attrs = {}, children = []) {
+      const node = Svg.el('g', attrs);
+      children.filter(Boolean).forEach((child) => node.appendChild(child));
+      return node;
+    }
+
+    /** Text with its content set, which is never an attribute. */
+    static text(attrs, content) {
+      const node = Svg.el('text', attrs);
+      node.textContent = content == null ? '' : String(content);
+      return node;
+    }
+  }
+
+  /**
+   * Formats money in one currency.
+   *
+   * Constructed once per view so the currency stops being an argument on
+   * every call. `full` is for figures that need to be read exactly, `short`
+   * for tight spaces like axis labels and map pins.
+   */
+  class Money {
+    constructor(currency = 'INR') {
+      this.currency = currency;
+      this.symbol = SYMBOLS[currency] || `${currency} `;
+      this.locale = currency === 'INR' ? 'en-IN' : 'en-US';
+    }
+
+    /** Full value with thousands separators: ₹4,37,340 */
+    full(value, decimals = 0) {
+      const n = Number(value) || 0;
+      const body = Math.abs(n).toLocaleString(this.locale, {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals,
+      });
+      return (n < 0 ? '-' : '') + this.symbol + body;
+    }
+
+    /** Abbreviated value: ₹4.37L, ₹43.6k */
+    short(value) {
+      const n = Number(value) || 0;
+      const size = Math.abs(n);
+      const sign = n < 0 ? '-' : '';
+      // Indian numbering groups by lakh, which is what the home currency uses.
+      if (this.currency === 'INR' && size >= 100000) {
+        return `${sign}${this.symbol}${(size / 100000).toFixed(2)}L`;
+      }
+      if (size >= 1000000) return `${sign}${this.symbol}${(size / 1000000).toFixed(2)}M`;
+      if (size >= 1000) return `${sign}${this.symbol}${(size / 1000).toFixed(1)}k`;
+      return `${sign}${this.symbol}${Math.round(size)}`;
+    }
+  }
+
   /** Full value with thousands separators: ₹4,37,340 */
   function money(value, currency = 'INR', decimals = 0) {
-    const n = Number(value) || 0;
-    const sym = SYMBOLS[currency] || currency + ' ';
-    const locale = currency === 'INR' ? 'en-IN' : 'en-US';
-    const body = Math.abs(n).toLocaleString(locale, {
-      minimumFractionDigits: decimals,
-      maximumFractionDigits: decimals,
-    });
-    return (n < 0 ? '-' : '') + sym + body;
+    return new Money(currency).full(value, decimals);
   }
 
   /** Short value for tight spaces: ₹4.37L, ₹43.6k */
   function moneyShort(value, currency = 'INR') {
-    const n = Number(value) || 0;
-    const sym = SYMBOLS[currency] || currency + ' ';
-    const a = Math.abs(n);
-    const sign = n < 0 ? '-' : '';
-    if (currency === 'INR' && a >= 100000) return `${sign}${sym}${(a / 100000).toFixed(2)}L`;
-    if (a >= 1000000) return `${sign}${sym}${(a / 1000000).toFixed(2)}M`;
-    if (a >= 1000) return `${sign}${sym}${(a / 1000).toFixed(1)}k`;
-    return `${sign}${sym}${Math.round(a)}`;
+    return new Money(currency).short(value);
   }
 
   /** Count a number up into an element. Skipped entirely under reduced motion. */
@@ -184,33 +246,72 @@ const App = (() => {
     });
   }
 
-  /** Light/dark toggle. The saved choice is applied inline in <head>; this
-      only handles clicks and keeps the button's label honest. */
+  /** Pull the export that was published to GitHub down onto this machine.
+   *
+   * Refresh re-reads the local file, which is no help when the newer export
+   * only exists as a commit. This fetches that commit's copy, and reports the
+   * change in the total so a pull that moved nothing is obvious rather than
+   * looking like a failure. */
+  function initPull() {
+    const btn = document.getElementById('pull');
+    if (!btn) return;
+    btn.addEventListener('click', async () => {
+      const icon = btn.querySelector('svg');
+      btn.disabled = true;
+      icon?.classList.add('spin');
+      try {
+        const result = await api('/api/pull', { method: 'POST' });
+        if (!result.pulled) {
+          toast(`Already up to date with ${result.repo}`);
+          btn.disabled = false;
+          icon?.classList.remove('spin');
+          return;
+        }
+        const money = new Money(result.currency);
+        const delta = result.changed;
+        const moved = delta
+          ? `total ${delta > 0 ? 'up' : 'down'} ${money.short(Math.abs(delta))}`
+          : 'same total';
+        toast(`Pulled ${result.after.expense_count} expenses, ${moved}`);
+        setTimeout(() => window.location.reload(), 900);
+      } catch (err) {
+        toast(err.message, 'bad');
+        btn.disabled = false;
+        icon?.classList.remove('spin');
+      }
+    });
+  }
+
+  /** Light/dark toggle. The <head> script has already resolved data-theme, so
+      this only has to flip it, remember the choice, and keep following the OS
+      for as long as the user has not expressed one. */
   function initTheme() {
     const btn = document.getElementById('theme-toggle');
     if (!btn) return;
     const root = document.documentElement;
     const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
 
-    const isDark = () => (root.dataset.theme
-      ? root.dataset.theme === 'dark'
-      : systemDark.matches);
+    const stored = () => {
+      try { return localStorage.getItem('trip-theme'); } catch { return null; }
+    };
 
-    const label = () => {
-      btn.setAttribute('aria-pressed', String(isDark()));
-      btn.title = isDark() ? 'Switch to light' : 'Switch to dark';
+    const apply = (theme) => {
+      root.dataset.theme = theme;
+      btn.setAttribute('aria-pressed', String(theme === 'dark'));
+      btn.title = theme === 'dark' ? 'Switch to light' : 'Switch to dark';
     };
 
     btn.addEventListener('click', () => {
-      const next = isDark() ? 'light' : 'dark';
-      root.dataset.theme = next;
+      const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
       try { localStorage.setItem('trip-theme', next); } catch { /* ignore */ }
-      label();
+      apply(next);
     });
 
-    // Follow the OS while the user has not expressed a preference.
-    systemDark.addEventListener('change', () => { if (!root.dataset.theme) label(); });
-    label();
+    systemDark.addEventListener('change', (event) => {
+      if (!stored()) apply(event.matches ? 'dark' : 'light');
+    });
+
+    apply(root.dataset.theme === 'dark' ? 'dark' : 'light');
   }
 
   /* --- static build: no server behind the page ------------------------- */
@@ -302,10 +403,13 @@ const App = (() => {
   function initUpload() {
     const open = document.getElementById('open-upload');
     const refresh = document.getElementById('refresh');
+    const pull = document.getElementById('pull');
     if (!isStatic || !open) return;
 
-    // Refresh re-reads the CSV server-side, which there is no longer one of.
+    // Both server-side buttons need a server. A static build has none: it
+    // cannot re-read a CSV and it has nowhere to write a pulled one.
     if (refresh) refresh.hidden = true;
+    if (pull) pull.hidden = true;
     open.hidden = false;
 
     const dialog = document.getElementById('upload-dialog');
@@ -402,12 +506,14 @@ const App = (() => {
   document.addEventListener('DOMContentLoaded', () => {
     observeReveals();
     initRefresh();
+    initPull();
     initTheme();
     initUpload();
   });
 
   return {
-    reduceMotion, isStatic, money, moneyShort, countUp, observeReveals,
-    toast, api, escapeHtml, fmtDate, fmtDateTime, readData, formatDetail,
+    reduceMotion, isStatic, Svg, Money, money, moneyShort, countUp,
+    observeReveals, toast, api, escapeHtml, fmtDate, fmtDateTime, readData,
+    formatDetail,
   };
 })();
