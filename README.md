@@ -418,9 +418,14 @@ change a total.
 
 `app/journey.py` then decides where each expense sits:
 
-- **Place attribution** uses the date first. On a travel day the date covers two
-  cities, so the description breaks the tie, and failing that it assumes the
-  city you were heading to.
+- **Place attribution** reads the description first. Naming a city is the only
+  direct evidence there is, and an expense date cannot outrank "Airbnb phuket".
+  The date is the fallback, for an expense like "Khao soi dinner" that names
+  nothing; on a travel day it covers two cities, so the one being travelled to
+  wins. Reading the date first put all three of this trip's stays in the wrong
+  city — two under Bangalore, because they were entered after everyone got
+  home and the only stay covering those dates is the open-ended one at the end
+  of the itinerary.
 - **Leg matching needs evidence**, not just a nearby date: the operator name,
   the ticket reference, or both endpoints named. A flight expense is allowed up
   to a 60-day gap from its leg, precisely because a booking date is not a

@@ -244,22 +244,31 @@ def _best_keyword_place(places: list[Place], expense: Expense) -> Place | None:
 def attribute(places: list[Place], expense: Expense) -> Place | None:
     """Pick the place an expense belongs to.
 
-    An unambiguous date decides it outright. On a travel day the date covers two
-    places, so the description breaks the tie ("Khao soi dinner" is Chiang Mai,
-    "Grab to DMK" is Bangkok); failing that we assume the place being travelled
-    to, since that is where the rest of the day happened. Expenses dated outside
-    every stay, such as flights booked months ahead, fall back to keywords.
-    """
-    candidates = _places_for_date(places, expense.date)
+    The description decides whenever it names a place, because naming one is
+    the only direct evidence there is. An expense date is just the date on the
+    expense -- in Splitwise, whatever date it was given when it was entered --
+    so it cannot outrank "Airbnb phuket".
 
-    if len(candidates) == 1:
-        return candidates[0]
-    if len(candidates) > 1:
-        return (
-            _best_keyword_place(candidates, expense)
-            or max(candidates, key=lambda p: p.order_index)
-        )
-    return _best_keyword_place(places, expense)
+    Reading the date first got all three of this trip's stays wrong. "Airbnb
+    phuket" and "Bangkok stay" were typed in on the 30th and the 21st, after
+    everyone was home, and the only stay covering those dates is the open-ended
+    one at the end of the itinerary, so both were filed under Bangalore. "Koh
+    samui bnb" was dated the 7th, when the itinerary has the group in Bangkok,
+    so it was filed there.
+
+    The date remains the fallback, and it is a good one: "Khao soi dinner"
+    names nothing, so where the group was that day is all there is to go on.
+    A travel day covers two places, in which case assume the one being
+    travelled to, since that is where the rest of the day happened.
+    """
+    named = _best_keyword_place(places, expense)
+    if named is not None:
+        return named
+
+    candidates = _places_for_date(places, expense.date)
+    if not candidates:
+        return None
+    return max(candidates, key=lambda p: p.order_index)
 
 
 def _mentions_place(haystack: str, place: Place | None) -> bool:
