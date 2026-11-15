@@ -40,7 +40,7 @@ def test_every_endpoint_returns_json(client, path):
 @pytest.mark.parametrize(("path", "must_contain"), [
     ("/", ["Who spent what", "Where the money went", "Day by day", "data-journey"]),
     ("/journey", ["The route", "Legs", "Spend by place", "place-panel"]),
-    ("/bookings", ["Everything booked", "Trip timeline", "booking-dialog"]),
+    ("/bookings", ["Everything booked", "booking-dialog"]),
 ])
 def test_pages_render(client, path, must_contain):
     response = client.get(path)

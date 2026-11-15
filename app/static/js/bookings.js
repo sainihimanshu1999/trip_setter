@@ -7,7 +7,6 @@
 
   const grid = document.getElementById('booking-grid');
   const emptyMsg = document.getElementById('booking-empty');
-  const rail = document.getElementById('rail');
   const dialog = document.getElementById('booking-dialog');
   const form = document.getElementById('booking-form');
   const errorBox = document.getElementById('form-error');
@@ -82,32 +81,8 @@
     emptyMsg.style.display = visible.length ? 'none' : '';
   }
 
-  function renderRail() {
-    const dated = bookings
-      .filter((b) => b.starts_at && b.status !== 'cancelled')
-      .sort((a, b) => a.starts_at.localeCompare(b.starts_at));
-
-    if (!dated.length) {
-      rail.innerHTML = '<div class="empty">Add dates to see the timeline.</div>';
-      return;
-    }
-    rail.innerHTML = dated.map((b) => {
-      const style = kinds[b.kind] || { colour: '#717171', label: 'Other' };
-      return `
-        <div class="rail-item" style="--c:${App.escapeHtml(style.colour)}">
-          <div class="when">${App.fmtDateTime(b.starts_at)} &middot; ${App.escapeHtml(style.label)}</div>
-          <div class="what">${App.escapeHtml(b.title)}</div>
-          <div class="when">
-            ${b.place ? App.escapeHtml(b.place) : ''}
-            ${b.cost ? ` &middot; ${App.money(b.cost, b.currency)}` : ''}
-          </div>
-        </div>`;
-    }).join('');
-  }
-
   function renderAll() {
     renderGrid();
-    renderRail();
   }
 
   /* --- filters ---------------------------------------------------------- */
@@ -226,7 +201,7 @@
       } else {
         bookings.push(saved);
       }
-      // Keep chronological so the rail and grid stay sensible.
+      // Keep chronological so the grid stays in trip order.
       bookings.sort((a, b) => {
         if (!a.starts_at) return 1;
         if (!b.starts_at) return -1;
