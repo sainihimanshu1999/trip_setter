@@ -9,10 +9,21 @@ from decimal import Decimal
 from typing import Annotated
 
 import httpx
-from fastapi import APIRouter, Depends, HTTPException, Query, Response, status
+from fastapi import (
+    APIRouter,
+    Depends,
+    File,
+    Form,
+    HTTPException,
+    Query,
+    Response,
+    UploadFile,
+    status,
+)
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from .. import documents
 from ..analytics import (
     CENTS,
     buckets_payload,
@@ -29,7 +40,14 @@ from ..db import get_db
 from ..deps import AnalyticsDep, ServiceDep, SettingsDep
 from ..domain import ZERO
 from ..journey import build_journey
-from ..models import BOOKING_KIND_STYLE, Booking, Leg, Place
+from ..models import (
+    BOOKING_KIND_STYLE,
+    DOCUMENT_KIND_STYLE,
+    Booking,
+    Document,
+    Leg,
+    Place,
+)
 from ..schemas import BookingIn, BookingPatch
 from ..splitwise import SplitwiseError
 
@@ -38,6 +56,32 @@ log = logging.getLogger("trip.api")
 router = APIRouter(prefix="/api", tags=["api"])
 
 DbDep = Annotated[Session, Depends(get_db)]
+
+
+def _rewrite_manifest(db: Session) -> None:
+    """Rebuild the committed document manifest from the database.
+
+    Called after any document change. Only published files and links go in:
+    the manifest is committed, so naming a held-back file would leak which
+    booking it belongs to and what it is even though the file itself stayed
+    local.
+    """
+    entries: dict[str, list[dict]] = {}
+    for booking in db.scalars(select(Booking)).all():
+        rows = []
+        for doc in booking.documents:
+            if doc.url:
+                rows.append({"label": doc.label, "kind": doc.kind, "url": doc.url})
+            elif doc.publish:
+                rows.append({
+                    "label": doc.label,
+                    "kind": doc.kind,
+                    "filename": doc.filename,
+                    "size_bytes": doc.size_bytes,
+                })
+        if rows:
+            entries[documents.manifest_key(booking.title)] = rows
+    documents.write_manifest(entries)
 
 
 @router.get("/health")
@@ -162,6 +206,7 @@ async def meta() -> dict:
         },
         "buckets": {str(k): dict(v) for k, v in BUCKET_STYLE.items()},
         "booking_kinds": {str(k): dict(v) for k, v in BOOKING_KIND_STYLE.items()},
+        "document_kinds": {str(k): dict(v) for k, v in DOCUMENT_KIND_STYLE.items()},
     }
 
 
@@ -287,8 +332,154 @@ async def delete_booking(booking_id: int, db: DbDep) -> Response:
     booking = db.get(Booking, booking_id)
     if booking is None:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "No such booking")
+    # Take the files with it, or they are orphaned on disk forever.
+    for doc in list(booking.documents):
+        if doc.is_file:
+            documents.delete(booking_id, doc.filename, doc.publish)
     db.delete(booking)
     db.commit()
+    _rewrite_manifest(db)
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
+
+
+# -------------------------------------------------------------- documents
+
+
+@router.get("/bookings/{booking_id}/documents")
+async def list_documents(booking_id: int, db: DbDep) -> dict:
+    booking = db.get(Booking, booking_id)
+    if booking is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "No such booking")
+    return {"documents": [d.as_json() for d in booking.documents]}
+
+
+@router.post(
+    "/bookings/{booking_id}/documents",
+    status_code=status.HTTP_201_CREATED,
+)
+async def add_document(
+    booking_id: int,
+    db: DbDep,
+    label: Annotated[str, Form(max_length=200)] = "",
+    kind: Annotated[str, Form(max_length=24)] = "other",
+    url: Annotated[str, Form(max_length=2000)] = "",
+    publish: Annotated[bool, Form()] = False,
+    file: Annotated[UploadFile | None, File()] = None,
+) -> dict:
+    """Attach a document to a booking, either as a link or an uploaded file.
+
+    `publish` applies only to a file, and decides which folder it lands in:
+    set, it goes under `data/docs/` and is committed and served by the
+    published site, which on GitHub Pages means anybody can read it; clear, it
+    goes under `data/docs/private/`, which is gitignored.
+
+    A link is never copied here, so who can read it stays whatever the service
+    hosting it allows. For anything carrying a passport number that is the
+    safer of the two.
+    """
+    booking = db.get(Booking, booking_id)
+    if booking is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "No such booking")
+
+    has_file = file is not None and bool(file.filename)
+    link = url.strip()
+    if has_file == bool(link):
+        raise HTTPException(
+            status.HTTP_422_UNPROCESSABLE_ENTITY,
+            "Give either a file or a link, not both and not neither.",
+        )
+
+    if link:
+        # Same rule the booking URL follows: a stored javascript: link would
+        # execute when someone clicks it.
+        if not link.lower().startswith(("http://", "https://")):
+            raise HTTPException(
+                status.HTTP_422_UNPROCESSABLE_ENTITY,
+                "A document link must start with http:// or https://",
+            )
+        doc = Document(
+            booking_id=booking_id,
+            label=(label.strip() or link)[:200],
+            kind=kind.strip() or "other",
+            url=link,
+        )
+    else:
+        payload = await file.read()
+        try:
+            path, size = documents.store(
+                booking_id, file.filename, payload, publish, file.content_type,
+            )
+        except documents.DocumentError as exc:
+            raise HTTPException(
+                status.HTTP_422_UNPROCESSABLE_ENTITY, str(exc)
+            ) from exc
+        doc = Document(
+            booking_id=booking_id,
+            label=(label.strip() or path.name)[:200],
+            kind=kind.strip() or "other",
+            filename=path.name,
+            size_bytes=size,
+            publish=publish,
+        )
+
+    db.add(doc)
+    db.commit()
+    db.refresh(doc)
+    _rewrite_manifest(db)
+    return doc.as_json()
+
+
+@router.patch("/documents/{document_id}")
+async def update_document(
+    document_id: int,
+    db: DbDep,
+    label: Annotated[str | None, Form(max_length=200)] = None,
+    kind: Annotated[str | None, Form(max_length=24)] = None,
+    publish: Annotated[bool | None, Form()] = None,
+) -> dict:
+    """Rename a document, or move a file between published and local.
+
+    Flipping `publish` moves the file on disk, because the flag has to mean
+    the same thing git does rather than being a column that claims something
+    the filesystem does not.
+    """
+    doc = db.get(Document, document_id)
+    if doc is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "No such document")
+
+    if label is not None and label.strip():
+        doc.label = label.strip()[:200]
+    if kind is not None and kind.strip():
+        doc.kind = kind.strip()[:24]
+
+    if publish is not None and doc.is_file and bool(publish) != bool(doc.publish):
+        moved = documents.move(
+            doc.booking_id, doc.filename, bool(doc.publish), bool(publish),
+        )
+        if moved is None:
+            raise HTTPException(
+                status.HTTP_409_CONFLICT,
+                "The file is not where the record says it is, so it was not moved.",
+            )
+        doc.filename = moved
+        doc.publish = bool(publish)
+
+    db.commit()
+    db.refresh(doc)
+    _rewrite_manifest(db)
+    return doc.as_json()
+
+
+@router.delete("/documents/{document_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_document(document_id: int, db: DbDep) -> Response:
+    doc = db.get(Document, document_id)
+    if doc is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "No such document")
+    if doc.is_file:
+        documents.delete(doc.booking_id, doc.filename, bool(doc.publish))
+    db.delete(doc)
+    db.commit()
+    _rewrite_manifest(db)
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 

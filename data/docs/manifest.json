@@ -1,0 +1,4 @@
+{
+  "_comment": "Published booking documents, written by the app. Committed so the static build knows what to link to. Files held back from publishing are not listed here.",
+  "bookings": {}
+}

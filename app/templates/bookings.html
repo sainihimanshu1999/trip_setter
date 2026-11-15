@@ -5,6 +5,7 @@
 <script type="application/json" id="data-bookings">{{ bookings | tojson }}</script>
 <script type="application/json" id="data-places">{{ places | tojson }}</script>
 <script type="application/json" id="data-kinds">{{ kinds | tojson }}</script>
+<script type="application/json" id="data-doc-kinds">{{ document_kinds | tojson }}</script>
 
 <div class="stack">
 
@@ -172,6 +173,70 @@
       <button class="btn primary" type="submit" id="dialog-save">Save booking</button>
     </div>
   </form>
+</dialog>
+
+<!-- ===== documents dialog ============================================== -->
+<dialog id="docs-dialog" class="docs-dialog">
+  <div class="dialog-head"><h2 id="docs-title">Documents</h2></div>
+
+  <div class="dialog-body">
+    <div id="docs-list" class="docs-manage"></div>
+
+    <form id="docs-form">
+      <div id="docs-error" class="form-error" style="display:none"></div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="d-label">Label</label>
+          <input id="d-label" name="label" maxlength="200"
+                 placeholder="Booking voucher">
+        </div>
+        <div class="field">
+          <label for="d-kind">Kind</label>
+          <select id="d-kind" name="kind">
+            {% for key, style in document_kinds.items() %}
+            <option value="{{ key }}">{{ style.label }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="d-file">File</label>
+        <input type="file" id="d-file" name="file"
+               accept=".pdf,.png,.jpg,.jpeg,.webp,.gif,.heic,.heif,.txt,.md,.csv,.ics">
+        <p class="field-hint">
+          PDFs and images, up to 25&nbsp;MB. HTML and SVG are refused because
+          they can carry script.
+        </p>
+      </div>
+
+      <div class="field">
+        <label for="d-url">&hellip; or a link instead</label>
+        <input id="d-url" name="url" type="url" maxlength="2000"
+               placeholder="https://drive.google.com/...">
+        <p class="field-hint">
+          A link is not copied here, so who can open it stays whatever the
+          service hosting it allows. Use this for anything with a passport
+          number on it.
+        </p>
+      </div>
+
+      <label class="check">
+        <input type="checkbox" id="d-publish" name="publish">
+        <span>
+          Publish this file
+          <b class="neg-ink">&mdash; anyone who visits the site can read it</b>.
+          Leave it off to keep the file on this machine only.
+        </span>
+      </label>
+
+      <div class="dialog-foot">
+        <button class="btn ghost" type="button" id="docs-close">Done</button>
+        <button class="btn primary" type="submit" id="docs-submit">Attach</button>
+      </div>
+    </form>
+  </div>
 </dialog>
 {% endblock %}
 

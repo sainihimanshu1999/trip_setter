@@ -9,7 +9,17 @@ from __future__ import annotations
 from datetime import date, datetime, timezone
 from enum import StrEnum
 
-from sqlalchemy import Date, DateTime, Float, ForeignKey, Integer, String, Text, func
+from sqlalchemy import (
+    Boolean,
+    Date,
+    DateTime,
+    Float,
+    ForeignKey,
+    Integer,
+    String,
+    Text,
+    func,
+)
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
 
@@ -157,6 +167,12 @@ class Booking(Base):
 
     place: Mapped["Place | None"] = relationship(back_populates="bookings")
 
+    documents: Mapped[list["Document"]] = relationship(
+        back_populates="booking",
+        cascade="all, delete-orphan",
+        order_by="Document.id",
+    )
+
     def as_json(self) -> dict:
         style = BOOKING_KIND_STYLE.get(self.kind, BOOKING_KIND_STYLE[BookingKind.OTHER])
         return {
@@ -179,6 +195,94 @@ class Booking(Base):
             "confirmation": self.confirmation,
             "status": self.status,
             "notes": self.notes,
+            "documents": [d.as_json() for d in self.documents],
+        }
+
+
+#: Presentation metadata for document kinds.
+DOCUMENT_KIND_STYLE: dict[str, dict[str, str]] = {
+    "ticket": {"label": "Ticket", "glyph": "plane"},
+    "voucher": {"label": "Voucher", "glyph": "ticket"},
+    "invoice": {"label": "Invoice", "glyph": "stamp"},
+    "visa": {"label": "Visa", "glyph": "stamp"},
+    "insurance": {"label": "Insurance", "glyph": "stamp"},
+    "itinerary": {"label": "Itinerary", "glyph": "route"},
+    "other": {"label": "Document", "glyph": "link"},
+}
+
+
+class Document(Base):
+    """A ticket, voucher or confirmation attached to a booking.
+
+    Two kinds of document, and the difference matters:
+
+    * a **link** (`url` set) points at wherever the file already lives, so
+      access is whatever that service grants. Nothing is copied here.
+    * a **file** (`filename` set) is stored under `data/docs/`. A stored file
+      with `publish` set is committed and served by the published site, which
+      on GitHub Pages means **anyone can read it** -- Pages cannot be made
+      private outside GitHub Enterprise Cloud. With `publish` clear the file
+      goes under `data/docs/private/`, which is gitignored and therefore only
+      readable by someone running the app locally.
+
+    Travel documents carry passport numbers and dates of birth, usually for
+    everyone on the booking rather than just the person who uploaded it, which
+    is why publishing is a per-document decision rather than a default.
+    """
+
+    __tablename__ = "documents"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    booking_id: Mapped[int] = mapped_column(
+        ForeignKey("bookings.id", ondelete="CASCADE"), index=True,
+    )
+    label: Mapped[str] = mapped_column(String(200))
+    kind: Mapped[str] = mapped_column(String(24), default="other")
+    #: Set for a link. Mutually exclusive with `filename`.
+    url: Mapped[str] = mapped_column(Text, default="")
+    #: Set for a stored file, relative to its booking's folder.
+    filename: Mapped[str] = mapped_column(String(255), default="")
+    size_bytes: Mapped[int] = mapped_column(Integer, default=0)
+    #: Whether a stored file is committed and published. Ignored for links.
+    publish: Mapped[bool] = mapped_column(Boolean, default=False)
+    added_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
+
+    booking: Mapped["Booking"] = relationship(back_populates="documents")
+
+    @property
+    def is_file(self) -> bool:
+        return bool(self.filename)
+
+    @property
+    def href(self) -> str:
+        """Where the frontend should point.
+
+        A stored file is served from `/files/...`, which the static build
+        rewrites to a relative path and copies alongside the pages. Not
+        `/docs/`, which is FastAPI's own interactive documentation.
+        """
+        if self.url:
+            return self.url
+        if not self.filename:
+            return ""
+        folder = "private/" if not self.publish else ""
+        return f"/files/{folder}{self.booking_id}/{self.filename}"
+
+    def as_json(self) -> dict:
+        style = DOCUMENT_KIND_STYLE.get(self.kind, DOCUMENT_KIND_STYLE["other"])
+        return {
+            "id": self.id,
+            "booking_id": self.booking_id,
+            "label": self.label,
+            "kind": self.kind,
+            "kind_label": style["label"],
+            "glyph": style["glyph"],
+            "is_file": self.is_file,
+            "filename": self.filename,
+            "size_bytes": self.size_bytes,
+            "publish": bool(self.publish),
+            "href": self.href,
+            "added_at": self.added_at.isoformat() if self.added_at else None,
         }
 
 

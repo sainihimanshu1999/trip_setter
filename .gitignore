@@ -24,6 +24,16 @@ data/*.xlsx
 # data/*.csv competes with expenses.csv to be auto-detected as newest.
 data/archive/
 
+# Booking documents held back from publishing.
+#
+# data/docs/<booking id>/ IS committed: those files are served by the GitHub
+# Pages site, which anyone can read, and that is the point of marking a
+# document published. data/docs/private/ is the other half of that choice and
+# must never be committed - it holds the tickets and visas whose passport
+# numbers and dates of birth should not be on the public internet.
+data/docs/private/
+data/docs/**/.*.part
+
 .DS_Store
 
 # Static build output (GitHub Actions rebuilds it)

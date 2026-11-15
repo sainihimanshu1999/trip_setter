@@ -19,6 +19,12 @@ from pydantic_settings import (
 BASE_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = BASE_DIR / "data"
 
+#: Documents attached to bookings. Anything directly under here is committed
+#: and therefore served by the published site; `docs/private/` is gitignored
+#: and readable only by someone running the app locally.
+DOCS_DIR = DATA_DIR / "docs"
+PRIVATE_DOCS_DIR = DOCS_DIR / "private"
+
 #: Trip settings that are not secret, and so are committed. `.env` is
 #: gitignored because it can hold an API key, which meant everything else
 #: living in it was invisible to the Pages build: the deploy fell back to the

@@ -9,11 +9,13 @@ network, no port) and saves what it renders:
     dist/bookings.html   <- /bookings
     dist/api/*.json      <- the endpoints the pages fetch after first paint
     dist/static/**       <- css and js, copied verbatim
+    dist/files/**        <- booking documents marked for publishing
 
 Three rewrites make the output portable:
 
-* `/static/...` and `/journey` become *relative* links, so the site works at
-  `user.github.io/trip_setter/` as well as at a domain root or over file://.
+* `/static/...`, `/files/...` and `/journey` become *relative* links, so the
+  site works at `user.github.io/trip_setter/` as well as at a domain root or
+  over file://.
 * the one runtime `fetch('/api/expenses?limit=14')` is pointed at the saved
   JSON instead.
 * a `data-static` marker on <html> tells the frontend it has no server, which
@@ -78,6 +80,10 @@ def _rewrite(html: str, repo: str) -> str:
     """Make one page's HTML work as a file served from any subpath."""
     # Assets: /static/x -> static/x. Covers href, src and url().
     html = html.replace('"/static/', '"static/').replace("'/static/", "'static/")
+    # Booking documents, same treatment. These appear in JSON blobs and in
+    # strings built by the frontend, so both quote styles are covered.
+    html = html.replace('"/files/', '"files/').replace("'/files/", "'files/")
+    html = html.replace('\\"/files/', '\\"files/')
 
     # Nav links to sibling files.
     for before, after in LINK_REWRITES.items():
@@ -122,6 +128,7 @@ def build(out_dir: Path, repo: str) -> dict:
         "csv": str(settings.resolved_csv_path or ""),
         "pages": [],
         "endpoints": [],
+        "documents": 0,
     }
 
     if out_dir.exists():
@@ -147,6 +154,24 @@ def build(out_dir: Path, repo: str) -> dict:
             report["endpoints"].append(filename)
 
     shutil.copytree(BASE_DIR / "app" / "static", out_dir / "static")
+
+    # Booking documents. Only what is directly under data/docs/ is copied:
+    # data/docs/private/ is gitignored and local-only by definition, so
+    # publishing it here would defeat the point of the flag.
+    docs_src = BASE_DIR / "data" / "docs"
+    if docs_src.is_dir():
+        copied = 0
+        for folder in sorted(docs_src.iterdir()):
+            if not folder.is_dir() or folder.name == "private":
+                continue
+            for item in sorted(folder.iterdir()):
+                if not item.is_file() or item.name.startswith("."):
+                    continue
+                target = out_dir / "files" / folder.name / item.name
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(item, target)
+                copied += 1
+        report["documents"] = copied
 
     # Stops Pages running the output through Jekyll, which would drop files
     # whose names begin with an underscore.
@@ -178,6 +203,7 @@ def main() -> int:
     print(f"repo        : {args.repo or '(not set, panel will ask)'}")
     print(f"pages       : {', '.join(report['pages'])}")
     print(f"endpoints   : {len(report['endpoints'])} json files")
+    print(f"documents   : {report['documents']} published file(s)")
     print(f"output      : {out_dir}")
 
     if report["source"] == "demo":

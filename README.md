@@ -386,8 +386,87 @@ biggest expenses. Click a line for the expenses behind it. Legend chips filter
 by transport mode.
 
 **Bookings & tours** — every flight, stay, tour, transfer and visa with its
-link, description, dates, cost, confirmation reference and your own notes.
-Filter by kind, add and edit inline. This is the part Splitwise cannot store.
+link, description, dates, cost, confirmation reference, your own notes, and the
+documents attached to it. Filter by kind, add and edit inline. This is the part
+Splitwise cannot store.
+
+---
+
+## Booking documents
+
+Each booking can carry tickets, vouchers and confirmations, as either a link or
+an uploaded file. Click the paperclip on a booking card.
+
+### The one thing to understand first
+
+**A published file is readable by anyone on the internet.** This repo is
+public, and that is not fixable by making it private: [privately published
+Pages sites need GitHub Enterprise
+Cloud](https://docs.github.com/en/enterprise-cloud@latest/pages/getting-started-with-github-pages/changing-the-visibility-of-your-github-pages-site),
+and [a private repo gives a Pages site no extra
+protection](https://docs.cloud.gov/knowledge-base/2024/04/23/repository-best-practices/)
+because built content is published publicly either way. Committing is also not
+reversible: deleting the file later leaves it in git history.
+
+That matters because an e-ticket carries passport numbers and dates of birth,
+usually for everyone on the booking rather than only the person who uploaded
+it. So publishing is a per-document choice, and the flag maps onto a real
+directory rather than being a database column that claims something the
+filesystem does not:
+
+| | stored at | git | who can read it |
+|---|---|---|---|
+| **Link** | nothing is copied here | the URL only | whoever the host allows |
+| **Published file** | `data/docs/<booking>/` | committed | **everyone** |
+| **Held back** | `data/docs/private/<booking>/` | gitignored | you, running locally |
+
+A link is the right default for anything sensitive: share a Drive folder with
+your travel group and the dashboard just points at it, so access stays with
+Drive and nothing lands in the repo.
+
+Toggling "publish" moves the file between those two folders, so what the flag
+says and what git does cannot drift apart. A held-back file still opens
+locally; the card marks it "on this machine only" so a link that would 404 on
+the published site is not left looking broken.
+
+### Reaching the published site
+
+Files are committed, but which file belongs to which booking lived only in
+`data/trip.db` — which is gitignored, and which the static build discards in
+favour of a freshly seeded copy. Published files were being copied into the
+site with nothing linking to them.
+
+Bookings are already defined in committed code (`app/seed.py`), so their
+documents are recorded the same way: `data/docs/manifest.json` is written by
+the app on every change and replayed into the database after seeding. Held-back
+files are deliberately absent from it — the manifest is committed, so naming
+one would publish its label and which booking it belongs to even though the
+file itself stayed local.
+
+So the flow is: attach a document, tick publish, then commit and push. Nothing
+reaches the internet until that push, which is a deliberate checkpoint.
+
+### What an upload is allowed to be
+
+These files are written by an upload and served back over HTTP from the app's
+own origin, which turns a filename into an attack surface. `app/documents.py`
+checks, in order, before anything is written:
+
+| check | why |
+|---|---|
+| only the final path component is used | `../../app/main.py` becomes `main.py` instead of escaping |
+| accents folded, `[^A-Za-z0-9._-]` replaced, dot runs collapsed | a name cannot smuggle a traversal through normalisation |
+| extension allowlist | **`.html`, `.htm`, `.svg`, `.xhtml` are refused** — all can carry script, and a file served from the app's origin runs with the app's privileges, so uploading one would be stored XSS against both localhost and the published site |
+| declared content type must match the extension | a `.pdf` that announces itself as `text/html` is refused |
+| leading bytes must match the extension | the extension and content type come from the client; the bytes do not |
+| 25 MB cap | generous for a scanned itinerary, not enough to fill a disk |
+| collision suffixing | two uploads of `ticket.pdf` become `ticket.pdf` and `ticket-2.pdf` rather than one silently replacing the other |
+| written to a `.part` sibling, then moved | an interrupted upload cannot leave a half file that looks complete |
+
+Links are restricted to `http(s)`, the same rule the booking URL follows, so a
+stored `javascript:` link cannot execute when someone clicks it.
+
+Deleting a booking deletes its files too, rather than orphaning them on disk.
 
 ---
 
@@ -482,6 +561,7 @@ same tokens twice, and a dark-mode user never sees a white flash.
 app/
   config.py      settings: env vars, .env, then trip.toml
   classify.py    expense -> transport mode + spend bucket
+  documents.py   booking document storage: what may be uploaded, and where
   csv_import.py  Splitwise CSV export: column dictionary, stable ids, report
   domain.py      Person / Share / Expense / TripData
   splitwise.py   async API client: cache, backoff, demo fallback
@@ -500,6 +580,9 @@ data/
   demo_splitwise.json   sample data in the real API's shape
   expenses.csv          your export (tracked; the site builds from it)
   archive/              superseded exports (gitignored)
+  docs/<booking>/       published booking documents (tracked, public)
+  docs/private/         documents held back (gitignored)
+  docs/manifest.json    which document belongs to which booking (tracked)
   trip.db               your bookings (created on first run)
 scripts/
   build_static.py       renders the site for GitHub Pages
@@ -536,6 +619,8 @@ in both.
 | `GET /api/meta` | colour and glyph tokens |
 | `GET /api/ingest` | how the data parsed, and whether the totals reconcile |
 | `GET/POST/PATCH/DELETE /api/bookings` | booking CRUD |
+| `GET/POST /api/bookings/{id}/documents` | list and attach documents |
+| `PATCH/DELETE /api/documents/{id}` | rename, publish/unpublish, remove |
 | `GET /api/groups` | your Splitwise groups, to find a group id |
 | `POST /api/refresh` | drop the cache and re-read the local file |
 | `POST /api/pull` | fetch the published export from GitHub |
@@ -573,8 +658,10 @@ build instead of reaching the site.
 - A partial live FX response still reports the whole table as live, while some
   rates stay on the static snapshot. `GET /api/overview` returns the FX source
   and date it is actually using.
-- Booking links are restricted to `http(s)` so a stored `javascript:` URL
-  cannot execute when you click a card.
+- Booking and document links are restricted to `http(s)` so a stored
+  `javascript:` URL cannot execute when you click one.
+- Uploaded documents are served from the app's own origin, so HTML and SVG are
+  refused: both can carry script, which would run with the app's privileges.
 - Respects `prefers-reduced-motion`: all animation is dropped, every final
   state stays visible.
 - The Splitwise self-serve API is for personal, non-commercial use. See their

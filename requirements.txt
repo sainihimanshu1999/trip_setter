@@ -7,6 +7,7 @@ pydantic==2.14.1
 pydantic-settings==2.16.1
 sqlalchemy==2.1.6
 python-dotenv==1.2.4
+python-multipart==0.0.20
 
 # dev / test
 pytest==8.3.4

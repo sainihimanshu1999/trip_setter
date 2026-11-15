@@ -171,10 +171,14 @@ const App = (() => {
 
   /** fetch + JSON + useful errors. Throws with the server's detail message. */
   async function api(path, options = {}) {
-    const response = await fetch(path, {
-      headers: { 'Content-Type': 'application/json', ...(options.headers || {}) },
-      ...options,
-    });
+    /* FormData has to set its own Content-Type, because the boundary is
+       generated per request and a hand-written header omits it, leaving the
+       server unable to parse a body it can see arriving. */
+    const isForm = typeof FormData !== 'undefined' && options.body instanceof FormData;
+    const headers = isForm
+      ? { ...(options.headers || {}) }
+      : { 'Content-Type': 'application/json', ...(options.headers || {}) };
+    const response = await fetch(path, { ...options, headers });
     if (response.status === 204) return null;
     let payload = null;
     try { payload = await response.json(); } catch { /* empty body */ }

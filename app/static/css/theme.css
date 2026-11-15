@@ -925,3 +925,82 @@ a:hover { color: var(--accent); }
 .icon-btn.danger:hover { background: var(--wash-negative); color: var(--negative); }
 
 
+
+/* --- booking documents -------------------------------------------------- */
+
+/* On the card: a compact list of what is attached. */
+.docs {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 10px 0 0;
+  border-top: 1px solid var(--line-soft);
+  display: grid;
+  gap: 6px;
+}
+.doc {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.8125rem;
+  min-width: 0;
+}
+.doc svg { flex-shrink: 0; color: var(--ink-2); }
+.doc a {
+  color: var(--ink);
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.doc a:hover { text-decoration: underline; }
+.doc-meta { margin-left: auto; color: var(--ink-3); font-size: 0.75rem; flex-shrink: 0; }
+
+/* A file held back from publishing. The link works here and would 404 on the
+   published site, so it is marked rather than left looking broken. */
+.doc-local a { color: var(--ink-2); }
+.doc-local svg { color: var(--ink-warn, var(--ink-3)); }
+
+/* In the dialog: one row per document, with its publish toggle. */
+.docs-dialog { max-width: 620px; }
+.docs-manage { display: grid; gap: 8px; margin-bottom: 18px; }
+.doc-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 11px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg-soft);
+}
+.doc-row-main { flex: 1; min-width: 0; display: grid; gap: 2px; }
+.doc-row-main a {
+  font-size: 0.875rem;
+  color: var(--ink);
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.doc-row-main a:hover { text-decoration: underline; }
+.doc-row .doc-meta { margin-left: 0; }
+.doc-toggle {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.75rem;
+  color: var(--ink-2);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.field-hint { font-size: 0.75rem; color: var(--ink-2); margin: 5px 0 0; }
+.check {
+  display: flex;
+  gap: 9px;
+  align-items: flex-start;
+  font-size: 0.8125rem;
+  color: var(--ink-2);
+  margin: 4px 0 2px;
+  cursor: pointer;
+}
+.check input { margin-top: 2px; flex-shrink: 0; }

@@ -11,7 +11,7 @@ from sqlalchemy.engine import Engine
 from sqlalchemy.orm import Session, sessionmaker
 
 from .config import Settings, get_settings
-from .models import Base, Booking
+from .models import Base, Booking, Document
 
 log = logging.getLogger("trip.db")
 
@@ -82,6 +82,60 @@ def session_scope() -> Iterator[Session]:
         session.close()
 
 
+def sync_manifest_to_db() -> int:
+    """Replay the committed document manifest into the database.
+
+    Called after seeding, which is the case that matters: the static build and
+    CI both start from an empty database, so without this the published files
+    would be copied into the site with nothing linking to them.
+
+    Idempotent, and matches on booking title rather than id, because ids come
+    from seed order. Rows already present are left alone so a label edited
+    locally is not overwritten on every boot.
+    """
+    from . import documents  # imported late to avoid a cycle
+
+    entries = documents.read_manifest()
+    if not entries:
+        return 0
+
+    added = 0
+    with session_scope() as session:
+        by_key = {
+            documents.manifest_key(b.title): b
+            for b in session.scalars(select(Booking)).all()
+        }
+        for key, docs in entries.items():
+            booking = by_key.get(key)
+            if booking is None:
+                log.warning(
+                    "Manifest lists documents for %r, which is not a booking", key
+                )
+                continue
+            have = {
+                (d.filename or d.url) for d in booking.documents
+            }
+            for entry in docs:
+                token = entry.get("filename") or entry.get("url") or ""
+                if not token or token in have:
+                    continue
+                session.add(Document(
+                    booking_id=booking.id,
+                    label=str(entry.get("label") or token)[:200],
+                    kind=str(entry.get("kind") or "other")[:24],
+                    url=str(entry.get("url") or ""),
+                    filename=str(entry.get("filename") or "")[:255],
+                    size_bytes=int(entry.get("size_bytes") or 0),
+                    # Only published documents are ever written to the
+                    # manifest, so anything read back from it is published.
+                    publish=bool(entry.get("filename")),
+                ))
+                added += 1
+    if added:
+        log.info("Applied %d document(s) from the manifest", added)
+    return added
+
+
 def init_db(seed_if_empty: bool | None = None) -> None:
     """Create tables, and seed the itinerary the first time only."""
     settings = get_settings()
@@ -94,12 +148,14 @@ def init_db(seed_if_empty: bool | None = None) -> None:
     with session_scope() as session:
         existing = session.scalar(select(Booking.id).limit(1))
         if existing is not None:
+            sync_manifest_to_db()
             return
 
     from .seed import seed_itinerary  # imported late to avoid a cycle
 
     log.info("Empty database, seeding the itinerary")
     seed_itinerary()
+    sync_manifest_to_db()
 
 
 def reset_db() -> None:

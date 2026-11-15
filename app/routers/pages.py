@@ -21,7 +21,7 @@ from ..config import BASE_DIR
 from ..db import get_db
 from ..deps import AnalyticsDep, SettingsDep
 from ..journey import build_journey
-from ..models import BOOKING_KIND_STYLE, Booking, Place
+from ..models import BOOKING_KIND_STYLE, DOCUMENT_KIND_STYLE, Booking, Place
 
 router = APIRouter(tags=["pages"])
 templates = Jinja2Templates(directory=str(BASE_DIR / "app" / "templates"))
@@ -140,6 +140,7 @@ async def bookings_page(
         "bookings": [b.as_json() for b in rows],
         "places": [p.as_json() for p in places],
         "kinds": {str(k): dict(v) for k, v in BOOKING_KIND_STYLE.items()},
+        "document_kinds": {str(k): dict(v) for k, v in DOCUMENT_KIND_STYLE.items()},
         "totals_by_currency": {k: round(v, 2) for k, v in totals.items()},
         "confirmed_count": len([b for b in rows if b.status == "confirmed"]),
         "idea_count": len([b for b in rows if b.status == "idea"]),

@@ -13,7 +13,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 
-from .config import BASE_DIR, get_settings
+from .config import BASE_DIR, DOCS_DIR, get_settings
 from .db import init_db
 from .deps import TripService
 from .routers import api, pages
@@ -68,6 +68,18 @@ def create_app() -> FastAPI:
 
     STATIC_DIR.mkdir(parents=True, exist_ok=True)
     app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
+
+    # Booking documents. Serving them from the app means a locally-held file
+    # works exactly like a published one, so the private/published split is
+    # about who can reach it rather than whether the link works at all.
+    # StaticFiles resolves and confines paths itself, so a crafted URL cannot
+    # climb out of this directory.
+    #
+    # Mounted at /files rather than /docs: FastAPI already serves its
+    # interactive API docs at /docs, and shadowing those with a file tree
+    # would break them in a way nobody would think to look for.
+    DOCS_DIR.mkdir(parents=True, exist_ok=True)
+    app.mount("/files", StaticFiles(directory=str(DOCS_DIR)), name="files")
 
     app.include_router(api.router)
     app.include_router(pages.router)
