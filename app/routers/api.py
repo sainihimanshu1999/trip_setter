@@ -58,10 +58,12 @@ async def overview(analytics: AnalyticsDep) -> dict:
 @router.get("/people")
 async def people(analytics: AnalyticsDep) -> dict:
     """Per-person spend, the data behind the expenditure bars."""
-    max_paid = max((p.paid for p in analytics.people), default=ZERO)
+    # Same scale the dashboard uses: the largest total handed over.
+    max_paid = max((p.paid_total for p in analytics.people), default=ZERO)
     return {
         "currency": analytics.currency,
         "total": float(analytics.total_spend),
+        "total_moved": float(analytics.total_moved),
         "per_head": float(analytics.per_head),
         # The index is the colour: without it every person came back as
         # person_colour(0), so this endpoint painted the whole group red while

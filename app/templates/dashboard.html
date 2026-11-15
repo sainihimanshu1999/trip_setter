@@ -17,13 +17,18 @@
     <article class="card kpi reveal">
       <div class="label">Total spent</div>
       <div class="value num" id="kpi-total">{{ o.total_spend | money(o.currency) }}</div>
-      <div class="foot">{{ o.expense_count }} expenses &middot; {{ o.head_count }} people</div>
+      <div class="foot">
+        {{ o.expense_count }} expenses &middot; {{ o.head_count }} people
+      </div>
     </article>
 
     <article class="card kpi reveal">
       <div class="label">Each person's share</div>
       <div class="value num" id="kpi-head">{{ o.per_head | money(o.currency) }}</div>
-      <div class="foot">split evenly across the group</div>
+      <div class="foot">
+        average &middot; actual {{ o.share_low | money(o.currency) }}
+        to {{ o.share_high | money(o.currency) }}
+      </div>
     </article>
 
     <article class="card kpi reveal">
@@ -35,9 +40,11 @@
     </article>
 
     <article class="card kpi reveal">
-      <div class="label">Settled up so far</div>
-      <div class="value num">{{ o.total_settled | money(o.currency) }}</div>
-      <div class="foot">already repaid between people</div>
+      <div class="label">Cash that changed hands</div>
+      <div class="value num">{{ o.total_moved | money(o.currency) }}</div>
+      <div class="foot">
+        spending plus {{ o.total_settled | money(o.currency) }} paid back
+      </div>
     </article>
 
     <article class="card kpi reveal">
@@ -57,15 +64,18 @@
       <article class="card reveal">
         <div class="card-head">
           <h2>Who spent what</h2>
-          <span class="sub">bar length = money actually paid out</span>
+          <span class="sub">bar = every rupee they handed over</span>
         </div>
         <div class="people" id="people-chart"></div>
         <p class="hint">
-          The vertical tick is an even share ({{ o.per_head | money(o.currency) }}).
-          A bar past it means that person paid out more than an even share &mdash;
-          which is <em>not</em> the same as being owed money, because it counts
-          neither their own share of each expense nor any settling up already
-          done. The figure beside each name is where they actually stand.
+          The bar counts expenses they fronted <em>and</em> money they paid
+          back to someone, because both left their pocket. The tick on each row
+          is what that person is on the hook for &mdash; their share of the
+          spending plus anything repaid to them. Bar past the tick and the
+          group owes them, so the bar is <b class="pos-ink">green</b>; short of
+          it and they owe, so it is <b class="neg-ink">red</b>. Every bar and
+          tick is on one scale, so rows are comparable. Hover for the
+          arithmetic.
         </p>
       </article>
 
@@ -174,7 +184,7 @@
   kpi('kpi-transport', overview.transport_spend);
 
   Charts.people(document.getElementById('people-chart'), {
-    people: overview.people, currency: ccy, per_head: overview.per_head,
+    people: overview.people, currency: ccy,
   });
   Charts.buckets(document.getElementById('buckets-chart'), buckets);
   Charts.timeline(document.getElementById('timeline-chart'), timeline);

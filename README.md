@@ -170,38 +170,70 @@ misread the dashboard.
 
 | field | meaning |
 |---|---|
-| `paid` | money that actually left this person's pocket |
+| `paid` | expenses they fronted for the group |
+| `settled_out` | money they paid back to someone |
+| `paid_total` | `paid + settled_out`. Every rupee they handed over |
 | `owed` | their share of the group's spending |
-| `net` | `paid − owed`. Did they carry the group? Ignores settling up |
-| `balance` | `paid − owed + settled_out − settled_in`. Where they stand now |
+| `settled_in` | money someone paid back to them |
+| `owed_total` | `owed + settled_in`. Everything they are on the hook for |
+| `net` | `paid − owed`. Did they front the group's costs? Ignores settling up |
+| `balance` | `paid_total − owed_total`. Where they stand now |
+
+Paying someone back is money leaving your pocket exactly like paying for a
+hotel is, so it counts in `paid_total`. Before it did, Shruti's bar was **zero
+length** despite her having handed over ₹67,783 — all of it as repayments.
 
 A worked example from the real data. Himanshu fronted ₹70,805 of a ₹3,45,371
 trip, which is more than an even share, and yet he **owes** ₹12,201:
 
 ```
-paid out      70,805.00   two flights and a train he put on his own card
-own share     68,300.07   his slice of all seven expenses
-settle-ups    18,899.20 sent,  33,605.33 received
+fronted       70,805.00   two flights and a train on his own card
+paid back     18,899.20   to pranjal
               ---------
-net            2,504.93   the group owed him this, before settling up
-balance      -12,201.20   he owes this, because Lakshay repaid him
-                          33,605 when only 21,404 was outstanding
+handed over   89,704.20   <- the bar
+
+own share     68,300.07   his slice of all seven expenses
+repaid to him 33,605.33   from Lakshay
+              ---------
+on the hook  101,905.40   <- the tick
+
+balance      -12,201.20   he owes this: Lakshay repaid him 33,605
+                          when only 21,404 was outstanding
 ```
 
-The per-person chart draws `paid` as the bar and reports `balance` beside the
-name, and those two legitimately disagree. Hover a row for the arithmetic.
+So the chart reads directly. **The bar is everything they handed over, the tick
+on their row is everything they are on the hook for, and the gap between the
+two is their balance** — green when the bar is past the tick and the group owes
+them, red when it falls short and they owe. Every bar and tick sits on one
+group-wide scale, so rows are comparable. Hover for the arithmetic.
 
-**A long bar does not mean someone is owed money.** The bar is gross outlay
-measured against a flat even share; it counts neither their own share of each
-expense nor any repayment already made. In this group that distinction flips
-the answer for **three of six people**.
+Both sides sum to the same figure, which is the check worth knowing:
 
-### `per_head` is a flat divide
+```
+sum(paid_total) == sum(owed_total) == total_spend + total_settled
+```
 
-`total_spend ÷ head_count`, and nothing more. It ignores who was actually on
-each expense, so it will not match anyone's `owed` when people skipped
-expenses. The tile says "split evenly across the group" because that is
-literally what it computes.
+### Total spent is cost, not cash flow
+
+Two different headline figures, and conflating them double-counts:
+
+| | |
+|---|---|
+| **Total spent** | ₹3,45,371 — what the trip cost. Real expenses only |
+| **Cash that changed hands** | ₹5,52,340 — the above plus ₹2,06,969 of repayments |
+
+A settle-up is not extra spending: it repays a share of an expense already
+inside "Total spent". Shruti paying pranjal ₹18,899 is her settling the flight
+that is already counted. Adding the two together as spending would count that
+money twice, so they are shown as separate tiles.
+
+### `per_head` is an average, not anyone's bill
+
+`total_spend ÷ head_count`. It ignores who was actually on each expense, so it
+matches nobody when people skipped some: the average here is ₹57,562 while
+actual shares run ₹39,030 to ₹68,300. The tile shows the spread next to the
+average for that reason, and each person's real share is the tick on their own
+row in the chart.
 
 ### An expense date is just a date
 
@@ -488,7 +520,7 @@ in both.
 | Endpoint | What it gives you |
 |---|---|
 | `GET /api/overview` | totals, per-person figures, settlements, FX state |
-| `GET /api/people` | the expenditure bar data |
+| `GET /api/people` | the expenditure bar data, with `paid_total` and `owed_total` |
 | `GET /api/categories` | spend by bucket |
 | `GET /api/modes` | spend by transport mode |
 | `GET /api/timeline` | spend per expense date |

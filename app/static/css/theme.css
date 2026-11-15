@@ -410,6 +410,17 @@ a:hover { color: var(--accent); }
   transition: width 900ms var(--ease);
 }
 
+/* Green when the group owes them, red when they owe it. The colour and the
+   bar-past-marker reading have to agree, so both come from `balance`. */
+.person .fill.pos { background: var(--positive); }
+.person .fill.neg { background: var(--negative); }
+.person .fill:not(.pos):not(.neg) { background: var(--ink-3); }
+
+/* Inline colour words in the hints, so "green" and "red" are shown as well
+   as named. */
+.pos-ink { color: var(--positive); }
+.neg-ink { color: var(--negative); }
+
 /* The fair-share marker: where the bar would end on an even split. */
 .marker {
   position: absolute; top: -3px; bottom: -3px;

@@ -77,17 +77,44 @@ class PersonTotals:
         return (self.paid - self.owed).quantize(CENTS)
 
     @property
+    def paid_total(self) -> Decimal:
+        """Every rupee this person handed over.
+
+        Expenses they fronted plus settle-ups they sent. Paying someone back is
+        money leaving your pocket exactly like paying for a hotel is, so both
+        belong in "how much have I put in". It is `paid` that is the narrower
+        figure: it answers only "how much of the group's spending did you
+        front", which is why it alone cannot explain why someone who fronted a
+        lot still owes money.
+        """
+        return (self.paid + self.settled_out).quantize(CENTS)
+
+    @property
+    def owed_total(self) -> Decimal:
+        """Everything this person is on the hook for.
+
+        Their share of the group's spending plus any settle-up they received.
+        Being repaid reduces what the group owes you, so it belongs on this
+        side of the ledger.
+        """
+        return (self.owed + self.settled_in).quantize(CENTS)
+
+    @property
     def balance(self) -> Decimal:
         """What this person is actually up or down once settle-ups count.
 
-        Positive means the group still owes them.
+        Positive means the group still owes them. Identical to
+        `paid_total - owed_total`, which is what makes the chart readable: the
+        bar is `paid_total`, the marker is `owed_total`, and the gap between
+        them is this number.
         """
         return (self.paid - self.owed + self.settled_out - self.settled_in).quantize(CENTS)
 
     def as_json(self, max_paid: Decimal, index: int = 0) -> dict:
-        # Bar length is relative to the biggest spender so the chart always
-        # fills its width regardless of trip size.
-        share = float(self.paid / max_paid) if max_paid > 0 else 0.0
+        # Bars and the marker share one scale -- the biggest `paid_total` in
+        # the group -- so the gap between a person's bar and their own marker
+        # is their balance, drawn at the same scale as everyone else's.
+        scale = (lambda v: float(v / max_paid)) if max_paid > 0 else (lambda v: 0.0)
         return {
             "id": self.person.id,
             "name": self.person.name,
@@ -98,12 +125,15 @@ class PersonTotals:
             "color": person_colour(index),
             "paid": float(self.paid.quantize(CENTS)),
             "owed": float(self.owed.quantize(CENTS)),
+            "paid_total": float(self.paid_total),
+            "owed_total": float(self.owed_total),
             "net": float(self.net),
             "balance": float(self.balance),
             "settled_in": float(self.settled_in.quantize(CENTS)),
             "settled_out": float(self.settled_out.quantize(CENTS)),
             "expense_count": self.expense_count,
-            "bar_ratio": round(share, 4),
+            "bar_ratio": round(scale(self.paid_total), 4),
+            "marker_ratio": round(scale(self.owed_total), 4),
             "by_bucket": {k: float(v.quantize(CENTS)) for k, v in self.by_bucket.items()},
         }
 
@@ -201,6 +231,30 @@ class Analytics:
         return (self.total_spend / n).quantize(CENTS) if n else ZERO
 
     @property
+    def share_range(self) -> tuple[Decimal, Decimal]:
+        """Smallest and largest actual share, which `per_head` averages over.
+
+        `per_head` is a flat divide and matches nobody when people skipped
+        expenses, so the spread is reported next to it rather than leaving the
+        average looking like everyone's bill.
+        """
+        shares = [p.owed for p in self.people if p.owed > 0]
+        if not shares:
+            return ZERO, ZERO
+        return min(shares).quantize(CENTS), max(shares).quantize(CENTS)
+
+    @property
+    def total_moved(self) -> Decimal:
+        """All cash that actually changed hands.
+
+        Trip cost plus every settle-up. Deliberately not what "Total spent"
+        reports: a settle-up repays a share of an expense already counted, so
+        adding the two together as spending would count the same money twice.
+        This is the cash-flow figure, not the cost figure.
+        """
+        return (self.total_spend + self.total_settled).quantize(CENTS)
+
+    @property
     def biggest_day(self) -> tuple[date | None, Decimal]:
         """The date the most money was spent on.
 
@@ -272,7 +326,8 @@ def build_analytics(trip: TripData, fx: FxConverter) -> Analytics:
 
             nets[share.user_id] += paid_home - owed_home
 
-    out.people = sorted(totals.values(), key=lambda t: t.paid, reverse=True)
+    # Ranked by the bar the chart draws, which is everything handed over.
+    out.people = sorted(totals.values(), key=lambda t: t.paid_total, reverse=True)
     out.by_bucket = dict(sorted(bucket_sums.items(), key=lambda kv: kv[1], reverse=True))
     out.by_mode = dict(sorted(mode_sums.items(), key=lambda kv: kv[1], reverse=True))
     out.by_day = dict(sorted(day_sums.items()))
@@ -286,7 +341,9 @@ def build_analytics(trip: TripData, fx: FxConverter) -> Analytics:
 
 def overview_payload(a: Analytics) -> dict:
     big_day, big_amount = a.biggest_day
-    max_paid = max((p.paid for p in a.people), default=ZERO)
+    # One scale for every bar and marker in the chart.
+    max_paid = max((p.paid_total for p in a.people), default=ZERO)
+    share_low, share_high = a.share_range
     return {
         "currency": a.currency,
         "group_name": a.trip.group_name,
@@ -295,7 +352,10 @@ def overview_payload(a: Analytics) -> dict:
         "fetched_at": a.trip.fetched_at.isoformat() if a.trip.fetched_at else None,
         "total_spend": float(a.total_spend.quantize(CENTS)),
         "total_settled": float(a.total_settled.quantize(CENTS)),
+        "total_moved": float(a.total_moved),
         "per_head": float(a.per_head),
+        "share_low": float(share_low),
+        "share_high": float(share_high),
         "head_count": a.head_count,
         "expense_count": len([e for e in a.trip.expenses if not e.is_payment]),
         "transport_spend": float(sum(

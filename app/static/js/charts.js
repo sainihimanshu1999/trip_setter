@@ -6,13 +6,12 @@ const Charts = (() => {
   /* --- per-person expenditure bars -------------------------------------- */
 
   function people(host, payload) {
-    const { people: rows, currency, per_head: perHead } = payload;
+    const { people: rows, currency } = payload;
     host.innerHTML = '';
     if (!rows.length) {
       host.innerHTML = '<div class="empty">No expenses yet.</div>';
       return;
     }
-    const maxPaid = Math.max(...rows.map((p) => p.paid), 1);
     const money = new App.Money(currency);
 
     rows.forEach((person, i) => {
@@ -22,9 +21,8 @@ const Charts = (() => {
       /* Where they stand now, which is `balance` and not `net`. `net` is paid
          minus fair share and ignores settle-ups, so anyone who fronted a lot
          and was then repaid too much still read as being owed money. Himanshu
-         fronted 70,805 of a 345,371 trip -- more than an even share -- yet
-         after his own 68,300 share and a 33,605 repayment from Lakshay he owes
-         12,201. On `net` he showed as "fronted 2.5k". */
+         handed over 89,704 of a 552,340 total, more than most, yet after his
+         68,300 share and a 33,605 repayment from Lakshay he owes 12,201. */
       const balance = person.balance;
       const settled = Math.abs(balance) < 1;
       const sign = settled ? '' : (balance > 0 ? 'pos' : 'neg');
@@ -34,15 +32,20 @@ const Charts = (() => {
           ? `owed ${App.moneyShort(balance, currency)}`
           : `owes ${App.moneyShort(-balance, currency)}`;
 
-      /* The bar is gross outlay and the label is the net position, and the
-         two legitimately disagree. Spell the arithmetic out on hover so the
-         gap between them is answerable without opening the spreadsheet. */
+      /* The bar is everything they handed over and the marker is everything
+         they are on the hook for, both on one group-wide scale. So the gap
+         between a person's bar and their own marker *is* their balance, and
+         the colour says which side of it they are on. */
       const tip = [
         person.name,
-        `paid out    ${money.full(person.paid)}`,
-        `own share   ${money.full(person.owed)}`,
-        `settle-ups  ${money.full(person.settled_out)} sent, `
-          + `${money.full(person.settled_in)} received`,
+        `fronted      ${money.full(person.paid)}`,
+        `paid back    ${money.full(person.settled_out)}`,
+        `handed over  ${money.full(person.paid_total)}`,
+        '',
+        `own share    ${money.full(person.owed)}`,
+        `repaid to    ${money.full(person.settled_in)}`,
+        `on the hook  ${money.full(person.owed_total)}`,
+        '',
         settled
           ? 'square with the group'
           : balance > 0
@@ -58,11 +61,12 @@ const Charts = (() => {
           <div class="person-top">
             <span class="nm">${App.escapeHtml(person.name)}</span>
             <span class="delta ${sign}">${verdict}</span>
-            <span class="amt num" data-paid="${person.paid}"></span>
+            <span class="amt num" data-paid="${person.paid_total}"></span>
           </div>
-          <div class="track" style="--person-color:${App.escapeHtml(person.color || 'var(--accent)')}">
-            <div class="fill"></div>
-            <div class="marker" style="left:${((perHead / maxPaid) * 100).toFixed(2)}%"></div>
+          <div class="track">
+            <div class="fill ${sign}"></div>
+            <div class="marker" style="left:${(person.marker_ratio * 100).toFixed(2)}%"
+                 title="their share plus anything repaid to them: ${App.escapeHtml(money.full(person.owed_total))}"></div>
           </div>
         </div>`;
       row.title = tip;
@@ -71,12 +75,11 @@ const Charts = (() => {
       const fill = row.querySelector('.fill');
       const amt = row.querySelector('.amt');
       const marker = row.querySelector('.marker');
-      const width = (person.paid / maxPaid) * 100;
 
       // Stagger so the bars cascade rather than all firing at once.
       setTimeout(() => {
-        fill.style.width = `${width.toFixed(2)}%`;
-        App.countUp(amt, person.paid, { currency, short: true, duration: 1000 });
+        fill.style.width = `${(person.bar_ratio * 100).toFixed(2)}%`;
+        App.countUp(amt, person.paid_total, { currency, short: true, duration: 1000 });
         marker.classList.add('show');
       }, App.reduceMotion ? 0 : 120 + i * 130);
     });
