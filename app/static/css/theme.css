@@ -1049,6 +1049,9 @@ textarea { resize: vertical; min-height: 82px; line-height: 1.55; }
 
 .exp-desc { font-size: 0.9062rem; font-weight: 500; line-height: 1.35; }
 .exp-meta { font-size: 0.7812rem; color: var(--ink-2); margin-top: 2px; }
+/* Marks a date this app corrected, so a date that disagrees with Splitwise
+   is visibly a correction rather than looking like a bug. */
+.exp-fixed { color: var(--ink-warn, var(--ink-3)); cursor: help; border-bottom: 1px dotted currentColor; }
 .exp-amt { text-align: right; font-weight: 600; font-size: 0.9375rem; white-space: nowrap; }
 .exp-amt .orig { display: block; font-size: 0.75rem; font-weight: 400; color: var(--ink-2); }
 

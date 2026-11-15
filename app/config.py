@@ -100,6 +100,13 @@ class Settings(BaseSettings):
     #: static build, both of which treat this one file as canonical.
     github_csv_path: str = "data/expenses.csv"
 
+    #: Description -> the date the money was actually spent. A Splitwise
+    #: expense carries the day it was *typed in*, which for anything added
+    #: after the trip is not the day it happened. Corrections live here rather
+    #: than in the CSV because the CSV is a faithful export and is overwritten
+    #: by the next upload.
+    date_corrections: dict[str, date] = Field(default_factory=dict)
+
     trip_title: str = "Thailand"
     trip_subtitle: str = "Bangkok · Koh Samui · Phuket"
 
@@ -131,6 +138,22 @@ class Settings(BaseSettings):
     def _blank_group_is_none(cls, v: object) -> object:
         if isinstance(v, str) and not v.strip():
             return None
+        return v
+
+    @field_validator("date_corrections", mode="before")
+    @classmethod
+    def _parse_corrections(cls, v: object) -> object:
+        """Accept a JSON object string, so this can also be set from the env."""
+        if isinstance(v, str):
+            v = v.strip()
+            if not v:
+                return {}
+            try:
+                return json.loads(v)
+            except json.JSONDecodeError as exc:  # pragma: no cover - config error
+                raise ValueError(
+                    f"DATE_CORRECTIONS must be a JSON object: {exc}"
+                ) from exc
         return v
 
     @field_validator("trip_currency", "home_currency", mode="after")

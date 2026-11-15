@@ -82,6 +82,34 @@ cache_ttl_seconds = 120
 # Re-seed the itinerary on boot when the bookings table is empty.
 auto_seed = true
 
+# --- correcting expense dates ------------------------------------------------
+#
+# A Splitwise expense carries the day it was *entered*, not the day the money
+# was spent. Anything added after everyone got home therefore lands outside the
+# trip window: it still counts towards the total, but it drops off the
+# day-by-day chart and cannot be the biggest day.
+#
+# Each entry maps a description to the day it was actually spent. Matching
+# ignores case and punctuation. A correction that matches no row is reported by
+# GET /api/ingest as `unused_corrections` rather than sitting there dead, so a
+# renamed description shows up instead of silently doing nothing.
+#
+# This lives here and not in data/expenses.csv on purpose: that file is a
+# faithful export and the upload panel overwrites it, so an edit there would be
+# lost on the next publish. Corrections survive re-exporting.
+#
+# The real fix is to correct the date in Splitwise, after which the entry below
+# becomes a no-op and can be deleted.
+#
+# Dates below come from the itinerary in app/seed.py:
+#   Bangkok 05-08 Oct, Koh Samui 08-14, Phuket 14-17.
+
+[date_corrections]
+# Entered 21 Oct, four days after the trip ended. The Bangkok leg is 05-08.
+"Bangkok stay" = 2026-10-05
+# Entered 30 Oct, thirteen days after. The Phuket leg is 14-17.
+"Airbnb phuket" = 2026-10-14
+
 # --- FX fallback -------------------------------------------------------------
 #
 # Home-currency units per 1 unit of the key, so with INR as home,

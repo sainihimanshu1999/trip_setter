@@ -371,6 +371,9 @@ class IngestReport:
     skipped: list[dict] = field(default_factory=list)
     anomalies: list[dict] = field(default_factory=list)
     currencies: dict[str, int] = field(default_factory=dict)
+    #: Date corrections that matched a row, and the ones that matched nothing.
+    corrections: list[dict] = field(default_factory=list)
+    unused_corrections: list[str] = field(default_factory=list)
 
     def skip(self, row: int, reason: str, description: str = "") -> None:
         self.skipped.append({"row": row, "reason": reason, "description": description})
@@ -378,6 +381,14 @@ class IngestReport:
     def flag(self, row: int, issue: str, detail: str) -> None:
         self.anomalies.append({"row": row, "issue": issue, "detail": detail})
         log.warning("Row %d: %s (%s)", row, issue, detail)
+
+    def correct(self, row: int, description: str, was: date | None, now: date) -> None:
+        self.corrections.append({
+            "row": row,
+            "description": description,
+            "from": was.isoformat() if was else None,
+            "to": now.isoformat(),
+        })
 
     @property
     def spend_rows(self) -> int:
@@ -394,6 +405,8 @@ class IngestReport:
             "skipped": list(self.skipped),
             "anomalies": list(self.anomalies),
             "currencies": dict(self.currencies),
+            "corrections": list(self.corrections),
+            "unused_corrections": list(self.unused_corrections),
         }
 
 
@@ -476,12 +489,24 @@ def _build_shares(
 # --------------------------------------------------------------------- load
 
 
-def load_csv(path: Path | str, default_currency: str = "THB") -> TripData:
+def load_csv(
+    path: Path | str,
+    default_currency: str = "THB",
+    date_corrections: dict[str, date] | None = None,
+) -> TripData:
     """Read a Splitwise CSV export.
 
     `default_currency` is used only for rows whose Currency cell is blank; each
     such row is recorded on the report, because guessing wrong here scales the
     row by the whole FX rate.
+
+    `date_corrections` maps a description to the day the money was actually
+    spent. A Splitwise expense carries the day it was *entered*, so anything
+    added after the trip lands outside the trip window and drops off the
+    day-by-day chart. Correcting here rather than in the file keeps the export
+    a faithful copy of Splitwise, which matters because the next upload
+    overwrites it. Every correction applied, and every one that matched
+    nothing, goes on the report.
 
     Raises `FileNotFoundError` if the file is missing, and `ValueError` if it
     has no header, is missing a required field, or names no people.
@@ -510,6 +535,10 @@ def load_csv(path: Path | str, default_currency: str = "THB") -> TripData:
 
     report = IngestReport(source=path.name, columns=columns)
     fallback = (default_currency or "THB").upper()
+    # Matched on the same normalised key as everything else, so casing and
+    # punctuation in the config do not have to match the export exactly.
+    corrections = {_norm(k): v for k, v in (date_corrections or {}).items()}
+    applied: set[str] = set()
 
     id_map = _assign_ids(columns.people)
     people = [Person.from_name(id_map[name], name) for name in columns.people]
@@ -547,9 +576,21 @@ def load_csv(path: Path | str, default_currency: str = "THB") -> TripData:
             report.flag(row_number, "missing_currency", f"defaulted to {fallback}")
         report.currencies[currency] = report.currencies.get(currency, 0) + 1
 
+        # Identity is keyed on the date the export carried, not the corrected
+        # one, so adding or removing a correction does not repoint an id at a
+        # different expense.
         fingerprint = _fingerprint(when, description, cost, currency)
         seen = occurrences.get(fingerprint, 0)
         occurrences[fingerprint] = seen + 1
+
+        original = None
+        key = _norm(description)
+        corrected = corrections.get(key)
+        if corrected is not None and corrected != when:
+            report.correct(row_number, description, when, corrected)
+            original, when = when, corrected
+        if corrected is not None:
+            applied.add(key)
 
         is_payment = _is_payment_row(description, category)
         verdict = classify(description, category, "")
@@ -562,6 +603,7 @@ def load_csv(path: Path | str, default_currency: str = "THB") -> TripData:
             cost=cost,
             currency=currency,
             date=when,
+            original_date=original,
             category=category,
             is_payment=is_payment,
             shares=_build_shares(columns, id_map, row, cost, report, row_number),
@@ -573,15 +615,26 @@ def load_csv(path: Path | str, default_currency: str = "THB") -> TripData:
         report.rows_imported += 1
         report.payments += int(is_payment)
 
+    # A correction that matches nothing is almost always a typo or a
+    # description that changed, so say so rather than letting it sit dead.
+    report.unused_corrections = sorted(
+        original_key
+        for original_key, _ in (date_corrections or {}).items()
+        if _norm(original_key) not in applied
+    )
+    for stale in report.unused_corrections:
+        log.warning("Date correction for %r matched no row", stale)
+
     # Stable sort, so rows sharing a date keep the order the file listed them.
     expenses.sort(key=lambda e: e.date or date.min)
 
     log.info(
         "CSV import: %d/%d rows from %s - %d expenses, %d settle-ups, "
-        "%d people (%s)%s",
+        "%d people (%s)%s%s",
         report.rows_imported, report.rows_read, path.name,
         report.spend_rows, report.payments, len(people), ", ".join(columns.people),
         f", ignored columns: {', '.join(columns.ignored)}" if columns.ignored else "",
+        f", {len(report.corrections)} date correction(s)" if report.corrections else "",
     )
 
     return TripData(

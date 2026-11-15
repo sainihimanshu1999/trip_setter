@@ -218,6 +218,7 @@
           <div class="exp-desc">${App.escapeHtml(e.description)}</div>
           <div class="exp-meta">
             ${App.fmtDate(e.date)}
+            ${e.original_date ? `<span class="exp-fixed" title="Splitwise has this on ${App.escapeHtml(App.fmtDate(e.original_date))}, which is when it was entered rather than spent. Corrected in trip.toml.">&middot; date corrected</span>` : ''}
             ${e.payers.length ? '&middot; ' + App.escapeHtml(e.payers.join(', ')) + ' paid' : ''}
             ${e.category ? '&middot; ' + App.escapeHtml(e.category) : ''}
           </div>
