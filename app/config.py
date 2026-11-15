@@ -9,10 +9,21 @@ from functools import lru_cache
 from pathlib import Path
 
 from pydantic import Field, field_validator
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic_settings import (
+    BaseSettings,
+    PydanticBaseSettingsSource,
+    SettingsConfigDict,
+    TomlConfigSettingsSource,
+)
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = BASE_DIR / "data"
+
+#: Trip settings that are not secret, and so are committed. `.env` is
+#: gitignored because it can hold an API key, which meant everything else
+#: living in it was invisible to the Pages build: the deploy fell back to the
+#: code defaults, and editing `.env` changed the local dashboard only.
+TRIP_FILE = BASE_DIR / "trip.toml"
 
 #: Home-currency units per 1 unit of the key. Defaults are a snapshot taken
 #: 2026-10-23 from frankfurter.dev with INR as home; live refresh overrides them.
@@ -32,8 +43,36 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=BASE_DIR / ".env",
         env_file_encoding="utf-8",
+        toml_file=TRIP_FILE,
         extra="ignore",
     )
+
+    @classmethod
+    def settings_customise_sources(
+        cls,
+        settings_cls: type[BaseSettings],
+        init_settings: PydanticBaseSettingsSource,
+        env_settings: PydanticBaseSettingsSource,
+        dotenv_settings: PydanticBaseSettingsSource,
+        file_secret_settings: PydanticBaseSettingsSource,
+    ) -> tuple[PydanticBaseSettingsSource, ...]:
+        """Highest priority first: env vars, then `.env`, then `trip.toml`.
+
+        Environment variables lead so CI and the static build can override
+        anything without editing a file. `trip.toml` sits last because it is
+        the committed, shared answer: a local `.env` is free to disagree with
+        it, and the deploy, which has no `.env`, reads it directly.
+
+        A missing `trip.toml` contributes nothing rather than failing, so a
+        checkout without one still runs on the code defaults.
+        """
+        return (
+            init_settings,
+            env_settings,
+            dotenv_settings,
+            TomlConfigSettingsSource(settings_cls),
+            file_secret_settings,
+        )
 
     splitwise_api_key: str = ""
     splitwise_group_id: int | None = None

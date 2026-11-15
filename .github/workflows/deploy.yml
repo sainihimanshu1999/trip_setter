@@ -10,6 +10,9 @@ on:
     branches: [main]
     paths:
       - "data/expenses.csv"
+      # Trip dates, currencies and FX fallback. This workflow has no `.env`,
+      # so trip.toml is how the published site learns about them.
+      - "trip.toml"
       - "app/**"
       - "scripts/build_static.py"
       - "requirements.txt"

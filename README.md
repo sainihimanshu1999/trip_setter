@@ -65,21 +65,32 @@ To refresh, re-export from Splitwise, drop the file in `data/`, and hit the
 
 By default the app picks the Splitwise group whose type is `trip`. To choose a
 specific one, hit `/api/groups` to list your groups and put the id in
-`SPLITWISE_GROUP_ID`.
+`trip.toml` as `splitwise_group_id`.
 
-Set your trip dates and currencies in `.env` too:
+Trip dates and currencies live in **`trip.toml`**, which is committed:
 
-```ini
-TRIP_START=2026-10-05
-TRIP_END=2026-10-17
-TRIP_CURRENCY=THB
-HOME_CURRENCY=INR
+```toml
+trip_start = 2026-10-05
+trip_end = 2026-10-17
+trip_currency = "THB"
+home_currency = "INR"
 ```
 
-Everything is converted into `HOME_CURRENCY` so a THB ferry ticket and an INR
+They are kept there rather than in `.env` because `.env` is gitignored, so the
+GitHub Pages build never sees it — anything configured there applies to the
+local dashboard and is silently ignored by the published site. `trip.toml` is
+read by both. Change a value, commit, and the deploy follows.
+
+`.env` is for secrets (`SPLITWISE_API_KEY`, `GITHUB_TOKEN`) and
+machine-specific paths. It still overrides `trip.toml` locally, which is useful
+for trying a different window without committing it. Full order, highest
+first: environment variables, `.env`, `trip.toml`, defaults in
+`app/config.py`.
+
+Everything is converted into `home_currency` so a THB ferry ticket and an INR
 flight booking can share a chart. Rates come from
 [frankfurter.dev](https://frankfurter.dev) (free, no key) and fall back to the
-static table in `.env` when offline.
+`[fx_rates]` table in `trip.toml` when offline.
 
 ---
 
@@ -156,7 +167,7 @@ name never lands on the pin above it.
 
 ```
 app/
-  config.py      settings from .env
+  config.py      settings: env vars, .env, then trip.toml
   classify.py    expense -> transport mode + spend bucket
   csv_import.py  reads Splitwise CSV export (no API key needed)
   domain.py      Person / Share / Expense / TripData
@@ -174,10 +185,13 @@ app/
   static/        theme.css + app/charts/journey/bookings .js
 data/
   demo_splitwise.json   sample data in the real API's shape
+  expenses.csv          your Splitwise export (committed; the site builds from it)
   trip.db               your bookings (created on first run)
 scripts/
   make_demo_data.py     regenerates the sample data
 tests/
+trip.toml        trip dates, currencies and FX fallback (committed)
+.env             secrets and machine-local overrides (gitignored)
 ```
 
 Demo data uses the exact shape of a real `GET /get_expenses` response, so demo

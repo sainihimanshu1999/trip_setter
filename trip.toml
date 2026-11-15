@@ -1,0 +1,104 @@
+#
+# Trip configuration. Committed on purpose.
+# =============================================================================
+#
+# Everything here is non-secret, so it belongs in the repository rather than in
+# `.env`. That file is gitignored because it can hold a Splitwise API key, and
+# anything else kept in it was invisible to the GitHub Pages build: the deploy
+# never sees `.env`, so it silently fell back to the defaults in
+# `app/config.py`. Editing `TRIP_END` in `.env` changed the local dashboard and
+# nothing else.
+#
+# Change a value here, commit, and the published site follows.
+#
+# Precedence, highest first:
+#
+#   1. environment variables      (CI and scripts/build_static.py)
+#   2. .env                       (your machine, secrets and local overrides)
+#   3. this file                  (the shared answer)
+#   4. defaults in app/config.py  (last resort)
+#
+# So a local `.env` can still disagree with this file when you need it to.
+#
+# Secrets do NOT go here. Keep SPLITWISE_API_KEY and GITHUB_TOKEN in `.env`.
+#
+
+# --- what the trip is called -------------------------------------------------
+
+trip_title = "Thailand"
+trip_subtitle = "Bangkok · Koh Samui · Phuket"
+
+# --- when it happened --------------------------------------------------------
+#
+# Bare dates, which TOML parses natively. This window is what the "Day by day"
+# chart draws and what "Booked in advance" measures against. Spending dated
+# outside it is still counted in the total, and reported separately at whichever
+# end it falls, rather than being drawn as a day of the trip.
+#
+# The itinerary in app/seed.py matches these dates: Bangkok 05-08 Oct,
+# Koh Samui 08-14, Phuket 14-17, home on the 17th. Change both together.
+
+trip_start = 2026-10-05
+trip_end = 2026-10-17
+
+# --- currencies --------------------------------------------------------------
+#
+# `trip_currency` is what gets spent on the ground and is assumed for a row
+# whose Currency cell is empty. `home_currency` is what every total is shown
+# in, so changing it rewrites every figure on the dashboard.
+
+trip_currency = "THB"
+home_currency = "INR"
+
+# Pull live rates from frankfurter.dev (free, no key). The table below is the
+# fallback when that is unreachable or turned off.
+fx_live = true
+
+# --- Splitwise ---------------------------------------------------------------
+#
+# Which group is the trip. Leave empty and the group whose type is "trip" is
+# picked automatically; visit /api/groups once running to list ids.
+# The API key itself is a secret and lives in `.env`.
+
+splitwise_group_id = ""
+
+# --- publishing --------------------------------------------------------------
+#
+# Where "Pull latest" reads a published export from. An empty repo is read off
+# the `origin` remote in .git/config, so a normal clone needs nothing here.
+# A private repo additionally needs GITHUB_TOKEN in `.env`.
+
+github_repo = ""
+github_branch = "main"
+github_csv_path = "data/expenses.csv"
+
+# --- behaviour ---------------------------------------------------------------
+
+# Seconds to cache Splitwise API responses. The API is rate limited, so keep
+# this at 60 or higher in normal use. Ignored in CSV mode, which re-reads the
+# file every request.
+cache_ttl_seconds = 120
+
+# Re-seed the itinerary on boot when the bookings table is empty.
+auto_seed = true
+
+# --- FX fallback -------------------------------------------------------------
+#
+# Home-currency units per 1 unit of the key, so with INR as home,
+# 1 THB = 2.81 INR. Snapshot taken 2026-10-23; live rates override it unless
+# fx_live is false. A currency missing from this table and unreachable live is
+# passed through 1:1 and logged, which understates it rather than dropping the
+# expense, so add anything the trip actually spends in.
+#
+# Must stay at the end of the file: TOML assigns every following key to the
+# table above it.
+
+[fx_rates]
+INR = 1.0
+THB = 2.81
+USD = 94.94
+EUR = 106.27
+SGD = 74.26
+MYR = 23.24
+GBP = 122.50
+AED = 25.85
