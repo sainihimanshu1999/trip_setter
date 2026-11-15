@@ -126,13 +126,22 @@
         {% if timeline.prebooked %}
           &middot; plus {{ timeline.prebooked | money(o.currency) }} booked earlier
         {% endif %}
-        {% if timeline.beyond_window %}
-          &middot; {{ timeline.beyond_window | money(o.currency) }} dated after
-          {{ timeline.configured_window[1] | prettydate }}
+        {% if timeline.after %}
+          &middot; plus {{ timeline.after | money(o.currency) }} dated after the trip
         {% endif %}
       </span>
     </div>
     <div class="timeline" id="timeline-chart"></div>
+    {% if timeline.after %}
+    <p class="hint">
+      {{ timeline.after | money(o.currency) }} is dated after
+      {{ trip_end | prettydate }}, so it sits outside the chart but is counted
+      in the total above. That usually means the expense was added to
+      Splitwise after everyone got home and kept the day it was typed in
+      rather than the day it was spent &mdash; worth correcting at the source,
+      since the date is what places it on this chart.
+    </p>
+    {% endif %}
   </section>
 
   <!-- ===== recent expenses ============================================= -->
