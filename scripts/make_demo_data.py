@@ -28,8 +28,8 @@ NAMES = {m["id"]: m for m in MEMBERS}
 # (date, description, category, cost, currency, payer, participants, details)
 E = [
     # --- pre-trip, booked from home in INR ------------------------------
-    ("2025-12-02", "IndiGo flights Delhi to Bangkok (4 pax)", "Plane", "71600", "INR", 101, ALL,
-     "6E 1051 DEL-BKK, booked on goindigo.in, PNR R4T9KQ"),
+    ("2025-12-02", "Thai Airways flights Delhi to Bangkok (4 pax)", "Plane", "71600", "INR", 101, ALL,
+     "TG 332 DEL-BKK, booked on thaiairways.com, PNR 897AUL"),
     ("2025-12-05", "Thailand visa fee x4", "General", "9600", "INR", 102, ALL,
      "e-Visa processed online"),
     ("2025-12-09", "Travel insurance", "Insurance", "4800", "INR", 103, ALL, ""),

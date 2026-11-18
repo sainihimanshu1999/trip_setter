@@ -39,8 +39,8 @@ trip_subtitle = "Bangkok · Koh Samui · Phuket"
 # so there is nothing to gain by sorting expenses into inside-the-trip and
 # outside-the-trip: every dated expense is simply drawn on its own date.
 
-trip_start = 2026-10-05
-trip_end = 2026-10-17
+trip_start = 2026-11-20
+trip_end = 2026-11-30
 
 # --- currencies --------------------------------------------------------------
 #

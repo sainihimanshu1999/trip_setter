@@ -193,7 +193,7 @@ def test_prebooked_flight_still_matches_its_leg(db_session, analytics):
         if e["kind"] == "leg" and e["from"] == "delhi" and e["to"] == "bangkok"
     )
     assert edge["has_spend"] is True
-    assert any("IndiGo" in x["description"] for x in edge["expenses"])
+    assert any("Thai Airways" in x["description"] for x in edge["expenses"])
 
 
 def test_leg_matching_needs_evidence_not_just_a_nearby_date():
