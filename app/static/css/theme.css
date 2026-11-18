@@ -1004,3 +1004,17 @@ a:hover { color: var(--accent); }
   cursor: pointer;
 }
 .check input { margin-top: 2px; flex-shrink: 0; }
+
+/* ===== itinerary CRUD (journey page) ==================================== */
+
+/* Edit/delete on a leg's rail entry. Sits inline with its line of text,
+   revealed only once itinerary.js confirms there is a backend to call. */
+.rail-acts { display: inline-flex; gap: 2px; margin-left: 6px; vertical-align: middle; }
+
+/* Edit/delete in the place side-panel, below everything else about that
+   place -- same "divider, then actions" shape as .booking-foot. */
+.panel-acts {
+  display: flex; gap: 8px;
+  margin-top: 14px; padding-top: 12px;
+  border-top: 1px solid var(--line-soft);
+}

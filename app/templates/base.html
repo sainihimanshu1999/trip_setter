@@ -112,6 +112,15 @@
       <svg viewBox="0 0 24 24" width="15" height="15"><use href="#i-plus"/></svg>
       Update data
     </button>
+
+    <!-- Local-only, like Refresh and Pull: committing the itinerary and
+         documents needs GITHUB_TOKEN and a filesystem, neither of which the
+         published site has. Hidden there by app.js. -->
+    <button class="btn" id="publish-changes" type="button"
+            title="Commit and push itinerary and document changes to GitHub">
+      <svg viewBox="0 0 24 24" width="15" height="15"><use href="#i-route"/></svg>
+      Publish changes
+    </button>
   </header>
 
   <dialog id="upload-dialog" class="upload-dialog">

@@ -136,6 +136,13 @@ def sync_manifest_to_db() -> int:
     return added
 
 
+def _sync_itinerary() -> int:
+    from . import itinerary  # imported late to avoid a cycle
+
+    with session_scope() as session:
+        return itinerary.sync_itinerary_to_db(session)
+
+
 def init_db(seed_if_empty: bool | None = None) -> None:
     """Create tables, and seed the itinerary the first time only."""
     settings = get_settings()
@@ -149,6 +156,7 @@ def init_db(seed_if_empty: bool | None = None) -> None:
         existing = session.scalar(select(Booking.id).limit(1))
         if existing is not None:
             sync_manifest_to_db()
+            _sync_itinerary()
             return
 
     from .seed import seed_itinerary  # imported late to avoid a cycle
@@ -156,6 +164,7 @@ def init_db(seed_if_empty: bool | None = None) -> None:
     log.info("Empty database, seeding the itinerary")
     seed_itinerary()
     sync_manifest_to_db()
+    _sync_itinerary()
 
 
 def reset_db() -> None:

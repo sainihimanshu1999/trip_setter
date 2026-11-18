@@ -1,0 +1,142 @@
+{
+  "_comment": "Current itinerary, written by the app after every add, edit or delete. Committed so a fresh database -- the static build, a new clone -- ends up with the same stops and legs instead of just the baseline in app/seed.py.",
+  "places": [
+    {
+      "slug": "delhi",
+      "name": "Delhi",
+      "region": "India",
+      "country": "India",
+      "lat": 28.6139,
+      "lon": 77.209,
+      "arrive_on": null,
+      "depart_on": "2026-11-20",
+      "nights": 0,
+      "order_index": 0,
+      "blurb": "Where it starts. Red-eye out of Terminal 3.",
+      "match_terms": "del,indira gandhi,home,delhi"
+    },
+    {
+      "slug": "bangkok",
+      "name": "Bangkok",
+      "region": "Central Thailand",
+      "country": "Thailand",
+      "lat": 13.7563,
+      "lon": 100.5018,
+      "arrive_on": "2026-11-20",
+      "depart_on": "2026-11-22",
+      "nights": 2,
+      "order_index": 1,
+      "blurb": "Temples at sunrise, Chinatown at midnight, and the best pad thai on the planet at Thipsamai. Base for the first two nights.",
+      "match_terms": "bkk,dmk,suvarnabhumi,don mueang,chatuchak,wat pho,grand palace,khao san,sukhumvit,silom,thipsamai,rajadamnern,chao phraya,phaya thai,bangkok stay"
+    },
+    {
+      "slug": "koh-samui",
+      "name": "Koh Samui",
+      "region": "Gulf Coast",
+      "country": "Thailand",
+      "lat": 9.512,
+      "lon": 100.0067,
+      "arrive_on": "2026-11-23",
+      "depart_on": "2026-11-28",
+      "nights": 5,
+      "order_index": 2,
+      "blurb": "Island vibes, golden beaches, and a BnB with the crew. Train from Bangkok to Surat Thani, then ferry across. Dates are an estimate -- no confirmation document for this stay yet.",
+      "match_terms": "koh samui,samui,surat thani,nathon,chaweng,lamai,bophut,fisherman village,koh samui bnb"
+    },
+    {
+      "slug": "phuket",
+      "name": "Phuket",
+      "region": "Andaman Coast",
+      "country": "Thailand",
+      "lat": 7.8906,
+      "lon": 98.2969,
+      "arrive_on": "2026-11-28",
+      "depart_on": "2026-11-29",
+      "nights": 1,
+      "order_index": 3,
+      "blurb": "Last stop. Patong nightlife, Kata beach, and the flights home. Dates are an estimate -- no confirmation document for this stay yet.",
+      "match_terms": "hkt,patong,rassada,kalim,kata,karon,phuket,flight hkt,airbnb phuket"
+    },
+    {
+      "slug": "bangalore",
+      "name": "Bangalore",
+      "region": "India",
+      "country": "India",
+      "lat": 12.9716,
+      "lon": 77.5946,
+      "arrive_on": "2026-11-29",
+      "depart_on": null,
+      "nights": 0,
+      "order_index": 4,
+      "blurb": "Home for Riya, Ayushi and Shruti. Direct Phuket–Bangalore flight.",
+      "match_terms": "blr,bangalore,bengaluru,kempegowda"
+    }
+  ],
+  "legs": [
+    {
+      "from_slug": "delhi",
+      "to_slug": "bangkok",
+      "mode": "plane",
+      "operator": "Thai Airways",
+      "reference": "TG 332",
+      "depart_at": "2026-11-20T03:30:00",
+      "arrive_at": "2026-11-20T09:00:00",
+      "duration_minutes": 240,
+      "order_index": 0,
+      "notes": "Delhi to Bangkok. Lands at Suvarnabhumi. PNR 897AUL.",
+      "booking_url": "https://www.thaiairways.com/"
+    },
+    {
+      "from_slug": "bangkok",
+      "to_slug": "koh-samui",
+      "mode": "train",
+      "operator": "Thai Railways",
+      "reference": "167",
+      "depart_at": "2026-11-22T20:30:00",
+      "arrive_at": "2026-11-23T07:16:00",
+      "duration_minutes": 646,
+      "order_index": 1,
+      "notes": "Overnight sleeper, Krung Thep Aphiwat Central to Surat Thani (booking 12GO33371718), then ferry to Koh Samui.",
+      "booking_url": ""
+    },
+    {
+      "from_slug": "koh-samui",
+      "to_slug": "phuket",
+      "mode": "plane",
+      "operator": "",
+      "reference": "",
+      "depart_at": "2026-11-28T10:00:00",
+      "arrive_at": "2026-11-28T11:10:00",
+      "duration_minutes": 70,
+      "order_index": 2,
+      "notes": "Short hop from Samui to Phuket. Date estimated -- no confirmation yet.",
+      "booking_url": ""
+    },
+    {
+      "from_slug": "phuket",
+      "to_slug": "delhi",
+      "mode": "plane",
+      "operator": "IndiGo",
+      "reference": "6E 1082",
+      "depart_at": "2026-11-29T22:40:00",
+      "arrive_at": "2026-11-30T02:00:00",
+      "duration_minutes": 290,
+      "order_index": 3,
+      "notes": "Phuket to Delhi. Himanshu and Lakshay fly home. PNR TGDG5X.",
+      "booking_url": "https://www.goindigo.in/"
+    },
+    {
+      "from_slug": "phuket",
+      "to_slug": "bangalore",
+      "mode": "plane",
+      "operator": "Akasa Air",
+      "reference": "QP 624",
+      "depart_at": "2026-11-29T17:00:00",
+      "arrive_at": "2026-11-29T19:20:00",
+      "duration_minutes": 140,
+      "order_index": 4,
+      "notes": "Phuket to Bangalore. Riya, Ayushi and Shruti fly home. PNR KB9GYQ.",
+      "booking_url": "https://www.akasaair.com/"
+    }
+  ]
+}

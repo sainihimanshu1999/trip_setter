@@ -13,6 +13,11 @@ on:
       # Trip dates, currencies and FX fallback. This workflow has no `.env`,
       # so trip.toml is how the published site learns about them.
       - "trip.toml"
+      # Published documents and the itinerary snapshot, both written by the
+      # app (or by /api/publish) rather than hand-edited, which is why they
+      # are committed data files instead of code.
+      - "data/docs/**"
+      - "data/itinerary.json"
       - "app/**"
       - "scripts/build_static.py"
       - "requirements.txt"

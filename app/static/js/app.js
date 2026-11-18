@@ -250,6 +250,36 @@ const App = (() => {
     });
   }
 
+  /** Commit and push the itinerary snapshot and document manifest to GitHub.
+   *
+   * Local-only, same as Refresh and Pull: this calls back into this same
+   * server, which needs GITHUB_TOKEN in .env and a filesystem to read the
+   * files from -- neither of which the published static site has. */
+  function initPublish() {
+    const btn = document.getElementById('publish-changes');
+    if (!btn) return;
+    btn.addEventListener('click', async () => {
+      const icon = btn.querySelector('svg');
+      btn.disabled = true;
+      icon?.classList.add('spin');
+      try {
+        const result = await api('/api/publish', { method: 'POST' });
+        const committed = result.published.filter((p) => p.status === 'committed');
+        if (!committed.length) {
+          toast('Already up to date, nothing to publish');
+        } else {
+          toast(`Published ${committed.length} file${committed.length === 1 ? '' : 's'} to `
+            + `${result.repo}. GitHub is rebuilding the site.`);
+        }
+      } catch (err) {
+        toast(err.message, 'bad');
+      } finally {
+        btn.disabled = false;
+        icon?.classList.remove('spin');
+      }
+    });
+  }
+
   /** Pull the export that was published to GitHub down onto this machine.
    *
    * Refresh re-reads the local file, which is no help when the newer export
@@ -408,12 +438,15 @@ const App = (() => {
     const open = document.getElementById('open-upload');
     const refresh = document.getElementById('refresh');
     const pull = document.getElementById('pull');
+    const publish = document.getElementById('publish-changes');
     if (!isStatic || !open) return;
 
     // Both server-side buttons need a server. A static build has none: it
-    // cannot re-read a CSV and it has nowhere to write a pulled one.
+    // cannot re-read a CSV, has nowhere to write a pulled one, and has
+    // nothing to push a commit from.
     if (refresh) refresh.hidden = true;
     if (pull) pull.hidden = true;
+    if (publish) publish.hidden = true;
     open.hidden = false;
 
     const dialog = document.getElementById('upload-dialog');
@@ -511,6 +544,7 @@ const App = (() => {
     observeReveals();
     initRefresh();
     initPull();
+    initPublish();
     initTheme();
     initUpload();
   });

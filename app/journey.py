@@ -326,10 +326,11 @@ def _match_leg(
         # proves nothing: you are already there. That is the difference between
         # "Ferry Ao Nang to Phi Phi" and a round-trip boat tour out of Ao Nang.
         weak = gap <= 1 and hits_to
-        # Flights and trains are commonly booked months early, so a "Flight to
-        # BKK" expense filed in September should still match the October leg
-        # if the mode and destination match. Relax the gap for these modes.
-        prebooked = hits_to and leg.mode in ("plane", "train") and gap <= 60
+        # Flights and trains are commonly booked months early -- this trip's
+        # own flights were booked 60-90 days out -- so a "Flight to BKK"
+        # expense filed in September should still match a November leg if the
+        # mode and destination match. Relax the gap for these modes.
+        prebooked = hits_to and leg.mode in ("plane", "train") and gap <= 90
         if not (strong or weak or prebooked):
             continue
 
@@ -481,6 +482,7 @@ def build_journey(session: Session, analytics: Analytics) -> dict:
         acc.top.sort(key=lambda kv: kv[1], reverse=True)
         node_rows.append({
             "id": slug,
+            "place_id": acc.place.id,
             "name": acc.place.name,
             "region": acc.place.region,
             "country": acc.place.country,

@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
+import base64
 import logging
 import shutil
 from datetime import datetime, timezone
 from decimal import Decimal
+from pathlib import Path
 from typing import Annotated
 
 import httpx
@@ -23,7 +25,7 @@ from fastapi import (
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from .. import documents
+from .. import documents, itinerary
 from ..analytics import (
     CENTS,
     buckets_payload,
@@ -35,6 +37,7 @@ from ..analytics import (
     timeline_payload,
 )
 from ..classify import BUCKET_STYLE, MODE_STYLE
+from ..config import DOCS_DIR
 from ..csv_import import load_csv
 from ..db import get_db
 from ..deps import AnalyticsDep, ServiceDep, SettingsDep
@@ -48,7 +51,7 @@ from ..models import (
     Leg,
     Place,
 )
-from ..schemas import BookingIn, BookingPatch
+from ..schemas import BookingIn, BookingPatch, LegIn, LegPatch, PlaceIn, PlacePatch
 from ..splitwise import SplitwiseError
 
 log = logging.getLogger("trip.api")
@@ -190,10 +193,124 @@ async def places(db: DbDep) -> dict:
     return {"places": [p.as_json() for p in rows]}
 
 
+@router.post("/places", status_code=status.HTTP_201_CREATED)
+async def create_place(payload: PlaceIn, db: DbDep) -> dict:
+    if db.scalar(select(Place).where(Place.slug == payload.slug)) is not None:
+        raise HTTPException(
+            status.HTTP_409_CONFLICT, f'A place with slug "{payload.slug}" already exists.'
+        )
+    data = payload.model_dump()
+    data["country"] = data["country"] or "Thailand"
+    place = Place(**data)
+    db.add(place)
+    db.commit()
+    db.refresh(place)
+    itinerary.write_itinerary(db)
+    return place.as_json()
+
+
+@router.patch("/places/{place_id}")
+async def update_place(place_id: int, payload: PlacePatch, db: DbDep) -> dict:
+    place = db.get(Place, place_id)
+    if place is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "No such place")
+
+    changes = payload.model_dump(exclude_unset=True)
+    new_slug = changes.get("slug")
+    if new_slug and new_slug != place.slug:
+        clash = db.scalar(select(Place).where(Place.slug == new_slug))
+        if clash is not None:
+            raise HTTPException(
+                status.HTTP_409_CONFLICT, f'A place with slug "{new_slug}" already exists.'
+            )
+
+    for key, value in changes.items():
+        setattr(place, key, value)
+
+    db.commit()
+    db.refresh(place)
+    itinerary.write_itinerary(db)
+    return place.as_json()
+
+
+@router.delete("/places/{place_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_place(place_id: int, db: DbDep) -> Response:
+    place = db.get(Place, place_id)
+    if place is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "No such place")
+    # A leg pointing at a deleted place would simply stop drawing on the map
+    # (build_journey skips any edge whose endpoint has no coordinates), but
+    # leaving it behind to quietly vanish is worse than removing it with the
+    # place that gave it an endpoint.
+    for leg in db.scalars(
+        select(Leg).where((Leg.from_slug == place.slug) | (Leg.to_slug == place.slug))
+    ).all():
+        db.delete(leg)
+    db.delete(place)
+    db.commit()
+    itinerary.write_itinerary(db)
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
+
+
 @router.get("/legs")
 async def legs(db: DbDep) -> dict:
     rows = db.scalars(select(Leg).order_by(Leg.order_index)).all()
     return {"legs": [leg.as_json() for leg in rows]}
+
+
+def _require_place(db: Session, slug: str) -> None:
+    if db.scalar(select(Place).where(Place.slug == slug)) is None:
+        raise HTTPException(status.HTTP_422_UNPROCESSABLE_CONTENT, f'No place "{slug}"')
+
+
+@router.post("/legs", status_code=status.HTTP_201_CREATED)
+async def create_leg(payload: LegIn, db: DbDep) -> dict:
+    _require_place(db, payload.from_slug)
+    _require_place(db, payload.to_slug)
+    data = payload.model_dump()
+    data["mode"] = str(data["mode"])
+    leg = Leg(**data)
+    db.add(leg)
+    db.commit()
+    db.refresh(leg)
+    itinerary.write_itinerary(db)
+    return leg.as_json()
+
+
+@router.patch("/legs/{leg_id}")
+async def update_leg(leg_id: int, payload: LegPatch, db: DbDep) -> dict:
+    leg = db.get(Leg, leg_id)
+    if leg is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "No such leg")
+
+    changes = payload.model_dump(exclude_unset=True)
+    if "from_slug" in changes and changes["from_slug"]:
+        _require_place(db, changes["from_slug"])
+    if "to_slug" in changes and changes["to_slug"]:
+        _require_place(db, changes["to_slug"])
+
+    for key, value in changes.items():
+        setattr(leg, key, str(value) if key == "mode" else value)
+
+    if leg.from_slug == leg.to_slug:
+        db.rollback()
+        raise HTTPException(status.HTTP_422_UNPROCESSABLE_CONTENT, "A leg needs two different places")
+
+    db.commit()
+    db.refresh(leg)
+    itinerary.write_itinerary(db)
+    return leg.as_json()
+
+
+@router.delete("/legs/{leg_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_leg(leg_id: int, db: DbDep) -> Response:
+    leg = db.get(Leg, leg_id)
+    if leg is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "No such leg")
+    db.delete(leg)
+    db.commit()
+    itinerary.write_itinerary(db)
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 
 @router.get("/meta")
@@ -657,4 +774,134 @@ async def pull(service: ServiceDep, settings: SettingsDep) -> dict:
         },
         "changed": float((after.total_spend - before.total_spend).quantize(CENTS)),
         "ingest": after.trip.ingest.as_json() if after.trip.ingest else None,
+    }
+
+
+# ------------------------------------------------------------------ publish
+
+
+def _publishable_paths() -> list[tuple[str, Path]]:
+    """Files a publish pushes, as (path inside the repo, path on disk).
+
+    Only the itinerary snapshot, the document manifest, and files already
+    marked published are included. A held-back document stays under
+    `data/docs/private/`, outside this list, until someone flips it.
+    """
+    out: list[tuple[str, Path]] = []
+    if itinerary.ITINERARY_FILE.is_file():
+        out.append(("data/itinerary.json", itinerary.ITINERARY_FILE))
+    if documents.MANIFEST.is_file():
+        out.append(("data/docs/manifest.json", documents.MANIFEST))
+    if DOCS_DIR.is_dir():
+        for folder in sorted(DOCS_DIR.iterdir()):
+            if not folder.is_dir() or folder.name == "private":
+                continue
+            for item in sorted(folder.iterdir()):
+                if item.is_file() and not item.name.startswith("."):
+                    out.append((f"data/docs/{folder.name}/{item.name}", item))
+    return out
+
+
+@router.post("/publish")
+async def publish(settings: SettingsDep) -> dict:
+    """Commit and push the itinerary and documents to GitHub.
+
+    Only runs here, in the local dev server: this is the only place with
+    both a filesystem to read the files from and a token to push with. Each
+    file becomes its own small commit through the Contents API -- the same
+    mechanism the browser upload panel uses to publish the CSV on the static
+    site, just started from here instead of a dialog, using GITHUB_TOKEN from
+    `.env`. Several small commits rather than one atomic one, which is a
+    deliberate trade for simplicity: GitHub Pages rebuilds once after the
+    last one lands either way.
+    """
+    repo = settings.resolved_github_repo
+    if not repo:
+        raise HTTPException(
+            status.HTTP_400_BAD_REQUEST,
+            "No GitHub repo configured and none found in .git/config. "
+            "Set GITHUB_REPO=owner/name in .env.",
+        )
+    token = settings.github_token.strip()
+    if not token:
+        raise HTTPException(
+            status.HTTP_400_BAD_REQUEST,
+            "Set GITHUB_TOKEN in .env first, to a fine-grained token with "
+            "Contents: read and write access on this repository.",
+        )
+
+    paths = _publishable_paths()
+    if not paths:
+        return {"repo": repo, "branch": settings.github_branch, "published": []}
+
+    headers = {
+        "Accept": "application/vnd.github+json",
+        "Authorization": f"Bearer {token}",
+        "X-GitHub-Api-Version": "2022-11-28",
+    }
+    results: list[dict] = []
+
+    async with httpx.AsyncClient(timeout=30.0, follow_redirects=True) as client:
+        for rel_path, local_path in paths:
+            encoded = base64.b64encode(local_path.read_bytes()).decode("ascii")
+            contents_url = f"https://api.github.com/repos/{repo}/contents/{rel_path}"
+
+            try:
+                current = await client.get(
+                    contents_url, params={"ref": settings.github_branch}, headers=headers,
+                )
+            except httpx.HTTPError as exc:
+                raise HTTPException(
+                    status.HTTP_502_BAD_GATEWAY, f"Could not reach GitHub: {exc}"
+                ) from exc
+
+            sha: str | None = None
+            if current.status_code == 200:
+                body = current.json()
+                sha = body.get("sha")
+                existing = "".join((body.get("content") or "").split())
+                if existing and existing == encoded:
+                    results.append({"path": rel_path, "status": "unchanged"})
+                    continue
+            elif current.status_code not in (404,):
+                raise HTTPException(
+                    status.HTTP_502_BAD_GATEWAY,
+                    f"GitHub rejected reading {rel_path}: {current.status_code}",
+                )
+
+            stamp = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M")
+            put_body = {
+                "message": f"Publish {rel_path} ({stamp})",
+                "content": encoded,
+                "branch": settings.github_branch,
+                **({"sha": sha} if sha else {}),
+            }
+            try:
+                put = await client.put(contents_url, headers=headers, json=put_body)
+            except httpx.HTTPError as exc:
+                raise HTTPException(
+                    status.HTTP_502_BAD_GATEWAY, f"Could not reach GitHub: {exc}"
+                ) from exc
+
+            if put.status_code not in (200, 201):
+                detail = put.text[:200]
+                try:
+                    detail = put.json().get("message", detail)
+                except ValueError:
+                    pass
+                raise HTTPException(
+                    status.HTTP_502_BAD_GATEWAY, f"GitHub rejected {rel_path}: {detail}"
+                )
+            results.append({"path": rel_path, "status": "committed"})
+
+    committed = [r for r in results if r["status"] == "committed"]
+    log.info(
+        "Published %d of %d file(s) to %s@%s",
+        len(committed), len(results), repo, settings.github_branch,
+    )
+    return {
+        "repo": repo,
+        "branch": settings.github_branch,
+        "published": results,
+        "committed": len(committed),
     }

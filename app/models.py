@@ -81,7 +81,15 @@ class Place(Base):
     match_terms: Mapped[str] = mapped_column(Text, default="")
 
     bookings: Mapped[list["Booking"]] = relationship(
-        back_populates="place", cascade="all, delete-orphan",
+        back_populates="place",
+        # Not delete-orphan: a booking's place is where it happens, not what
+        # it is. Deleting Bangkok should not take the hotel booking down with
+        # it, confirmation number, cost, documents and all -- it should just
+        # stop pointing anywhere, same as the column's own
+        # ondelete="SET NULL" already says. passive_deletes defers to that
+        # constraint (PRAGMA foreign_keys is on) instead of the ORM issuing
+        # its own nullifying UPDATE first.
+        passive_deletes=True,
     )
 
     def terms(self) -> list[str]:
@@ -103,6 +111,7 @@ class Place(Base):
             "nights": self.nights,
             "order_index": self.order_index,
             "blurb": self.blurb,
+            "match_terms": self.match_terms,
         }
 
 
